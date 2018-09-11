@@ -1,6 +1,6 @@
 # Lesson on <example-lesson>
 
-See page in https://gitr.sys.kth.se/pages/PDC-support/example-lesson/
+See page in https://wikfeldt.github.io/example-lesson/.
 
 ### License
 
