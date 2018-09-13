@@ -73,7 +73,3 @@ Application evaluation   | Technical evalaluation | Technical evaluation      | 
 
 
 
----
-
-# Allocations
-
