@@ -1,6 +1,6 @@
-# Lesson on <example-lesson>
+# HPC lesson covering basic and advanced usage of PDC resources
 
-See page in https://wikfeldt.github.io/example-lesson/.
+See page in https://pdc-support.github.io/hpc-intro/
 
 ### License
 
