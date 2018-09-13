@@ -1,5 +1,5 @@
-fork_me_ribbon_url: https://github.com/wikfeldt/example-lesson
-title: "Example lesson"
+fork_me_ribbon_url: https://github.com/PDC-support/hpc-intro
+title: "Introduction to PDC and HPC"
 start_time: 540  # 009:00
 
 # where things are
@@ -45,7 +45,7 @@ excerpt_separator: "\n\n"
 detach: false
 port: 4000
 host: 127.0.0.1
-baseurl: "/example-lesson"
+baseurl: "/hpc-intro"
 
 # outputting
 timezone: null
