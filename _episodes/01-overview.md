@@ -43,13 +43,33 @@ they mean exactly? And more importantly, how do we use them for our work?
 
 ![The cloud is made of Linux](../img/linux-cloud.jpg)
 
+## The future of HPC
+
+In our increasingly computerized world, there are many reasons to expect that the 
+importance of HPC in many different sectors will only grow.
+
+The competition between supercomputer hardware vendors is stiff. Intel Xeon processors have long
+dominated the HPC processor market, but now Arm has entered the race, and AMD is re-entering the market.
+At the same time, thanks to the hype around big data and artificial intelligence,
+there is a large focus on developing specialized hardware (e.g. GPUs, TPUs) to handle such tasks 
+efficiently. 
+
+The [TOP500 list](https://top500.org/) ranks the 500 fastest supercomputers in the world, and 
+the [GREEN500](https://top500.org/green500/) list ranks the top 500 supercomputers by energy efficiency.
+There is considerable prestige involved in reaching the #1 spot, which is frequently 
+held by the US or China. Lately, a lot of attention is focused on developing the first 
+[exascale computing system](https://en.wikipedia.org/wiki/Exascale_computing), capable of reaching at 
+least one exaFLOP. The US and China are expected to build their first exascale supercomputers in 
+2020-2021, and in many ways the race to get there first reminds of the [space race](https://en.wikipedia.org/wiki/Space_Race)!
+
+
 ---
 
 > ## How can you use HPC?
 >
-> Are you already using HPC in your work, and if so for what? If you're new to HPC, 
+> Are you already using HPC in your work, and if so for what? Or if you're new to HPC, 
 > how do you think using a cluster will be different from using your laptop?
-> Talk to your neighbor about what you currently use or want to start using HPC for in your research,
-> and what challenges you imagine you may encounter.
+> Talk to your neighbor about what you use (or want to start using) HPC for in your research,
+> and what challenges you encounter (or expect you will encounter).
 {: .challenge}
 
