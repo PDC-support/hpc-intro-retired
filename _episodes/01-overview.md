@@ -65,11 +65,17 @@ least one exaFLOP. The US and China are expected to build their first exascale s
 
 ---
 
-> ## How can you use HPC?
+> ## What do you need?
 >
-> Are you already using HPC in your work, and if so for what? Or if you're new to HPC, 
-> how do you think using a cluster will be different from using your laptop?
-> Talk to your neighbor about what you use (or want to start using) HPC for in your research,
-> and what challenges you encounter (or expect you will encounter).
+> Talk to your neighbor about your research. How does computing help you do your research? How could
+> more computing help you do more or better research?
+{: .challenge}
+
+
+> ## Thinking ahead
+>
+> How do you think using a large-scale computing system will be different from using your laptop? 
+> Talk to your neighbor about some differences you may already know about, and some 
+> differences/difficulties you imagine you may run into.
 {: .challenge}
 
