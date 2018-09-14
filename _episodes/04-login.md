@@ -103,6 +103,12 @@ To log in to PDC clusters you need to use the `ssh` command, which stands for "s
 > {: .bash}
 {: .challenge}
 
+> ## Being Certain Which System your Terminal is connected to
+>
+> If you ever need to be certain which system a terminal you are using is connected to then use the
+> following command: `$ hostname`.
+{: .callout}
+
 
 > ## Exploring the Tegner login node
 >
