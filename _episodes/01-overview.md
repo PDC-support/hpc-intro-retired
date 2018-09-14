@@ -10,8 +10,8 @@ objectives:
   - "Get an overview of what cluster and cloud computing is"
   - "Discuss benefits and challenges in using HPC systems"
 keypoints:
-  - "keypoint 1"
-  - "keypoint 2"
+  - "HPC is about aggregating computer power in order to solve larger computational problems"
+  - "HPC is here to stay!"
 ---
 
 # What is high performance computing
