@@ -20,7 +20,7 @@ When working on a PDC cluster, you will be interacting with two different file s
 The differing properties of the two systems are important to understand in order make the most out 
 of PDC's resources.
 
-## Andrew File System
+## Andrew File System - AFS
 
 - AFS is a (globally) distributed file system accessible to any running AFS client.
 - Your main home directory is on AFS: `/afs/pdc.kth.se/home/[initial]/[username]`
@@ -44,8 +44,97 @@ of PDC's resources.
 - Lustre is a high-performance file system - AFS is slow.
 - Lustre supports standard (POSIX) Access Control Lists (ACLs) - AFS has own implementation of ACLs.
 
-> ## Exploring your AFS and Lustre directories
+> ## Exploring your AFS directory
 >
+> If you haven't already done so, log in to Tegner:
+> ```
+> $ ssh <username>@tegner.pdc.kth.se
+> ```
+> {: .bash}
+> After logging in, check your current location:
+> ```
+> $ pwd
+> ```
+> {: .bash}
+> This is your AFS home directory, which is also stored in the `HOME` 
+> environment variable:
+> ```
+> $ echo $HOME
+> /afs/pdc.kth.se/home/<initial>/<username>
+> ```
+> {: .bash}
+> You can check your disk quota using the following command:
+> ```
+> $ fs listquota
+> # or the shortcut: 
+> $ fs lq
+> ```
+> {: .bash}
+> This is an example of a `fs` subcommand. To see all 
+> available subcommands, type
+> ```
+> $ fs help
+> ```
+> {: .bash}
+> **Which command can you use to list the access control lists (ACLs)?**
 > 
+> You also have two "special" directories already set up in your AFS 
+> home directory: `Public` is a publicly readable directory and is useful 
+> for sharing files with collaborators, and `Private` is a non-readable, 
+> non-listable directory for your secrets.   
+> **Use the command you found for listing access control lists to compare
+> the ACLs in `$HOME`, `$HOME/Public` and `$HOME/Private`.**
+{: .challenge}
+
+
+> ## Creating and managing AFS groups
+>
+> Sometimes
+> ```
+> $ 
+> ```
+> {: .bash}
+> ```
+> $ ssh <username>@tegner.pdc.kth.se
+> ```
+> {: .bash}
+> 
+>
+>
+{: .challenge}
+
+
+> ## Exploring your Lustre directories
+>
+> If you haven't already done so, log in to Tegner:
+> ```
+> $ ssh <username>@tegner.pdc.kth.se
+> ```
+> {: .bash}
+> After logging in, check your current location:
+> ```
+> $ pwd
+> ```
+> {: .bash}
+> This is your AFS home directory.  
+> 
+> ```
+> $ ssh <username>@tegner.pdc.kth.se
+> ```
+> {: .bash}
+> ```
+> $ ssh <username>@tegner.pdc.kth.se
+> ```
+> {: .bash}
+> ```
+> $ ssh <username>@tegner.pdc.kth.se
+> ```
+> {: .bash}
+> ```
+> $ ssh <username>@tegner.pdc.kth.se
+> ```
+> {: .bash}
+> 
+>
 >
 {: .challenge}
