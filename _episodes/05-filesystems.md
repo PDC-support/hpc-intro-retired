@@ -1,17 +1,17 @@
 ---
 layout: episode
-title: "File systems and file transfer"
+title: "File systems at PDC"
 teaching: 10
 exercises: 0
 questions:
   - "What is the difference between the AFS and Lustre file systems?"
-  - "How can I transfer large amount of data to/from PDC?"
+  - "How can I change access control lists to share files with colleagues?"
 objectives:
   - "Learn to navigate the file systems at PDC"
-  - "Learn to transfer files to/from PDC"
+  - "Learn to change access control lists"
 keypoints:
-  - "K1"
-  - "K2"
+  - "AFS and Lustre are two different file systems with different properties"
+  - "Lustre is for your parallel jobs, AFS is for storing important files"
 ---
 
 # File systems at PDC
@@ -42,7 +42,7 @@ of PDC's resources.
 - AFS is *not accessible* to compute nodes on Beskow. All jobs must run on Lustre.
 - AFS has limited usage quota, typically 5 GB per user - no quota is enforced on Lustre.
 - Lustre is a high-performance file system - AFS is slow.
-- Lustre supports standard (POSIX) Access Control Lists (ACLs) - AFS has own implementation of ACLs.
+- Lustre supports standard Access Control Lists (ACLs) - AFS has own implementation of ACLs.
 
 > ## Exploring your AFS directory
 >
@@ -109,7 +109,15 @@ of PDC's resources.
 > $ cd /cfs/klemming/scratch/<initial>/<username>
 > ```
 > {: .bash}
-> To see how many files you have and how much disk space they use, type 
+> One way to avoid having to type out the full path of your Lustre `nobackup` and 
+> `scratch` directories over and over again is to define *aliases* in your 
+> bash startup file `$HOME/.bashrc`. Everything in this file gets executed 
+> when you log in to PDC. So by adding the following two lines to your `.bashrc`, 
+> you only need to type `scr` or `nobak` to go to your Lustre directories:
+> ```
+> alias scr='cd /cfs/klemming/scratch/<initial>/<username>/'
+> alias nobak='cd /cfs/klemming/nobackup/<initial>/<username>/'
+> Finally, to see how many files you have and how much disk space they use, type 
 > ```
 > $ lfs quota -u $USER /cfs/klemming
 > ```
@@ -119,10 +127,10 @@ of PDC's resources.
 
 ## Access control lists
 
-- AFS has its own implementation of ACLs, where users can define new groups 
-  - set on directory level
-- Lustre supports standard (POSIX) ACLs
-  - set on file level
+- AFS has extended implementation of ACLs, where users can define new groups 
+  - seven different permissions set on *directory level*
+- Lustre supports standard ACLs using mode bits 
+  - three different permissions (read, write, execute) set on *file level*
 
 **For AFS**, the possible permissions are listed in the table below.
 
@@ -136,25 +144,63 @@ of PDC's resources.
 |k	 | lock	     | lock files in the directory      |
 |a	 | administer|change the ACL for the directory  |
 
-**For Lustre**, the POSIX file system permission model defines
+**For Lustre**, the POSIX (Portable Operating System Interface)
+file system permission model defines
 three classes of users called `owner`, `group`, and `other`,
-and the possible permissions are read (`r`), write (`w`), and execute (`x`).
+and the possible permissions are read (`r`), write (`w`) and execute (`x`).  
+The command `ls -l` displays the `owner`, `group`, and `other` class permissions 
+in the first column of its output. For example, a regular file with 
+read and write access for the owner class, read access for the group class and no 
+access for others, the first column would show `-rw- r-- ---`.
 
-> ## Creating and managing AFS groups
+The three base permissions have an equivalent representation as ACLs, 
+which can be displayed by the `getfacl` command.
+```bash
+$ getfacl -a dir
+# file: dir
+# owner: <my-username>
+# group: users
+user::rwx
+group::r-x
+other::---
+```
+
+To change ACLs of files and directories, the `setfacl` command can be used, which is 
+more general than the `chmod` command which only changes file permissions.
+
+> ## Modifying ACLs on AFS
 >
 > To alter the ACLs of a directory in your AFS home, use the command 
-> `$ fs sa <directory> <user rights>` (where `sa` is short for `setacl`)
+> (where `sa` is short for `setacl`)
 > ```
-> $ 
-> ```
-> {: .bash}
-> ```
-> $ ssh <username>@tegner.pdc.kth.se
+> $ fs sa <directory> <user> <permissions> 
 > ```
 > {: .bash}
-> 
+> See the table above for possible AFS permissions.  
+> **For this exercise, pair up with someone sitting next to you, and try the following:**
+> 1. Create a new directory in your AFS home folder (`$HOME`). Change the ACL of that 
+> directory so your friend gets `read` and `write` access.
+> 2. Try writing a file in each other's shared directories (most simply, just do `$ touch foo`)
+> 3. Afterwards, remove the directory that you shared in your `$HOME`.
+{: .challenge}
+
+> ## Modifying ACLs on Lustre
 >
->
+> To alter the ACLs of a directory in `/cfs/klemming` directories, use the command 
+> ```
+> $ setfacl -m u:<username>:<permissions> -R /cfs/klemming/nobackup/<initial>/<username>/<some-directory>
+> ```
+> {: .bash}
+> The possible file permissions are `r`, `w` and `x`. `-m` stands for *modify* and
+> `-R` is for recursive.
+> To allow your colleague to read a file in your klemming directory, you need to 
+> use `r-x` (`x` to allow traversal through directories).  
+> **For this exercise, pair up again with someone sitting next to you.**
+> **Then do the following:**
+> 1. Create a new directory in your `/cfs/klemming/nobackup` directory. 
+> Change the ACL of that directory so your friend gets `read` access.
+> 2. Write a file in your new directory, and see if your friend can copy it.
+> 3. Remove the `read` permissions for your friend again, and retry copying.
 {: .challenge}
 
 
