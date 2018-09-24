@@ -186,6 +186,11 @@ which copies files between hosts over a network.
 > $ scp mydata.dat <username>@t04n27.pdc.kth.se:~/
 > ```
 > {: .bash}
+> or if you need to transfer a whole directory, add the `-r` flag:
+> ``` 
+> $ scp -r job-directory/ <username>@t04n27.pdc.kth.se:~/
+> ```
+> {: .bash}
 > Note that after the hostname we have `:~/`, which stands for your PDC home directory.  
 > To copy a file from PDC to your computer, do:
 > ```
