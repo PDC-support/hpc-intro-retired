@@ -125,6 +125,16 @@ Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tet
 **PDC/SeRC seminar series**
 - Monthly lunch-time seminars given by leading e-Science researchers on a wide range of topics
 
+**PDC/PRACE workshop "HPC tools for the Modern Era" (Oct 25-26)**
+- HPC tips and tricks
+- Jupyter Notebooks
+- Singularity Containers
+- Allinea/Arm Profiling tools
+
+<a href="https://www.pdc.kth.se/about/events/workshops/pdc-prace-workshop-hpc-tools-for-the-modern-era-1.842504">
+   <img src="../img/PDC-PRACE-workshop.jpg" alt="Application experts" width="450" align="middle"> 
+</a>
+
 All events can be found on the [events calendar](https://www.pdc.kth.se/about/events)
 
 ---
