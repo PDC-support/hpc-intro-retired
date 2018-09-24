@@ -117,6 +117,8 @@ of PDC's resources.
 > ```
 > alias scr='cd /cfs/klemming/scratch/<initial>/<username>/'
 > alias nobak='cd /cfs/klemming/nobackup/<initial>/<username>/'
+> ```
+> {: .bash}
 > Finally, to see how many files you have and how much disk space they use, type 
 > ```
 > [tegner]$ lfs quota -u $USER /cfs/klemming
