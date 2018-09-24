@@ -16,11 +16,11 @@ keypoints:
 # Swedish National Infrastructure for Computing (SNIC) 
 
 SNIC is a national research infrastructure which: 
- - provides a balanced and cost-efficient set of resources 
- - provides user support for large scale computation and data storage 
- - aims to meet the needs of researchers from all scientific disciplines and from all over Sweden (universities, university colleges, research institutes, etc).
+ - Provides a balanced and cost-efficient set of resources.
+ - Provides user support for large scale computation and data storage.
+ - Aims to meet the needs of researchers from all scientific disciplines and from all over Sweden (universities, university colleges, research institutes, etc).
  
-<img src="../img/sweden.png" alt="SNIC" width="150" align="middle"> 
+<img src="../img/SNIC_SUPR_map.png" alt="SNIC" width="450" align="middle"> 
 
 
 ## SNIC user and project repository (SUPR)
@@ -99,9 +99,12 @@ Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tet
 - System administrators ensure that computing and storage resources run smoothly and securely.
 
 **Application Experts**
-- Hold PhD degrees in various fields and specialize in HPC. 
-- Assist researchers in developing and using scientific codes.
+- Assist researchers across different disciplines in developing and using scientific codes.
 - Provide training.
+
+<a href="https://www.pdc.kth.se/hpc-services/application-experts-1.737439">
+   <img src="../img/AEs.png" alt="Application experts" width="550" align="middle"> 
+</a>
 
 ## Training and other activites at PDC
 
