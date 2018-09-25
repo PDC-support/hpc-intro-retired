@@ -154,6 +154,71 @@ to swap to the Python 2 Anaconda distribution, type:
 [tegner]$ module swap anaconda/py36/5.0.1 anaconda/py27/5.0.1
 ```
 
+To inspect a particular module, use `module show`:
+```bash
+[tegner]$ module show anaconda/py36/5.0.1
+
+-------------------------------------------------------------------
+/pdc/modules/system/base/anaconda/py36/5.0.1:
+
+        Anaconda V.5.0.1
+        Python3.5 for scientific computing.
+
+module load gcc/7.2.0 openmpi/3.0-gcc-7.2
+module load latex/20150811
+setenv ANACONDA_HOME	/pdc/vol/anaconda/co7/5.0.1/py36
+prepend-path		PATH	/pdc/vol/anaconda/co7/5.0.1/py36/bin
+-------------------------------------------------------------------
+```
+
+We can see where this module is installed, what other modules are loaded (dependencies), 
+what environment variables are set, and what paths are added to `$PATH`.
+
 # Building software at PDC
 
+Compilers also come in different versions, and it can be important to keep track of 
+them since software might not compile or run correctly with the wrong version. 
+Compiler environments can be configured in a variety of ways on clusters.
+Tegner is configured in the typical manner, while Beskow (a Cray XC40) 
+is a little different.
+
+### Building software on Tegner
+
+Before proceeding, let's clean our module environment:
+```bash
+[tegner]$ module purge
+```
+
+GCC is an extremely widely used C/C++/Fortran compiler, and several versions 
+are available on Tegner:
+
+```bash
+[tegner]$ module avail gcc
+
+------------ /pdc/modules/system/base ------------
+gcc/4.8.4 gcc/4.9.2 gcc/5.1   gcc/5.3.0 gcc/6.2.0 gcc/7.2.0
+```
+
+WRITEME...
+
+|Compiler | Module name                 | Compiler commands               |
+| ------- | --------------------------- | ------------------------------- |
+|GNU      | $ module load gcc           | `gcc`, `g++`, `gfortran`        |
+|OpenMPI  | $ module load PrgEnv-intel  | `mpicc`, `mpicxx`, `mpif90`     |
+|Intel    | $ module load PrgEnv-gnu    | `icc`, `icpc`, `ifort`          |
+|Intel-MPI| $ module load PrgEnv-gnu    | `mpiicc`, `mpiicpc`, `mpiifort` |
+|CUDA     | $ module load cuda          | `nvcc`                          | 
+
+
+### Building software on Beskow (Cray XC40)
+
+Cray systems work a little differently from "normal" clusters. 
+
+WRITEME...
+
+|Compiler| Module name                 | Compiler commands |
+| ------ | --------------------------- | ----------------- |
+|Cray    | $ module load PrgEnv-cray   | `cc`, `CC`, `ftn` |
+|Intel   | $ module load PrgEnv-intel  | `cc`, `CC`, `ftn` |
+|GNU     | $ module load PrgEnv-gnu    | `cc`, `CC`, `ftn` |
 
