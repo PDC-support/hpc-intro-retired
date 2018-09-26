@@ -127,6 +127,33 @@ Currently Loaded Modulefiles:
 `module unload` (or `module rm`) un-loads a module along with its dependencies.
 If we wanted to unload everything at once, we could run `module purge`.
 
+## Inspecting a module
+
+To inspect a particular module, use `module show`:
+```bash
+[tegner]$ module show anaconda/py36/5.0.1
+
+-------------------------------------------------------------------
+/pdc/modules/system/base/anaconda/py36/5.0.1:
+
+        Anaconda V.5.0.1
+        Python3.5 for scientific computing.
+
+module load gcc/7.2.0 openmpi/3.0-gcc-7.2
+module load latex/20150811
+setenv ANACONDA_HOME	/pdc/vol/anaconda/co7/5.0.1/py36
+prepend-path		PATH	/pdc/vol/anaconda/co7/5.0.1/py36/bin
+-------------------------------------------------------------------
+```
+
+The `module show` command shows us:
+
+- where this module is installed
+- what other modules are loaded (dependencies)
+- what environment variables are set
+- what paths are added to `$PATH`
+
+
 ## Software versioning
 
 We've learned how to load and unload software packages. But how do we load particular 
@@ -148,31 +175,28 @@ We can see that multiple versions of the Anaconda distribution are
 installed on Tegner, but when we did `module load anaconda` one particular (default)
 version was selected.
 
-To swap one module for another, you can use the `module swap` command. For example,
+Let's reload the default Anaconda module and inspect the version of
+Python it ships:
+```bash
+[tegner]$ module add anaconda
+[tegner]$ python --version
+
+Python 3.6.3 :: Anaconda custom (64-bit)
+```
+
+We can now swap one module for another using the `module swap` command.
+For example,
 to swap to the Python 2 Anaconda distribution, type:
 ```bash
 [tegner]$ module swap anaconda/py36/5.0.1 anaconda/py27/5.0.1
 ```
 
-To inspect a particular module, use `module show`:
+This changes our python environment:
 ```bash
-[tegner]$ module show anaconda/py36/5.0.1
+[tegner]$ python --version
 
--------------------------------------------------------------------
-/pdc/modules/system/base/anaconda/py36/5.0.1:
-
-        Anaconda V.5.0.1
-        Python3.5 for scientific computing.
-
-module load gcc/7.2.0 openmpi/3.0-gcc-7.2
-module load latex/20150811
-setenv ANACONDA_HOME	/pdc/vol/anaconda/co7/5.0.1/py36
-prepend-path		PATH	/pdc/vol/anaconda/co7/5.0.1/py36/bin
--------------------------------------------------------------------
+Python 2.7.14 :: Anaconda, Inc.
 ```
-
-We can see where this module is installed, what other modules are loaded (dependencies), 
-what environment variables are set, and what paths are added to `$PATH`.
 
 # Building software at PDC
 
