@@ -33,6 +33,12 @@ behind this approach. The two biggest factors are *software incompatibilities* a
 
 Environment modules are the solution to these problems. A module is a self-contained software package - it contains all of the files required to run a software package and loads required dependencies.
 
+We will be using the `module` command. To see all available subcommands 
+of `module`, type:
+```bash
+[tegner]$ module help
+```
+
 To see available software modules, use `module avail`:
 ```bash
 [tegner]$ module avail
@@ -175,55 +181,44 @@ We can see that multiple versions of the Anaconda distribution are
 installed on Tegner, but when we did `module load anaconda` one particular (default)
 version was selected.
 
-Let's reload the default Anaconda module and inspect the version of
-Python it ships:
-```bash
-[tegner]$ module add anaconda
-[tegner]$ python --version
+> ## Switching between software versions
+> 
+> One can change versions of software packages using the `module swap` command.  
+> First load the default Anaconda module again and check its Python version:
+> ```bash
+> [tegner]$ module add anaconda
+> [tegner]$ python --version
+> Python 3.6.3 :: Anaconda custom (64-bit)
+> ```
+> - **Now swap the loaded Anaconda module for the Python 2.7 version, and check 
+> that this successfully changes the version of Python.**
+{: .challenge}
 
-Python 3.6.3 :: Anaconda custom (64-bit)
-```
+> ## How does your shell know which modules are loaded?
+> 
+> Clearly, something is stored in our environment since `module list` "knows"
+> which modules we have loaded. Let's try to figure it out by using the `printenv` 
+> command which prints all the current environment (i.e. all environment variables):
+> ```bash
+> [tegner]$ printenv
+> ```
+> - **Can you see which environment variable stores the information about the 
+> loaded modules?**
+> - **Try "[piping](https://en.wikipedia.org/wiki/Pipeline_(Unix))" (chain together)
+> the `printenv` command to `grep` and search for "MODULE"**
+{: .challenge}
 
-We can now swap one module for another using the `module swap` command.
-For example,
-to swap to the Python 2 Anaconda distribution, type:
-```bash
-[tegner]$ module swap anaconda/py36/5.0.1 anaconda/py27/5.0.1
-```
-
-This changes our python environment:
-```bash
-[tegner]$ python --version
-
-Python 2.7.14 :: Anaconda, Inc.
-```
+--- 
 
 # Building software at PDC
 
-Compilers also come in different versions, and it can be important to keep track of 
-them since software might not compile or run correctly with the wrong version. 
 Compiler environments can be configured in a variety of ways on clusters.
 Tegner is configured in the typical manner, while Beskow (a Cray XC40) 
 is a little different.
 
 ### Building software on Tegner
 
-Before proceeding, let's clean our module environment:
-```bash
-[tegner]$ module purge
-```
-
-GCC is an extremely widely used C/C++/Fortran compiler, and several versions 
-are available on Tegner:
-
-```bash
-[tegner]$ module avail gcc
-
------------- /pdc/modules/system/base ------------
-gcc/4.8.4 gcc/4.9.2 gcc/5.1   gcc/5.3.0 gcc/6.2.0 gcc/7.2.0
-```
-
-WRITEME...
+Several compiler suites are available on Tegner:
 
 |Compiler | Module name                 | Compiler commands               |
 | ------- | --------------------------- | ------------------------------- |
@@ -233,6 +228,59 @@ WRITEME...
 |Intel-MPI| $ module load PrgEnv-gnu    | `mpiicc`, `mpiicpc`, `mpiifort` |
 |CUDA     | $ module load cuda          | `nvcc`                          | 
 
+Before proceeding, let's clean our module environment:
+```bash
+[tegner]$ module purge
+```
+
+Compilers also come in different versions, and it can be important to keep track of 
+them since software might not compile or run correctly with the wrong version.   
+Let's have a look at the GNU `gcc` compiler
+(GCC is an extremely widely used C/C++/Fortran compiler):
+
+```bash
+[tegner]$ module avail gcc
+
+------------ /pdc/modules/system/base ------------
+gcc/4.8.4 gcc/4.9.2 gcc/5.1   gcc/5.3.0 gcc/6.2.0 gcc/7.2.0
+```
+
+We will now compile a simple C program using GCC version 7.2:
+```bash
+[tegner]$ module load gcc/7.2.0
+[tegner]$ gcc --version
+
+gcc (GCC) 7.2.0
+```
+
+Let's copy-paste this simple C program below to a file called 
+`hello.c` in a subdirectory `hello` in our Lustre nobackup directory:
+```c
+#include <stdio.h>
+
+int main(int argc, char** argv) {
+  printf("Hello world!\n");
+  }
+```
+
+We then compile it with `gcc` and execute it:
+```
+[tegner]$ gcc -o hello.x hello.c
+[tegner]$ ./hello.x
+
+Hello World!
+```
+It works!  
+
+Of course, clusters are mostly used for running calculations in parallel, 
+and for that purpose it's not enough to only use GCC compilers. 
+We will also need and MPI ()
+
+> ## Compiling parallel codes
+> 
+> `/cfs/klemming/nobackup/${USER:0:1}/$USER/hello/hello.c`.  
+> (*bonus question:* )
+{: .challenge}
 
 ### Building software on Beskow (Cray XC40)
 
