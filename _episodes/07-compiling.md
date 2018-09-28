@@ -27,7 +27,7 @@ to any libraries that are needed (MPI, BLAS/LAPACK, FFTW, ...).
 The following table shows which compiler suites are available and the corresponding 
 module names and compiler commands.
 
-##### Compiler available on Tegner {#compilers}
+##### Compilers available on Tegner {#compilers}
 
 |Compiler | Module name                 | Compiler commands               |
 | ------- | --------------------------- | ------------------------------- |
@@ -132,7 +132,7 @@ openmpi/1.8-gcc-4.9   openmpi/1.10-gcc-java openmpi/3.0-gcc-7.2
 openmpi/1.8-gcc-5.1   openmpi/2.0-gcc-6.2
 ```
 
-We see that the `openmpi/3.0-gcc-7.2` module is what we need. 
+We see that the `openmpi/3.0-gcc-7.2` module is what we need.  
 Compiling our MPI-parallelized hello-world example is left as an exercise.
 
 > ## Compiling code with MPI
@@ -145,7 +145,7 @@ Compiling our MPI-parallelized hello-world example is left as an exercise.
 {: .challenge}
 
 In the next section we will go into details about how we actually 
-submit parallel jobs to the *scheduler*.
+submit parallel jobs to the *SLURM scheduler*.
 
 ### OpenMP-parallelized code 
 
@@ -193,13 +193,19 @@ modules since the OpenMP API is implemented by the compiler. It is enough to
 import the header file in the source code and provide a specific flag during 
 compilation.
 
-WRITEME about OMP_NUM_THREADS
+In order to run the OpenMP-parallelized code with a given number of threads, 
+one typically sets the environment variable `OMP_NUM_THREADS` to the number 
+of desired threads.
 
 > ## Compiling OpenMP code 
 > 
 > Copy-paste the OpenMP Hello World code above to a file in your Lustre directory, 
-> for example: `/cfs/klemming/nobackup/<initial>/<username>/hello/hello_world_omp.c`.  
-> - **What do you think will happen if you run the generated executable on the login node with `./hello_omp`? Try it!**
+> for example: 
+> `/cfs/klemming/nobackup/<initial>/<username>/hello/hello_world_omp.c`.  
+> - **Compile the code in the same way as you did in the serial case above, except 
+>   add the flag `-fopenmp` to the compilation command.**
+> - **What happens now if you run the executable on the login node?**
+> - **Try setting OMP_NUM_THREADS to 4, and rerun.**
 {: .challenge}
 
 
