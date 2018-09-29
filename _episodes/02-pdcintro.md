@@ -137,5 +137,32 @@ Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tet
 
 All events can be found on the [events calendar](https://www.pdc.kth.se/about/events)
 
+## Asking for support at PDC
+
+PDC is well staffed to help new and old PDC users to perform their 
+computational research efficiently. 
+
+- Many questions can be answered by reading the web documentation:
+  - <https://www.pdc.kth.se/support>
+- Preferably contact PDC support by email: <support@pdc.kth.se>
+  - You get a ticket number.
+  - Always include the ticket number in follow-ups/replies they look like this: [SNIC support #12345]
+- Or by phone: +46 (0)8 790 7800
+- You can also make an appointment to 
+  [come and visit](https://www.pdc.kth.se/contact/travelling-to-pdc-1.736521).
+
+### How to report problems
+
+- Do not report new problems by replying to old/unrelated tickets. 
+  Split unrelated problems into separate email requests.
+- Use a descriptive subject in your email.
+- Give your PDC user name.
+- Be as specific as possible.
+- For problems with scripts/jobs, give an example. 
+  Either send the example or make it accessible to PDC support.
+- Make the problem example as small/short as possible. Provide all necessary information to reproduce the problem.
+- If you want the PDC support to inspect some files, make sure that the files are readable.
+- Do not assume that PDC support personnel have admin rights to see all your files or change permissions.
+
 ---
 
