@@ -1,6 +1,6 @@
 ---
 layout: episode
-title: "Compilers"
+title: "Building software"
 teaching: 20
 exercises: 0
 questions:
@@ -283,11 +283,9 @@ $ nvcc -arch=sm_30 hello_world_cuda.cu -o hello_cuda
 
 In the next section we will see how to run CUDA code on GPUs available on Tegner.
 
-### Compilers on Beskow (Cray XC40)
+## Compilers on Beskow (Cray XC40)
 
-Cray systems work a little differently from "normal" clusters. 
-
-WRITEME...
+Cray systems work a little differently from "normal" clusters:
 
 |Compiler| Module name                 | Compiler commands |
 | ------ | --------------------------- | ----------------- |
@@ -295,3 +293,40 @@ WRITEME...
 |Intel   | $ module load PrgEnv-intel  | `cc`, `CC`, `ftn` |
 |GNU     | $ module load PrgEnv-gnu    | `cc`, `CC`, `ftn` |
 
+As you can see, the commands used to compile code are the same regardless of which 
+compiler suite we use!
+
+These compiler wrappers will automatically
+- link to BLAS, LAPACK, BLACS, SCALAPACK, FFTW 
+- use MPI wrappers.
+
+While this provides a simplification when compiling and linking your 
+own code, it can complicate the building of software which hasn't been 
+designed for Cray systems.
+
+Let's see how this works in practice.
+
+> ## Programming Environments on Beskow
+>
+> Start by logging in to Beskow:
+> ```bash
+> $ ssh <username>@beskow.pdc.kth.se
+> ```
+> See what modules are loaded by default:
+> ```bash
+> [beskow]$ module list
+> ```
+> Check the version of the default C compiler:
+> ```bash
+> [beskow]$ cc -V
+> ```
+> Change to the GNU compiler suite, and see how the compiler wrapper now points to 
+> the new compiler:
+> ```bash
+> [beskow]$ module swap PrgEnv-cray PrgEnv-gnu
+> [beskow]$ cc --version
+> ```
+> - **Now compile the MPI-parallelized Hello World example code in your Lustre 
+>   directory. Keep in mind that you do not need to add any MPI modules, and 
+    the compiler command is always the same!**
+{: .challenge}
