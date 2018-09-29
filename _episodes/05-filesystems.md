@@ -1,6 +1,6 @@
 ---
 layout: episode
-title: "File systems at PDC"
+title: "File systems"
 teaching: 10
 exercises: 0
 questions:
