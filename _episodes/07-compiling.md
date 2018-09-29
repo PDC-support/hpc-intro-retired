@@ -16,13 +16,14 @@ keypoints:
 # Building software at PDC
 
 Compilers can be configured in a variety of ways on clusters.
-Tegner is configured in the typical manner, while Beskow (a Cray XC40 system) 
-is a little different.
+A "conventional" configuration is in place on Tegner, 
+while Beskow (a Cray XC40 system) is a little different.
 
-## Building software on Tegner
-
-To compile code on Tegner, you need to load compiler modules and explicitly link 
+- On Tegner, you need to load compiler modules and explicitly link 
 to any libraries that are needed (MPI, BLAS/LAPACK, FFTW, ...). 
+- On Beskow, *compiler wrappers* are used which automatically link to all libraries.
+
+## Compilers on Tegner
 
 The following table shows which compiler suites are available and the corresponding 
 module names and compiler commands.
@@ -209,7 +210,80 @@ of desired threads.
 {: .challenge}
 
 
-### Building software on Beskow (Cray XC40)
+### CUDA code for GPUs
+
+Yet another way to parallelize code is to adapt it to run on graphics processing 
+units (GPUs). This can be accomplished in different ways:
+- OpenCL (Open Computing Language): based on C. For GPUs and other 
+  accelerators (DSP, FPGA, ...)
+- CUDA (compute unified device architecture): extension to C language. Only for NVIDIA GPUs.
+
+> ## The rise of GPUs in HPC
+>
+> Modern GPUs are very efficient at manipulating computer graphics and image 
+> processing, and their highly parallel structure makes them more efficient than 
+> general-purpose CPUs for algorithms where the processing of large blocks of data 
+> is done in parallel. For this reason, GPUs are a core technology in many 
+> world's fastest and most energy-efficient supercomputers.
+{: .callout}
+
+> ## Compute Unified Device Architecture (CUDA) 
+>
+> CUDA is NVIDIA's program development environment. It is based on C/C++ 
+> with some extensions, and employs the Single Instruction Multiple Thread (SIMT) 
+> model of parallelization. Each thread executes the same code but operates 
+> different data (data parallelism)
+{: .callout}
+
+An example CUDA code is shown below.
+```c
+#include <stdio.h>
+
+// CPU version of our CUDA Hello World!
+void cpu_helloworld()
+{
+    printf("Hello from the CPU!\n");
+}
+
+// GPU version of our CUDA Hello World!
+__global__ void gpu_helloworld()
+{
+    int threadId = threadIdx.x;
+    printf("Hello from the GPU! My threadId is %d\n", threadId);
+}
+
+int main(int argc, char **argv)
+{
+    dim3 grid(1);     // 1 block in the grid
+    dim3 block(32);   // 32 threads per block
+    
+    // Call the CPU version
+    cpu_helloworld();
+    
+    // Call the GPU version
+    gpu_helloworld<<<grid, block>>>();
+    
+    cudaDeviceSynchronize();
+    
+    return 0;
+}
+```
+
+To compile CUDA code, we need to load a CUDA module, which
+will also load all the necessary CUDA dependencies:
+```bash
+$ module load cuda/7.0
+```
+`nvcc` is the name of the NVIDIA compiler for CUDA that separates the host 
+code (CPU code) from the GPU code. It will invoke GCC or ICC for the host code, 
+as necessary:
+```bash
+$ nvcc -arch=sm_30 hello_world_cuda.cu -o hello_cuda
+```
+
+In the next section we will see how to run CUDA code on GPUs available on Tegner.
+
+### Compilers on Beskow (Cray XC40)
 
 Cray systems work a little differently from "normal" clusters. 
 
