@@ -7,10 +7,10 @@ questions:
   - "What services does PDC provide?"
   - "How can I start running my research at PDC?"
 objectives:
-  - "Get an understanding of how PDC operates"
+  - "Get an understanding of how PDC operates."
 keypoints:
-  - "1"
-  - "2"
+  - "The SUPR portal is the entry point for researchers to apply for and manage their time allocations."
+  - "PDC, the largest HPC center in Sweden, offers a range of services."
 ---
 
 # Swedish National Infrastructure for Computing (SNIC) 
@@ -26,7 +26,7 @@ SNIC is a national research infrastructure which:
 ## SNIC user and project repository (SUPR)
 
 - SUPR ([supr.snic.se](https://supr.snic.se/)) is the SNIC database of persons, projects, proposals and more.
-- Most allocations for computing time are managed via SUPR.
+- Most allocations of computing time in Sweden are managed via SUPR.
 - After being allocated computing time at a SNIC cluster, users can apply for user accounts at the corresponding SNIC centers.
 
 ---
@@ -49,13 +49,13 @@ SNIC is a national research infrastructure which:
 | 2017 | 36  | 67456 | 2440.0 | Cray | Beskow | XC40 18-core 2.1GHz |
 
 
-## Clusters at PDC
+## Current clusters at PDC
 
 ### Beskow - a Cray XC40 system
 
 <img src="../img/Beskow.png" alt="Beskow" width="450" align="middle"> 
 
-Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tetralith takes over)
+Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tetralith takes over).
 
  - Lifetime: Q4 2019
  - 11 racks, 2060 nodes
@@ -78,7 +78,7 @@ Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tet
 - 4 x 12 core Ivy Bridge, 2 TB RAM 
 - 2 x Nvidia Quadro K420
   
-**5 1 TB Fat nodes**
+**5 x 1 TB Fat nodes**
  - 4 x 12 core Ivy Bridge, 1 TB RAM 
  - 2 x Nvidia Quadro K420
   
@@ -135,7 +135,7 @@ Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tet
    <img src="../img/PDC-PRACE-workshop.jpg" alt="Application experts" width="450" align="middle"> 
 </a>
 
-All events can be found on the [events calendar](https://www.pdc.kth.se/about/events)
+All events can be found on the [events calendar](https://www.pdc.kth.se/about/events).
 
 ## Asking for support at PDC
 
@@ -146,7 +146,7 @@ computational research efficiently.
   - <https://www.pdc.kth.se/support>
 - Preferably contact PDC support by email: <support@pdc.kth.se>
   - You get a ticket number.
-  - Always include the ticket number in follow-ups/replies they look like this: [SNIC support #12345]
+  - Always include the ticket number in follow-ups/replies, they look like this: [SNIC support #12345]
 - Or by phone: +46 (0)8 790 7800
 - You can also make an appointment to 
   [come and visit](https://www.pdc.kth.se/contact/travelling-to-pdc-1.736521).

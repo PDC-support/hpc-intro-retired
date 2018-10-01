@@ -7,8 +7,8 @@ questions:
   - "What is HPC?"
   - "How can you use HPC?"
 objectives:
-  - "Get an overview of what cluster and cloud computing is"
-  - "Discuss benefits and challenges in using HPC systems"
+  - "Get an overview of what cluster computing is."
+  - "Discuss benefits and challenges in using HPC systems."
 keypoints:
   - "HPC is about aggregating computer power in order to solve larger computational problems"
   - "HPC is here to stay!"
@@ -18,9 +18,8 @@ keypoints:
 
 > High Performance Computing most generally refers to the practice of aggregating computing power in 
 > a way that delivers much higher performance than one could get out of a typical desktop computer or
-> workstation in order to solve large problems in science, engineering, or business. 
-
-(G.Sravanthi *et al.*, IOSR J. Comp. Eng. 16, 36-43)
+> workstation in order to solve large problems in science, engineering, or business.  
+> (G.Sravanthi *et al.*, IOSR J. Comp. Eng. 16, 36-43)
 
 Using a cluster often has the following advantages for researchers:
 
@@ -36,10 +35,10 @@ Using a cluster often has the following advantages for researchers:
 The words "cloud", "cluster", and "high-performance computing" get thrown around a lot. So what do
 they mean exactly? And more importantly, how do we use them for our work?
 
-- *Cloud* refers to remote computing resources of any kind
-  - webservers, remote storage, API endpoints, and more traditional "compute" resources.
-- *Cluster* describes a network of computers sharing a common purpose
-  - used to accomplish tasks that might otherwise be too big for any one computer.
+- *Cloud* refers to remote computing resources of any kind.
+  - Webservers, remote storage, API endpoints, and more traditional "compute" resources.
+- *Cluster* describes a network of computers sharing a common purpose.
+  - Used to accomplish tasks that might otherwise be too big for any one computer.
 
 ![The cloud is made of Linux](../img/linux-cloud.jpg)
 

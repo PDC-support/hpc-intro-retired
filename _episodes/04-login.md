@@ -7,8 +7,8 @@ questions:
   - "What is Kerberos and why does PDC use it?"
   - "How do I log in and copy files to/from PDC?"
 objectives:
-  - "Set up access to PDC"
-  - "Learn to log in and copy files to PDC"
+  - "Set up access to PDC."
+  - "Learn to log in and copy files to PDC."
 keypoints:
   - "Kerberos offers a secure mechanism for connecting to PDC, and has pros and cons when it comes to usability."
   - "Login nodes are a limited shared resource and should be used with care."
@@ -94,16 +94,13 @@ which copies files between hosts over a network.
 |Tegner	  | Transfer 1	| t04n27.pdc.kth.se                              |
 |Tegner	  | Transfer 2	| t04n28.pdc.kth.se                              |
 
-> ## Generate a 3-day Kerberos ticket
+> ## Generate a Kerberos ticket and log in to Tegner
 > 
-> Check the documentation of the `kinit` command to see how to specify the lifetime 
-> of the Kerberos ticket (on Linux and Mac, check the `man` pages: `$ man kinit`).
-> Then generate a 3-day ticket and list it.
-{: .challenge}
-
-> ## Now log in to Tegner
-> 
-> Assuming that you have your laptop set up for access to PDC, now log in to Tegner using `ssh`:
+> Use the `kinit` command to generate a Kerberos ticket with a 3-day lifetime.
+> The ticket has to be forwardable (`-f` flag), and lifetime of 3 days can be set 
+> with the flag `-l 3d`. Then list the ticket.  
+> If you have configured SSH correctly on your computer, you should now be able to 
+> log in to Tegner using `ssh`:
 > ```
 > $ ssh <username>@tegner.pdc.kth.se
 > ```
@@ -166,13 +163,15 @@ which copies files between hosts over a network.
 > or for more details: 
 >
 > ```
-> [tegner]$ cat /proc/meminfo free -m
+> [tegner]$ cat /proc/meminfo 
 > ```
+> > *Take home message:* The login node is a shared and limited resource with many concurrent users.
+> > It should not be used for any demanding calculations!
 > {: .bash}
 {: .challenge}
 
-> *Take home message:* The login node is a shared and limited resource with many concurrent users.
-> It should not be used for any demanding calculations!
+
+
 
 
 > ## Transfering files to and from PDC

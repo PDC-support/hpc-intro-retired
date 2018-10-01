@@ -7,10 +7,9 @@ questions:
   - "How can I get an account at PDC?"
   - "How can I get an allocation of computing time?"
 objectives:
-  - "Understand how to get an account and an allocation at PDC"
+  - "Understand how computing time allocations work."
 keypoints:
-  - "1"
-  - "2"
+  - "Time allocations fall into three categories: small, medium and large."
 ---
 
 **In order to use PDC resources, you need**
@@ -20,25 +19,25 @@ keypoints:
 ## Accounts
 
 There are two ways to apply for a PDC account:
-- via the SUPR portal, [supr.snic.se](https://supr.snic.se/)
-  - this is for all SNIC-managed projects
-  - valid post address required for sending password
-- via PDC [application form](https://www.kth.se/form/pdc-user-account-request)
-  - this is for courses and special accounts (PRACE, Scania, ...)
-  - valid post address and scan of passport required
+- Via the SUPR portal, [supr.snic.se](https://supr.snic.se/).
+  - This is for all SNIC-managed projects.
+  - Valid post address required for sending password.
+- Via PDC [application form](https://www.kth.se/form/pdc-user-account-request).
+  - This is for courses and special accounts (PRACE, Scania, ...).
+  - Valid post address and scan of passport required.
 
 <img src="../img/applying_for_account.png" alt="SNIC" width="400" align="middle"> 
 
 ## Allocations
 
-All computing time allocations (except for courses) are managed in SUPR.
+Almost all computing time allocations (except for courses) are managed in SUPR.
 
-There are three categories of computing time allocations.
+There are three categories of time allocations.
 
 **Small allocations**
 - Applicant can be a PhD student or more senior.
 - Evaluated on a technical level only.
-- Limits is usually 5,000 corehours each month.
+- Limit is usually 5,000 corehours per month.
 
 **Medium allocations**
 - Applicant must be a senior scientist in Swedish academia.
@@ -52,11 +51,11 @@ There are three categories of computing time allocations.
 - Proposal evaluated by SNAC twice a year.
 
 
-|  **Description**       |  **Small allocation**     | **Medium allocation**  |  **Large allocation**      |
+|        |  **Small allocation**     | **Medium allocation**  |  **Large allocation**      |
 | ---------------------- | :-----------------------: | :--------------------: | :------------------------: |
-Limit                    |  5K corehours/month       |  200K corehours/month  | Above 200K corehours/month |
-Applicant requirement    |  PhD student or higher    | Senior scientist (Assistant professor or higher) | Senior scientist (Assistant professor or higher) |
-Application evaluation   | Technical evalaluation | Technical evaluation      | Scientific and technical evaluation by SNAC twice a year. Evidence of successful work on a medium allocation. |
+**Limit**                    |  5K corehours/month       |  200K corehours/month  | Above 200K corehours/month |
+**Applicant requirement**    |  PhD student or higher    | Senior scientist (Assistant professor or higher) | Senior scientist (Assistant professor or higher) |
+**Application evaluation**   | Technical evalaluation | Technical evaluation      | Scientific and technical evaluation by SNAC twice a year. Evidence of successful work on a medium allocation. |
 
 
 ### Acknowledging SNIC

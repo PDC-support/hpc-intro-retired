@@ -11,6 +11,7 @@ objectives:
 keypoints:
   - "Environment modules modify your environment and give you access to executables, 
   libraries, etc."
+  - "SNIC environment variables provide shortcuts to your AFS and Lustre directories."
 ---
 
 On a HPC system, no software is loaded by default. If we want to use a software package, 
@@ -91,10 +92,9 @@ module for the Anaconda Python distribution:
 /pdc/vol/anaconda/co7/5.0.1/py36/bin/jupyter-notebook
 ```
 
-So what just happened?
-
-- We first need to understand the `$PATH` environment variable, 
-  which controls where a UNIX system looks for software. 
+So what just happened?  
+We first need to understand the `$PATH` environment variable, 
+which controls where a UNIX system looks for software. 
 - `$PATH` is a list of directories (separated by `:`) that 
   the OS searches through for a command before giving up and telling us it 
   can't find it. 
@@ -122,7 +122,7 @@ Currently Loaded Modulefiles:
  1) gcc/7.2.0           3) latex/20150811
  2) openmpi/3.0-gcc-7.2 4) anaconda/py36/5.0.1
 ```
-
+Clearly, the module system added the required dependencies automatically.  
 What if we unload the Anaconda module?
 ```bash
 [tegner]$ module unload anaconda
@@ -131,8 +131,8 @@ What if we unload the Anaconda module?
 Currently Loaded Modulefiles:
 ```
 
-`module unload` (or `module rm`) un-loads a module along with its dependencies.
-If we wanted to unload everything at once, we could run `module purge`.
+`module unload` (or `module rm`) un-loads a module along with its dependencies.  
+To unload all modules at once, we could also run `module purge`.
 
 --- 
 
@@ -157,10 +157,10 @@ prepend-path		PATH	/pdc/vol/anaconda/co7/5.0.1/py36/bin
 
 The `module show` command shows us:
 
-- where this module is installed
-- what other modules are loaded (dependencies)
-- what environment variables are set
-- what paths are added to `$PATH`
+- Where this module is installed.
+- What other modules are loaded (dependencies).
+- What environment variables are set.
+- What paths are added to `$PATH`.
 
 --- 
 
