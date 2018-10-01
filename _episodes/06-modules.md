@@ -213,3 +213,25 @@ version was selected.
 {: .challenge}
 
 --- 
+
+## SNIC environment variables
+
+To facilitate portability of batch scripts and user workflows between different 
+supercomputers in Sweden, PDC along with the other SNIC centers have defined 
+a few common environment variables. On Beskow these variables are loaded 
+by default after login, while on Tegner you need to load a module:
+```bash
+[tegner]$ module load snic-env
+```
+
+The following table shows which environment variables are defined and what they 
+mean at PDC.
+
+| Env. variable name | Meaning |
+| ------------------ | ------- |
+| `SNIC_SITE`        | pdc     |
+| `SNIC_RESOURCE`  | tegner or beskow |
+| `SNIC_BACKUP`  | `/afs/pdc.kth.se/home/<initial>/<username>` |
+| `SNIC_NOBACKUP` | `/cfs/klemming/nobackup/<initial>/<username>` | 
+| `SNIC_TMP`  | `/cfs/klemming/scratch/<initial>/<username>` |
+
