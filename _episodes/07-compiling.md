@@ -139,7 +139,7 @@ Compiling our MPI-parallelized hello-world example is left as an exercise.
 > ## Compiling code with MPI
 > 
 > Copy-paste the parallel Hello World code above to a file in your Lustre directory, 
-> for example: `/cfs/klemming/nobackup/<initial>/<username>/hello/hello_world_mpi.c`.  
+> for example: `$SNIC_NOBACKUP/hello/hello_world_mpi.c`.  
 > - **Load the openmpi module which matches the gcc/7.2.0 compiler**.
 > - **Find the name of the parallel C GNU compiler from the [table above](#compilers), and compile `hello_world_mpi.c`.**
 > - **What do you think will happen if you run the generated executable on the login node with `./hello_mpi`? Try it! (don't worry, you won't break the login node).**
@@ -202,7 +202,7 @@ of desired threads.
 > 
 > Copy-paste the OpenMP Hello World code above to a file in your Lustre directory, 
 > for example: 
-> `/cfs/klemming/nobackup/<initial>/<username>/hello/hello_world_omp.c`.  
+> `$SNIC_NOBACKUP/hello/hello_world_omp.c`.  
 > - **Compile the code in the same way as you did in the serial case above, except 
 >   add the flag `-fopenmp` to the compilation command.**
 > - **What happens now if you run the executable on the login node?**
