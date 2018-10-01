@@ -2,7 +2,7 @@
 layout: episode
 title: "File systems"
 teaching: 10
-exercises: 0
+exercises: 15
 questions:
   - "What is the difference between the AFS and Lustre file systems?"
   - "How can I change access control lists to share files with colleagues?"

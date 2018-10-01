@@ -1,8 +1,8 @@
 ---
 layout: episode
 title: "Environment modules"
-teaching: 20
-exercises: 0
+teaching: 15
+exercises: 5
 questions:
   - "What are environment modules?"
   - "How can I use different versions of software packages?"

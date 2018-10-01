@@ -23,6 +23,9 @@ keypoints:
 
 ## Setting a default allocation
 
+# Getting help
+- man pages
+
 # HPC best practices
 
 ## Ahmdahl's law

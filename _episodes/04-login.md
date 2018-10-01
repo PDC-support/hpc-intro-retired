@@ -2,7 +2,7 @@
 layout: episode
 title: "Authentication, login and file transfer"
 teaching: 10
-exercises: 0
+exercises: 10
 questions:
   - "What is Kerberos and why does PDC use it?"
   - "How do I log in and copy files to/from PDC?"
@@ -130,27 +130,27 @@ which copies files between hosts over a network.
 > Let's explore the login node a bit. 
 > First, where are we? The command
 > ``` 
-> $ hostname
+> [tegner]$ hostname
 > ```
 > {: .bash}
 > tells you the name of the login node (note that you have been redirected from `tegner.pdc.kth.se`).  
 > To find out your current directory, type
 > ```
-> $ pwd
+> [tegner]$ pwd
 > ```
 > {: .bash}
 > This is your PDC home directory on the AFS file system (more about that later).  
 > To find the number of processors, run:
 >
 > ```
-> $ nproc --all
+> [tegner]$ nproc --all
 > ```
 > {: .bash}
 >
 > or
 >
 > ```
-> $ cat /proc/cpuinfo
+> [tegner]$ cat /proc/cpuinfo
 > ```
 > {: .bash}
 >
@@ -159,14 +159,14 @@ which copies files between hosts over a network.
 > How about memory? Try running: 
 >
 > ```
-> $ free -m
+> [tegner]$ free -m
 > ```
 > {: .bash}
 >
 > or for more details: 
 >
 > ```
-> $ cat /proc/meminfo free -m
+> [tegner]$ cat /proc/meminfo free -m
 > ```
 > {: .bash}
 {: .challenge}

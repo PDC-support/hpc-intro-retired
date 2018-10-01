@@ -1,8 +1,8 @@
 ---
 layout: episode
 title: "Job scheduling"
-teaching: 10
-exercises: 0
+teaching: 15
+exercises: 10
 questions:
   - "What is Slurm?"
   - "What's the difference between interactive and batch jobs?"
