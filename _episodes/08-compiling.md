@@ -21,14 +21,12 @@ while Beskow (a Cray XC40 system) is a little different.
 
 - On Tegner, you need to load compiler modules and explicitly link 
 to any libraries that are needed (MPI, BLAS/LAPACK, FFTW, ...). 
-- On Beskow, *compiler wrappers* are used which automatically link to all libraries.
+- On Beskow, *compiler wrappers* are used which automatically link to many libraries.
 
-## Compilers on Tegner
+## Compilers on Tegner {#compilers}
 
 The following table shows which compiler suites are available and the corresponding 
 module names and compiler commands.
-
-##### Compilers available on Tegner {#compilers}
 
 |Compiler | Module name                 | Compiler commands               |
 | ------- | --------------------------- | ------------------------------- |
@@ -63,7 +61,7 @@ We will now compile a simple C program using GCC version 7.2:
 gcc (GCC) 7.2.0
 ```
 
-Let's copy-paste this simple C program below to a file called 
+Let's copy-paste this simple C program to a file called 
 `hello_world.c` in a subdirectory `hello` in our Lustre nobackup directory:
 ```c
 #include <stdio.h>
