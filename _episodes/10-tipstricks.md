@@ -47,8 +47,7 @@ which run on the same number of nodes and take roughly the same time to complete
 
 # Fetch one directory from the array based on the task ID
 # Note: index starts from 0
-DIRS=(`ls -d data*`)
-CURRENT_DIR=${DIRS[$SLURM_ARRAY_TASK_ID]}
+CURRENT_DIR=data${SLURM_ARRAY_TASK_ID}
 echo "Running simulation in $CURRENT_DIR"
 
 # Go to job folder
@@ -78,7 +77,7 @@ $ sbatch --dependency=afterok:<jobID_A> jobB.sh
 If we want job B to start after several other jobs have completed, 
 we can specify additional jobs, using a ':' as a delimiter:
 ```bash
-$ sbatch --dependency=afterok:<jobID_A:jobID_C:jobID_D> jobB.sh
+$ sbatch --dependency=afterok:<jobID_A>:<jobID_C>:<jobID_D> jobB.sh
 ```
 We can also tell Slurm to run job B, even if job A fails:
 ```bash
@@ -97,6 +96,7 @@ To see if a default account is set, run
 ```bash
 $ sacctmgr show User <username>
 ```
+Note that `sacctmgr` only works on Beskow.
 
 
 # HPC best practices
@@ -112,7 +112,7 @@ $ sacctmgr show User <username>
 
 - [Ahmdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law)
 
-  Speedup $S_P$ on $P$ processors is restricted by  
+  Speedup $S_P$ on $P$ processors is restricted by (f is the sequential fraction)  
   $$ S_P = \frac{1}{1 + (P-1)f} < \frac{1}{f} $$
 
   > If a program needs 20 hours using a single processor core, and a particular part of the 

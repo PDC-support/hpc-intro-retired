@@ -197,7 +197,7 @@ mpirun -n 48 ./myexe > my_output_file 2>&1
 - The environment for the job (e.g. modules, environment variables) needs to be specified.
   - **What modules would you need to load on Tegner in this case?**
 - When the script completes (i.e. when `./myexe` finishes) an exit status is returned to Slurm and the job stops (regardless of how much time is left of the requested time)
-- Note that when running on Beskow, use `aprun -n <nproc>` instead of `mpirun -np <nproc>`.
+- Note that when running on Beskow, use `aprun -n <nproc>` instead of `mpirun -n <nproc>`.
 
 
 > ## Submitting a batch script

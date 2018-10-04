@@ -31,9 +31,9 @@ module names and compiler commands.
 |Compiler | Module name                 | Compiler commands               |
 | ------- | --------------------------- | ------------------------------- |
 |GNU      | $ module load gcc           | `gcc`, `g++`, `gfortran`        |
-|OpenMPI  | $ module load PrgEnv-intel  | `mpicc`, `mpicxx`, `mpif90`     |
-|Intel    | $ module load PrgEnv-gnu    | `icc`, `icpc`, `ifort`          |
-|Intel-MPI| $ module load PrgEnv-gnu    | `mpiicc`, `mpiicpc`, `mpiifort` |
+|Intel    | $ module load i-compilers   | `icc`, `icpc`, `ifort`          |
+|OpenMPI  | $ module load openmpi       | `mpicc`, `mpicxx`, `mpif90`     |
+|Intel-MPI| $ module load intelmpi      | `mpiicc`, `mpiicpc`, `mpiifort` |
 |CUDA     | $ module load cuda          | `nvcc`                          | 
 
 Before proceeding, let's clean our module environment:
@@ -68,6 +68,7 @@ Let's copy-paste this simple C program to a file called
 
 int main(int argc, char** argv) {
   printf("Hello world!\n");
+  return 0;
   }
 ```
 
@@ -116,6 +117,7 @@ int main(int argc, char** argv) {
   printf("Hello world from rank %d out of %d process\n", world_rank, world_size);
   // Finalize the MPI environment.
   MPI_Finalize();
+  return 0;
   }
 ```
 
@@ -184,6 +186,7 @@ int main (int argc, char *argv[]) {
       printf("Number of threads = %d\n", nthreads);
       }
     }  /* All threads join master thread and disband */
+  return 0;
   }
 ```
 
