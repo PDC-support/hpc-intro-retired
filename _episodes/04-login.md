@@ -204,5 +204,7 @@ which copies files between hosts over a network.
 > ```
 > $ scp <username>@t04n27.pdc.kth.se:/cfs/klemming/nobackup/<initial>/<username>/my_big_output.dat .
 > ```
+> For Windows, please use the PSCP command, according to the instructions found
+> at >https://www.pdc.kth.se/support/documents/data_management/file_transfer_scp.html>.
 > {: .bash}
 {: .challenge}
