@@ -122,6 +122,11 @@ Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tet
 - Held in spring every year
 - Users are invited to PDC to chat with the staff and see the clusters over drinks and snacks
 
+**PDC Blog**
+- PDC has recently launched a blog at [www.kth.se/blogs/pdc/](https://www.kth.se/blogs/pdc/)
+- Subscribe if you want to receive new posts by email
+- If you have suggestions/requests for new topics, please [contact PDC support](support@pdc.kth.se)!
+
 **PDC/SeRC seminar series**
 - Monthly lunch-time seminars given by leading e-Science researchers on a wide range of topics
 
