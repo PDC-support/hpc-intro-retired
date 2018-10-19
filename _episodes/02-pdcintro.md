@@ -57,7 +57,7 @@ SNIC is a national research infrastructure which:
 
 Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tetralith takes over).
 
- - Lifetime: Q4 2019
+ - Lifetime: Q4 2020
  - 11 racks, 2060 nodes
  - Intel Haswell processor 2.3 GHz / Intel Broadwell processor 2.1 GHz
  - 67,456 cores - 32(36) cores/node
@@ -72,7 +72,7 @@ Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tet
 - Has large RAM nodes
 - Has nodes with GPUs
 - Has two transfer nodes
-- Lifetime: Q4 2019
+- Lifetime: Q4 2020
 
 **5 x 2 TB Fat nodes**
 - 4 x 12 core Ivy Bridge, 2 TB RAM 
