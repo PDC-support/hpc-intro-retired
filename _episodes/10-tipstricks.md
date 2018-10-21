@@ -5,15 +5,16 @@ teaching: 20
 exercises: 0
 questions:
   - "What other nice features does SLURM offer?"
-  - "What useful commands can help me use HPC more efficiently?"
+  - "What useful methods can help me use HPC more efficiently?"
 objectives:
   - "Learn about job arrays and job dependencies"
+  - "Pick up some good HPC practices"
 keypoints:
-  - "K1"
-  - "K2"
+  - "Job arrays and dependencies are SLURM features that sometimes come in handy"
+  - "Good practices like organized project directory structure and documented automated workflows help also in HPC work"
 ---
 
-# SLURM tricks
+# Efficient SLURM usage
 
 ### Job arrays
 
@@ -99,9 +100,6 @@ $ sacctmgr show User <username>
 ```
 Note that `sacctmgr` only works on Beskow.
 
-
-# HPC best practices
-
 ### Being friends with SLURM
   - Avoid wide short jobs (massively parallel but very short time).
   - Avoid massive output to STDOUT.
@@ -111,6 +109,10 @@ Note that `sacctmgr` only works on Beskow.
   - Avoid creating very many small files (it slows down Lustre).
   - Try instead to write to few large files.
   - Always use the Lustre file system, not AFS (AFS isn't even available on Beskow compute nodes).
+
+---
+
+# HPC best practices
 
 ### [Ahmdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law)
 
@@ -125,23 +127,43 @@ Note that `sacctmgr` only works on Beskow.
   > 20 times (1/(1 − p) = 20). For this reason, parallel computing with many processors is useful 
   > only for highly parallelizable programs.
 
-### Scaling tests
-  - It is almost always worthwhile to test how your job scales with number of processes.
-  - Try to simplify the task while keeping the real system size (e.g. just perform one iteration, MD step, single-point calculation ...).
-  - Run a series of jobs with varying number of nodes (1, 2, 4, 8, ...), time how long it takes to complete, and plot it versus linear scaling.
-  - Find the *sweet spot* where the scaling is still good (~80%, but your mileage may vary).
-  - **Play around with job parameters/algorithms/settings** and see if you can improve the parallel efficiency.
-
 #### Strong scaling
-- WRITEME
+- Defined as how the solution time varies with the number of processors for a *fixed total problem size*.
+- Linear **strong** scaling if the speedup (work units completed per unit time) is equal to the number of processing elements used.
+- Harder to achieve good strong-scaling at larger process counts since communication overhead typically increases with the number of processes used.
 
 #### Weak scaling
-- WRITEME
+- Defined as how the solution time varies with the number of processors for a *fixed problem size per processor*.
+- Linear **weak** scaling if the run time stays constant while the workload is increased in direct proportion to the number of processors. 
+
+### Parallel scaling performance measurements
+
+ - It is almost always worthwhile to test how your job scales with number of processes.
+ - Use a problem state or configuration that best matches your intended production runs.
+   - Scaling should be measured based on the overall performance of the application.
+ - Running a test:
+    1. Run a series of jobs with varying number of nodes and threads
+       - Ranging from 1 to the number of processing elements per node for threaded jobs.
+       - Rangingfrom 1 to the total number of processes requested for MPI.
+    2. Time how long it takes to complete (using wallclock time or equivalent).
+    3. Measure multiple independent runs per job size.
+    4. Measure using multiple computer systems if possible/relevant.
+    5. Find the *sweet spot* where the scaling is still good and job finishes in reasonable time.
+
+<img src="../img/StrongScalingPlot1.jpg" alt="scheduling" width="400" align="middle"> 
+
+> adapted from [SHARCNET documentation](https://www.sharcnet.ca/help/index.php/Measuring_Parallel_Scaling_Performance)
+
+ - **Play around with job parameters/algorithms/settings** and see if you can improve the parallel efficiency.
+
+
+### Benchmark before you optimize
+
+- Before you attempt to optimize your own code, you should benchmark it!
 
 ### Calibrate your jobs
   - Uncalibrated experimental procedures are considered bad science.
   - Scientific code and calculations/simulations should also be calibrated!
-
 
 ### Directory structure for projects
 
