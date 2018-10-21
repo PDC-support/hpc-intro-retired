@@ -59,12 +59,13 @@ aprun -n 32 ./myexe > my_output_file 2>&1
 ```
 
 
-- Job dependencies
+### Job dependencies
 
 Sometimes you may want one job to start after another job has been completed, for example to 
 use the output of the first job as input to the second job.
 This can be accomplished with *job dependencies*.   
 Let's say we have two jobs, A and B. We want job B to start after job A has successfully completed.
+
 We first start job A by submitting it:
 ```bash
 $ sbatch <jobA.sh>
@@ -101,19 +102,20 @@ Note that `sacctmgr` only works on Beskow.
 
 # HPC best practices
 
-- Being friends with Slurm
-  - Avoid massive short jobs
-  - Avoid massive output to STDOUT
-  - Try to provide a good estimate of the job duration
+### Being friends with SLURM
+  - Avoid wide short jobs (massively parallel but very short time).
+  - Avoid massive output to STDOUT.
+  - Try to provide a good estimate of the job duration before submitting.
 
-- Being friends with the file system
-  - Avoid creating very many small files (it slows down Lustre)
-  - Try instead to write to few large files
+### Being friends with the file system
+  - Avoid creating very many small files (it slows down Lustre).
+  - Try instead to write to few large files.
+  - Always use the Lustre file system, not AFS (AFS isn't even available on Beskow compute nodes).
 
-- [Ahmdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law)
+### [Ahmdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law)
 
   Speedup $S_P$ on $P$ processors is restricted by (f is the sequential fraction)  
-  $$ S_P = \frac{1}{1 + (P-1)f} < \frac{1}{f} $$
+  $S_P = \frac{1}{1 + (P-1)f} < \frac{1}{f}$
 
   > If a program needs 20 hours using a single processor core, and a particular part of the 
   > program which takes one hour to execute cannot be parallelized, while the remaining 
@@ -123,11 +125,63 @@ Note that `sacctmgr` only works on Beskow.
   > 20 times (1/(1 − p) = 20). For this reason, parallel computing with many processors is useful 
   > only for highly parallelizable programs.
 
-- Testing your scaling
+### Scaling tests
+  - It is almost always worthwhile to test how your job scales with number of processes.
+  - Try to simplify the task while keeping the real system size (e.g. just perform one iteration, MD step, single-point calculation ...).
+  - Run a series of jobs with varying number of nodes (1, 2, 4, 8, ...), time how long it takes to complete, and plot it versus linear scaling.
+  - Find the *sweet spot* where the scaling is still good (~80%, but your mileage may vary).
+  - **Play around with job parameters/algorithms/settings** and see if you can improve the parallel efficiency.
 
-- Calibrate your jobs
-  - uncalibrated experimental instruments are bad science, code and simulations should also be 
-    calibrated!
+#### Strong scaling
+- WRITEME
+
+#### Weak scaling
+- WRITEME
+
+### Calibrate your jobs
+  - Uncalibrated experimental procedures are considered bad science.
+  - Scientific code and calculations/simulations should also be calibrated!
+
+
+### Directory structure for projects
+
+- It is good to keep all files associated with a project in a single folder.
+- Different projects should have separate folders.
+- Use consistent and informative directory structure.
+- Add a README file to describe the project and instructions on reproducing the results.
+- But your mileage may vary, it's not a one-size-fits-all.
+
+A project directory can look something like this:
+```bash
+project_name/
+|-- data/                        contains input data files of the project
+|   |-- README.md                describes where input data came from
+|   |-- sub-folder/              may contain subdirectories as well
+|   |-- ...
+|-- processed_data/              will contain intermediate files from the analysis
+|-- manuscript/                  will contain the manuscript describing the results
+|-- results/                     will contain the results of the analysis (including tables and figures)
+|-- source/                      will contain all code
+```
+
+### Documenting and automating your workflow
+
+Reproducible workflows enable you to figure out precisely what data and what code were used to generate a result:
+
+ - Provide a historical record (provenance) of data, its origins and causal relationships.
+ - Can be used to ensure quality of data based on ancestral data, or find sources of errors.
+ - Allow automated recreation of data.
+ - Implemented in many [workflow management tools](https://github.com/common-workflow-language/common-workflow-language/wiki/Existing-Workflow-systems).
+
+#### Using [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html) to automate workflow
+
+- Workflows defined in Python scripts extended by declarative code to define rules 
+  - anything that can be done in Python can be done with Snakemake
+- Rules work much like in GNU Make
+- Possible to define isolated software environments per rule
+- Also possible to run workflows in Docker or Singularity containers
+- Workflows can be pushed out to run on a cluster or in the cloud without modifications to scale up
+
 
 # Getting help
 
