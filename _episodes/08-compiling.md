@@ -270,19 +270,35 @@ int main(int argc, char **argv)
 }
 ```
 
-To compile CUDA code, we need to load a CUDA module, which
-will also load all the necessary CUDA dependencies:
+
+To compile CUDA code, we need to load a CUDA module which matches with the `gcc` version we have. 
+Several CUDA modules are available:
 ```bash
-$ module load cuda/7.0
-```
-`nvcc` is the name of the NVIDIA compiler for CUDA that separates the host 
-code (CPU code) from the GPU code. It will invoke GCC or ICC for the host code, 
-as necessary:
-```bash
-$ nvcc -arch=sm_30 hello_world_cuda.cu -o hello_cuda
+[tegner]$ module avail cuda
+
+------------ /pdc/modules/system/base ------------
+cuda/6.5          cuda/7.5          cuda/9.1
+cuda/7.0          cuda/8.0(default)
 ```
 
-In the next section we will see how to run CUDA code on GPUs available on Tegner.
+- `nvcc` is the name of the NVIDIA compiler for CUDA that separates the host 
+  code (CPU code) from the GPU code. It will invoke GCC or ICC for the host code, as necessary.
+- One needs to be careful to use compatible versions of `gcc` and CUDA!
+  The 7.2.0 version of `gcc` is not supported by the most recent CUDA version.
+  Instead, one can use `gcc/6.2.0` and `cuda/9.1`.
+
+> ## Compiling CUDA code
+> 
+> - **Copy-paste the CUDA Hello World code into a file in your `$SNIC_NOBACKUP`**.
+> - **Load the `gcc/6.2.0` and `cuda/9.1` modules.**
+> - **Compile the CUDA code with:**
+>   ```bash
+>   [tegner]$ nvcc -arch=sm_30 hello_world_cuda.cu -o hello_cuda
+>   ```
+> - **Try running the executable on the login node. Do you get output from the GPU?**
+> 
+> > In the next section we will see how to run CUDA code on GPUs available on Tegner.
+{: .challenge}
 
 ## Compilers on Beskow (Cray XC40)
 
