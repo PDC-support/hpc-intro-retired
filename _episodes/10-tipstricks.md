@@ -59,6 +59,13 @@ echo "Simulation in $CURRENT_DIR" > result
 aprun -n 32 ./myexe > my_output_file 2>&1
 ```
 
+> ## Submit a small job array
+>
+> Edit the above job array script such that it
+> - asks for a short time (e.g. 2 minutes),
+> - requests a small job array (e.g. ``#SBATCH -a 0-4``),
+> - and runs a small calculation (e.g. ``aprun -n 1 python -c "print (${SLURM_ARRAY_TASK_ID}**2)"``)
+{: .challenge}
 
 ### Job dependencies
 
