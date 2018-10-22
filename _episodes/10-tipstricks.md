@@ -98,10 +98,11 @@ To see if a default account is set, run
 ```bash
 $ sacctmgr show User <username>
 ```
-Note that `sacctmgr` only works on Beskow.
+
+> Note that `sacctmgr` only works on Beskow.
 
 ### Being friends with SLURM
-  - Avoid wide short jobs (massively parallel but very short time).
+  - Avoid wide short jobs (massively parallel but very short runtime).
   - Avoid massive output to STDOUT.
   - Try to provide a good estimate of the job duration before submitting.
 
@@ -140,11 +141,11 @@ Note that `sacctmgr` only works on Beskow.
 
  - It is almost always worthwhile to test how your job scales with number of processes.
  - Use a problem state or configuration that best matches your intended production runs.
-   - Scaling should be measured based on the overall performance of the application.
+ - Scaling should be measured based on the overall performance of the application.
  - Running a test:
     1. Run a series of jobs with varying number of nodes and threads
        - Ranging from 1 to the number of processing elements per node for threaded jobs.
-       - Rangingfrom 1 to the total number of processes requested for MPI.
+       - Ranging from 1 to the total number of processes requested for MPI.
     2. Time how long it takes to complete (using wallclock time or equivalent).
     3. Measure multiple independent runs per job size.
     4. Measure using multiple computer systems if possible/relevant.
@@ -159,11 +160,14 @@ Note that `sacctmgr` only works on Beskow.
 
 ### Benchmark before you optimize
 
-- Before you attempt to optimize your own code, you should benchmark it!
+- Before attempting to optimize your own code, you should profile it!
+- Typically, most of the runtime is spent in a few functions/subroutines, focus your optimization efforts on those.
+- Excellent profiling tools exist, use them! 
 
 ### Calibrate your jobs
-  - Uncalibrated experimental procedures are considered bad science.
-  - Scientific code and calculations/simulations should also be calibrated!
+- Uncalibrated experimental procedures are considered bad science.
+- Scientific code and calculations/simulations should also be calibrated!
+- Use the code on a well-known test case where you know what the correct answer should be.
 
 ### Directory structure for projects
 
@@ -207,7 +211,13 @@ Reproducible workflows enable you to figure out precisely what data and what cod
 
 # Getting help
 
-- man pages
+- `man` pages
+  - `$ man <some-command>`
+- List of good resources:
+  - [An HPC wiki for another HPC center containing tutorials](https://dccn-hpc-wiki.readthedocs.io/en/latest/index.html).
+  - [HPC Carpentry](https://hpc-carpentry.github.io/).
+  - [SNIC knowledge base with a list of training events](http://docs.snic.se/wiki/Training).
+  - [List of software installed on SNIC centres along with links to documentation (poorly maintained)](http://docs.snic.se/wiki/Software).
+- Send in a support request.
+  - SNIC (and other national HPC providers) employs support staff and application experts who can help with basic and advanced problems.
 
-- list of good resources
-  - https://dccn-hpc-wiki.readthedocs.io/en/latest/index.html
