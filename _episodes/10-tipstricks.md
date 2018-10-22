@@ -93,6 +93,11 @@ We can also tell Slurm to run job B, even if job A fails:
 $ sbatch --dependency=afterany:<jobID_A> jobB.sh
 ```
 
+> ## Make use of job dependency
+>
+> Submit a job that writes to a file (e.g. ``echo "hello" > file.txt``) and then sleeps for 30 seconds.
+> Then submit a second job that prints the message in the file (e.g. ``cat file.txt``).
+{: .challenge}
 
 ### Setting a default allocation
 
