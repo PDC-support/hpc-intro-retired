@@ -1,8 +1,8 @@
 ---
 layout: episode
 title: "Authentication, login and file transfer"
-teaching: 10
-exercises: 10
+teaching: 5
+exercises: 5
 questions:
   - "What is Kerberos and why does PDC use it?"
   - "How do I log in and copy files to/from PDC?"

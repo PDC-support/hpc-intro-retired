@@ -1,8 +1,8 @@
 ---
 layout: episode
 title: "Building software"
-teaching: 15
-exercises: 20
+teaching: 10
+exercises: 15
 questions:
   - "How do I compile serial, parallel and GPU code on PDC systems?"
 objectives:

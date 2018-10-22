@@ -1,7 +1,7 @@
 ---
 layout: episode
 title: "The PDC Center for HPC"
-teaching: 15
+teaching: 10
 exercises: 0
 questions:
   - "What services does PDC provide?"

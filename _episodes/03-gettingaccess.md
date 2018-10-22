@@ -1,7 +1,7 @@
 ---
 layout: episode
 title: "Accounts and allocations"
-teaching: 10
+teaching: 5
 exercises: 0
 questions:
   - "How can I get an account at PDC?"

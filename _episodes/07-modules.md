@@ -1,7 +1,7 @@
 ---
 layout: episode
 title: "Environment modules"
-teaching: 15
+teaching: 10
 exercises: 5
 questions:
   - "What are environment modules?"
