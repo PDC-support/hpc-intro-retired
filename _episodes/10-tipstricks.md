@@ -95,8 +95,9 @@ $ sbatch --dependency=afterany:<jobID_A> jobB.sh
 
 > ## Make use of job dependency
 >
-> Submit a job that writes to a file (e.g. ``echo "hello" > file.txt``) and then sleeps for 30 seconds.
-> Then submit a second job that prints the message in the file (e.g. ``cat file.txt``).
+> Submit a job that sleeps for 30 seconds and then writes a message to a file (e.g. ``echo "hello" > file.txt``).
+>
+> Submit a second job with ``--dependency=afterok:<jobID>`` to print the message in the file (e.g. ``cat file.txt``).
 {: .challenge}
 
 ### Setting a default allocation
