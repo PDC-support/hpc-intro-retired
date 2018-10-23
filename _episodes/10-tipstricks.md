@@ -170,6 +170,15 @@ $ sacctmgr show User <username>
 
  - **Play around with job parameters/algorithms/settings** and see if you can improve the parallel efficiency.
 
+> ## Measure the scaling of a small program
+>
+> Download the C code for computing &pi; from 
+> [here](https://pdc-web-01.csc.kth.se/files/support/files/scale.c)
+>
+> Compile and run the code with different number of threads and number of integration points.
+>
+> How would you measure strong scaling and weak scaling?
+{: .challenge}
 
 ### Benchmark before you optimize
 
