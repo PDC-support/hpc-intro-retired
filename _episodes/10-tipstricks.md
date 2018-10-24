@@ -37,7 +37,7 @@ which run on the same number of nodes and take roughly the same time to complete
 # The name of the script is myjob
 #SBATCH -J myjobarray
 
-# 10 hours wall-clock time will be given to this job
+# 1 hour wall-clock time will be given to this job
 #SBATCH -t 01:00:00
 
 # Number of nodes used for each individual job
