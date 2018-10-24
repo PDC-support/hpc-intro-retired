@@ -10,8 +10,8 @@ objectives:
   - "Understand the difference between interactive and batch jobs"
   - "Learn to write and submit batch scripts"
 keypoints:
-  - "K1"
-  - "K2"
+  - "Slurm is a powerful job scheduler used in clusters around the world"
+  - "Jobs on PDC clusters can be either be *interactive* (`salloc`) or based on *batch* scripts (`sbatch`)"
 ---
 
 The computational resources on a supercomputer are shared simultaneously between 
@@ -128,12 +128,14 @@ The output shows:
 > You need to belong to a time allocation in order to use PDC resources.
 > Generally, you would follow the procedure described 
 > [in the previous episode](../03-gettingaccess) and apply for an allocation.
-> For this workshop, an allocation has been set up called `edu18.intropdc2`.
+> For this workshop, an allocation has been set up called `edu18.prace`.
+> Moreover, a *reservation* has been set up called `prace-2018-10-25` 
+> (tomorrow we'll use `prace-2018-10-26`).
 {: .callout}
 
 Let us now allocate an interactive node for 20 minutes using the `salloc` command:
 ```bash
-[tegner]$ salloc -A edu18.intropdc2 -t 0:20:0 --nodes=1
+[tegner]$ salloc -A edu18.prace --reservation=prace-2018-10-25 -t 0:20:0 --nodes=1
 ```
 When your allocation is granted, *a new terminal session starts*.
 - Previous command history vanishes.
@@ -174,7 +176,7 @@ Here is an basic batch script which contains a minimal number of Slurm options.
 ```bash
 #!/bin/bash -l
 # Set the allocation to be charged for this job
-#SBATCH -A <201X-X-XX>
+#SBATCH -A <allocation-name>
 # The name of the job
 #SBATCH -J myjobname
 # 1 hour wall-clock time is requested 
@@ -205,10 +207,11 @@ mpirun -n 48 ./myexe > my_output_file 2>&1
 > nobackup directory (`$SNIC_NOBACKUP`) where you compiled the MPI Hello World 
 > code (if you haven't done this already, revisit 
   [the previous episode](../07-compiling)). Modify it as follows:
-> - Use the workshop allocation `edu18.intropdc2`.
+> - Use the workshop allocation `edu18.prace`.
+> - Use the workshop reservation `prace-2018-10-25`.
 > - Request only one node (24 cores) and 10 minutes.
 > - Load the modules `gcc/7.2.0` and `openmpi/3.0-gcc-7.2`
-> - Run the command `mpirun -n 24 ./hello_mpi` (instead of `./myexe`).
+> - Run the command `mpirun -n 24 ./hello_mpi`.
 > - Also add the command `srun -n 1 hostname` (what does it do?).
 > - Finally add a line `sleep 60` at the bottom of the script.
 > 

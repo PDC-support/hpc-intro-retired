@@ -296,7 +296,6 @@ cuda/7.0          cuda/8.0(default)
 >   ```
 > - **Try running the executable on the login node. Do you get output from the GPU?**
 > 
-> > In the next section we will see how to run CUDA code on GPUs available on Tegner.
 {: .challenge}
 
 ---
