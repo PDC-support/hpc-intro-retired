@@ -209,7 +209,7 @@ mpirun -n 48 ./myexe > my_output_file 2>&1
   [the previous episode](../07-compiling)). Modify it as follows:
 > - Use the workshop allocation `edu18.prace`.
 > - Use the workshop reservation `prace-2018-10-25`.
-> - Request only one node (24 cores) and 10 minutes.
+> - Request only one node (24 cores) and 2 minutes.
 > - Load the modules `gcc/7.2.0` and `openmpi/3.0-gcc-7.2`
 > - Run the command `mpirun -n 24 ./hello_mpi`.
 > - Also add the command `srun -n 1 hostname` (what does it do?).
