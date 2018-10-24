@@ -141,6 +141,7 @@ $ sacctmgr show User <username>
 ### [Ahmdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law)
 
   Theoretical speedup is restricted by
+
   <img src="../img/eq_ahmdahl.png" alt="scheduling" width="200" align="middle"> 
 
   where _p_ is the proportion of execution time that is subject to parallelization, and _s_
@@ -221,7 +222,7 @@ $ sacctmgr show User <username>
 
 ### Benchmark before you optimize
 
-> Premature optimization is the root of all evil.
+  > Premature optimization is the root of all evil.
 
 - Before attempting to optimize your own code, you should profile it!
 - Typically, most of the runtime is spent in a few functions/subroutines, focus your optimization efforts on those.
