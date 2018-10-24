@@ -7,6 +7,9 @@ questions:
   - "How do I compile serial, parallel and GPU code on PDC systems?"
 objectives:
   - "Get familiar with compiler environments and compiler wrappers"
+keypoints:
+  - "Compilers and libraries in different versions are available in modules"
+  - "Cray systems use compiler wrappers and differ in various other ways from regular clusters"
 ---
 
 
