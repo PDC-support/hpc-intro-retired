@@ -221,7 +221,8 @@ $ sacctmgr show User <username>
 
 ### Benchmark before you optimize
 
-  > "Premature optimization is the root of all evil." -- Donald Knuth
+  > "We should forget about small efficiencies, say about 97% of the time:
+  > premature optimization is the root of all evil." -- Donald Knuth
 
 - Before attempting to optimize your own code, you should profile it!
 - Typically, most of the runtime is spent in a few functions/subroutines, focus your optimization efforts on those.
