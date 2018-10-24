@@ -1,7 +1,7 @@
 ---
 layout: episode
 title: "Job scheduling"
-teaching: 15
+teaching: 10
 exercises: 10
 questions:
   - "What is Slurm?"

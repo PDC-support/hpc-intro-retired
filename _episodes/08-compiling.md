@@ -2,14 +2,11 @@
 layout: episode
 title: "Building software"
 teaching: 10
-exercises: 15
+exercises: 10
 questions:
   - "How do I compile serial, parallel and GPU code on PDC systems?"
 objectives:
   - "Get familiar with compiler environments and compiler wrappers"
-keypoints:
-  - "K1"
-  - "K2"
 ---
 
 
@@ -210,7 +207,6 @@ of desired threads.
 > - **Try setting OMP_NUM_THREADS to 4, and rerun.**
 {: .challenge}
 
-
 ### CUDA code for GPUs
 
 Yet another way to parallelize code is to adapt it to run on graphics processing 
@@ -299,6 +295,8 @@ cuda/7.0          cuda/8.0(default)
 > 
 > > In the next section we will see how to run CUDA code on GPUs available on Tegner.
 {: .challenge}
+
+---
 
 ## Compilers on Beskow (Cray XC40)
 
