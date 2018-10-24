@@ -181,26 +181,34 @@ $ sacctmgr show User <username>
 > [here](https://pdc-web-01.csc.kth.se/files/support/files/scale.c)
 > and paste to a file named `scale.c`.
 >
-> 2. Compile the code by `gcc scale.c -fopenmp -o scale`.
+> 2. Submit a job with a script containing the following lines
 >
-> 3. Run the code by `./scale 2 10000000` where 2 is number of threads
-> and 10000000 is number of integration points.
+>    ```
+>    gcc scale.c -fopenmp -o scale
+>    
+>    echo Strong scaling test
+>    ./scale  1  10000000
+>    ./scale  2  10000000
+>    ./scale  4  10000000
+>    ./scale  8  10000000
+>    ./scale 16  10000000
+>    ./scale 24  10000000
+>    ./scale 48  10000000
+>    
+>    echo Weak scaling test
+>    ./scale  1  10000000
+>    ./scale  2  20000000
+>    ./scale  4  40000000
+>    ./scale  8  80000000
+>    ./scale 16 160000000
+>    ./scale 24 240000000
+>    ./scale 48 480000000
+>    ```
 >
-> 4. Run the following to test strong scaling.
->    - `./scale 1 10000000`
->    - `./scale 2 10000000`
->    - `./scale 4 10000000`
->    - `./scale 8 10000000`
->    - `./scale 16 10000000`
+>    Here, `./scale` is followed by two numbers. The first one is the number of threads,
+>    and the second one is the number of integration points.
 >
-> 5. Run the following to test weak scaling.
->    - `./scale 1 10000000`
->    - `./scale 2 20000000`
->    - `./scale 4 40000000`
->    - `./scale 8 80000000`
->    - `./scale 16 160000000`
->
-> 6. Plot your results.
+> 3. Plot your results.
 {: .challenge}
 
 ### Benchmark before you optimize
