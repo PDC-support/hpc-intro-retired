@@ -18,10 +18,13 @@ keypoints:
 
 ### Job arrays
 
-Suppose you have 100 jobs residing in folders `data0`, `data1`, ..., `data99`. 
-Below is an example of a job array, in which 100 separate jobs are executed in one shot 
-in the corresponding directories. Job arrays are useful to manage large numbers of jobs 
-which run on the same number of nodes and take roughly the same time to complete.
+In scientific computing, one often needs to run a number of calculations of the
+same type. The SLURM job arrays are useful to manage many jobs which run on the
+same number of nodes and take roughly the same time to complete.
+
+Suppose you have 100 jobs residing in folders `data0`, `data1`, ..., `data99`.
+Below is an example of a job array, in which 100 separate jobs are executed in
+one shot in the corresponding directories.
 
 ```bash
 #!/bin/bash -l
@@ -29,13 +32,16 @@ which run on the same number of nodes and take roughly the same time to complete
 
 # Set the allocation to be charged for this job
 # not required if you have set a default allocation
-#SBATCH -A <201X-X-XX>
+#SBATCH -A edu18.prace
+
+# Use the reservation for the workshop
+#SBATCH --reservation=prace-2018-10-25
 
 # The name of the script is myjob
 #SBATCH -J myjobarray
 
-# 10 hours wall-clock time will be given to this job
-#SBATCH -t 10:00:00
+# 1 hour wall-clock time will be given to this job
+#SBATCH -t 01:00:00
 
 # Number of nodes used for each individual job
 #SBATCH --nodes=1
@@ -53,18 +59,18 @@ echo "Running simulation in $CURRENT_DIR"
 
 # Go to job folder
 cd $CURRENT_DIR
-echo "Simulation in $CURRENT_DIR" > result
+echo "Simulation in $CURRENT_DIR" > my_output_file
 
 # Run individual job
-aprun -n 32 ./myexe > my_output_file 2>&1
+mpirun -n 32 ./myexe >> my_output_file
 ```
-
 
 ### Job dependencies
 
 Sometimes you may want one job to start after another job has been completed, for example to 
 use the output of the first job as input to the second job.
 This can be accomplished with *job dependencies*.   
+
 Let's say we have two jobs, A and B. We want job B to start after job A has successfully completed.
 
 We first start job A by submitting it:
@@ -134,9 +140,12 @@ $ sacctmgr show User <username>
 
 ### [Ahmdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law)
 
-  Speedup `S_P` on `P` processors is restricted by (f is the sequential fraction)  
+  Theoretical speedup is restricted by
+
   <img src="../img/eq_ahmdahl.png" alt="scheduling" width="200" align="middle"> 
 
+  where _p_ is the proportion of execution time that is subject to parallelization, and _s_
+  is the speedup of that part.
 
   > If a program needs 20 hours using a single processor core, and a particular part of the 
   > program which takes one hour to execute cannot be parallelized, while the remaining 
@@ -181,33 +190,43 @@ $ sacctmgr show User <username>
 > [here](https://pdc-web-01.csc.kth.se/files/support/files/scale.c)
 > and paste to a file named `scale.c`.
 >
-> 2. Compile the code by `gcc scale.c -fopenmp -o scale`.
+> 2. Submit a job with a script containing the following lines
 >
-> 3. Run the code by `./scale 2 10000000` where 2 is number of threads
-> and 10000000 is number of integration points.
+>    ```
+>    gcc scale.c -fopenmp -o scale
+>    
+>    echo Strong scaling test
+>    ./scale  1  10000000
+>    ./scale  2  10000000
+>    ./scale  4  10000000
+>    ./scale  8  10000000
+>    ./scale 16  10000000
+>    ./scale 24  10000000
+>    ./scale 48  10000000
+>    
+>    echo Weak scaling test
+>    ./scale  1  10000000
+>    ./scale  2  20000000
+>    ./scale  4  40000000
+>    ./scale  8  80000000
+>    ./scale 16 160000000
+>    ./scale 24 240000000
+>    ./scale 48 480000000
+>    ```
 >
-> 4. Run the following to test strong scaling.
->    - `./scale 1 10000000`
->    - `./scale 2 10000000`
->    - `./scale 4 10000000`
->    - `./scale 8 10000000`
->    - `./scale 16 10000000`
+>    Here, `./scale` is followed by two numbers. The first one is the number of threads,
+>    and the second one is the number of integration points.
 >
-> 5. Run the following to test weak scaling.
->    - `./scale 1 10000000`
->    - `./scale 2 20000000`
->    - `./scale 4 40000000`
->    - `./scale 8 80000000`
->    - `./scale 16 160000000`
->
-> 6. Plot your results.
+> 3. Plot your results.
 {: .challenge}
 
 ### Benchmark before you optimize
 
+  > Premature optimization is the root of all evil.
+
 - Before attempting to optimize your own code, you should profile it!
 - Typically, most of the runtime is spent in a few functions/subroutines, focus your optimization efforts on those.
-- Excellent profiling tools exist, use them! 
+- Excellent profiling tools (e.g. **ARM Forge**) exist, use them! 
 
 ### Calibrate your jobs
 - Uncalibrated experimental procedures are considered bad science.
@@ -244,15 +263,7 @@ Reproducible workflows enable you to figure out precisely what data and what cod
  - Allow automated recreation of data.
  - Implemented in many [workflow management tools](https://github.com/common-workflow-language/common-workflow-language/wiki/Existing-Workflow-systems).
 
-#### Using [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html) to automate workflow
-
-- Workflows defined in Python scripts extended by declarative code to define rules 
-  - anything that can be done in Python can be done with Snakemake
-- Rules work much like in GNU Make
-- Possible to define isolated software environments per rule
-- Also possible to run workflows in Docker or Singularity containers
-- Workflows can be pushed out to run on a cluster or in the cloud without modifications to scale up
-
+---
 
 # Getting help
 
