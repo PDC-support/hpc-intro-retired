@@ -29,13 +29,16 @@ which run on the same number of nodes and take roughly the same time to complete
 
 # Set the allocation to be charged for this job
 # not required if you have set a default allocation
-#SBATCH -A <201X-X-XX>
+#SBATCH -A edu18.prace
+
+# Use the reservation for the workshop
+#SBATCH --reservation=prace-2018-10-25
 
 # The name of the script is myjob
 #SBATCH -J myjobarray
 
 # 10 hours wall-clock time will be given to this job
-#SBATCH -t 10:00:00
+#SBATCH -t 01:00:00
 
 # Number of nodes used for each individual job
 #SBATCH --nodes=1
@@ -53,12 +56,11 @@ echo "Running simulation in $CURRENT_DIR"
 
 # Go to job folder
 cd $CURRENT_DIR
-echo "Simulation in $CURRENT_DIR" > result
+echo "Simulation in $CURRENT_DIR" > my_output_file
 
 # Run individual job
-aprun -n 32 ./myexe > my_output_file 2>&1
+mpirun -n 32 ./myexe >> my_output_file
 ```
-
 
 ### Job dependencies
 
