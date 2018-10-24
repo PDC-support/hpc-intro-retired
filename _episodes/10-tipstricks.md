@@ -18,10 +18,13 @@ keypoints:
 
 ### Job arrays
 
-Suppose you have 100 jobs residing in folders `data0`, `data1`, ..., `data99`. 
-Below is an example of a job array, in which 100 separate jobs are executed in one shot 
-in the corresponding directories. Job arrays are useful to manage large numbers of jobs 
-which run on the same number of nodes and take roughly the same time to complete.
+In scientific computing, one often needs to run a number of calculations of the
+same type. The SLURM job arrays are useful to manage many jobs which run on the
+same number of nodes and take roughly the same time to complete.
+
+Suppose you have 100 jobs residing in folders `data0`, `data1`, ..., `data99`.
+Below is an example of a job array, in which 100 separate jobs are executed in
+one shot in the corresponding directories.
 
 ```bash
 #!/bin/bash -l
@@ -67,6 +70,7 @@ mpirun -n 32 ./myexe >> my_output_file
 Sometimes you may want one job to start after another job has been completed, for example to 
 use the output of the first job as input to the second job.
 This can be accomplished with *job dependencies*.   
+
 Let's say we have two jobs, A and B. We want job B to start after job A has successfully completed.
 
 We first start job A by submitting it:
@@ -136,9 +140,11 @@ $ sacctmgr show User <username>
 
 ### [Ahmdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law)
 
-  Speedup `S_P` on `P` processors is restricted by (f is the sequential fraction)  
+  Theoretical speedup is restricted by
   <img src="../img/eq_ahmdahl.png" alt="scheduling" width="200" align="middle"> 
 
+  where _p_ is the proportion of execution time that is subject to parallelization, and _s_
+  is the speedup of that part.
 
   > If a program needs 20 hours using a single processor core, and a particular part of the 
   > program which takes one hour to execute cannot be parallelized, while the remaining 
@@ -215,9 +221,11 @@ $ sacctmgr show User <username>
 
 ### Benchmark before you optimize
 
+> Premature optimization is the root of all evil.
+
 - Before attempting to optimize your own code, you should profile it!
 - Typically, most of the runtime is spent in a few functions/subroutines, focus your optimization efforts on those.
-- Excellent profiling tools exist, use them! 
+- Excellent profiling tools (e.g. **ARM Forge**) exist, use them! 
 
 ### Calibrate your jobs
 - Uncalibrated experimental procedures are considered bad science.
