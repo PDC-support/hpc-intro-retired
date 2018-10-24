@@ -86,6 +86,22 @@ We can also tell Slurm to run job B, even if job A fails:
 $ sbatch --dependency=afterany:<jobID_A> jobB.sh
 ```
 
+> ## Submit a small job array
+>
+> The example job array script is written for Beskow.
+> Edit the script so that it can be run on Tegner with a small number of jobs.
+> - ask for a short time (e.g. `#SBATCH -t 00:05:00`)
+> - request a small job array (e.g. `#SBATCH -a 0-4`),
+> - run a small calculation (e.g. `srun -n 1 python -c "print (${SLURM_ARRAY_TASK_ID}**2)"`)
+{: .challenge}
+
+> ## Make use of job dependency
+>
+> 1. Submit a job that sleeps for 30 seconds and then writes a message to a file.
+>    - `sleep 30 && echo "hello" > file.txt`
+> 2. Submit a second job with ``--dependency=afterok:<jobID>`` to print the message in the file. 
+>    - `cat file.txt`
+{: .challenge}
 
 ### Setting a default allocation
 
@@ -158,6 +174,33 @@ $ sacctmgr show User <username>
 
  - **Play around with job parameters/algorithms/settings** and see if you can improve the parallel efficiency.
 
+> ## Measure the scaling of a small program
+>
+> 1. Copy the C code for computing &pi; from 
+> [here](https://pdc-web-01.csc.kth.se/files/support/files/scale.c)
+> and paste to a file named `scale.c`.
+>
+> 2. Compile the code by `gcc scale.c -fopenmp -o scale`.
+>
+> 3. Run the code by `./scale 2 10000000` where 2 is number of threads
+> and 10000000 is number of integration points.
+>
+> 4. Run the following to test strong scaling.
+>    - `./scale 1 10000000`
+>    - `./scale 2 10000000`
+>    - `./scale 4 10000000`
+>    - `./scale 8 10000000`
+>    - `./scale 16 10000000`
+>
+> 5. Run the following to test weak scaling.
+>    - `./scale 1 10000000`
+>    - `./scale 2 20000000`
+>    - `./scale 4 40000000`
+>    - `./scale 8 80000000`
+>    - `./scale 16 160000000`
+>
+> 6. Plot your results.
+{: .challenge}
 
 ### Benchmark before you optimize
 
