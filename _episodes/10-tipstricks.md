@@ -2,7 +2,7 @@
 layout: episode
 title: "Tips and tricks for efficient HPC usage"
 teaching: 20
-exercises: 0
+exercises: 10
 questions:
   - "What other nice features does SLURM offer?"
   - "What useful methods can help me use HPC more efficiently?"
@@ -202,7 +202,6 @@ $ sacctmgr show User <username>
 >    ./scale  8  10000000
 >    ./scale 16  10000000
 >    ./scale 24  10000000
->    ./scale 48  10000000
 >    
 >    echo Weak scaling test
 >    ./scale  1  10000000
@@ -211,7 +210,6 @@ $ sacctmgr show User <username>
 >    ./scale  8  80000000
 >    ./scale 16 160000000
 >    ./scale 24 240000000
->    ./scale 48 480000000
 >    ```
 >
 >    Here, `./scale` is followed by two numbers. The first one is the number of threads,
