@@ -254,15 +254,7 @@ Reproducible workflows enable you to figure out precisely what data and what cod
  - Allow automated recreation of data.
  - Implemented in many [workflow management tools](https://github.com/common-workflow-language/common-workflow-language/wiki/Existing-Workflow-systems).
 
-#### Using [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html) to automate workflow
-
-- Workflows defined in Python scripts extended by declarative code to define rules 
-  - anything that can be done in Python can be done with Snakemake
-- Rules work much like in GNU Make
-- Possible to define isolated software environments per rule
-- Also possible to run workflows in Docker or Singularity containers
-- Workflows can be pushed out to run on a cluster or in the cloud without modifications to scale up
-
+---
 
 # Getting help
 
