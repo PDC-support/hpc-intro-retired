@@ -59,13 +59,6 @@ echo "Simulation in $CURRENT_DIR" > result
 aprun -n 32 ./myexe > my_output_file 2>&1
 ```
 
-> ## Submit a small job array
->
-> Edit the above job array script such that it
-> - asks for a short time (e.g. 2 minutes),
-> - requests a small job array (e.g. ``#SBATCH -a 0-4``),
-> - and runs a small calculation (e.g. ``aprun -n 1 python -c "print (${SLURM_ARRAY_TASK_ID}**2)"``)
-{: .challenge}
 
 ### Job dependencies
 
@@ -93,12 +86,6 @@ We can also tell Slurm to run job B, even if job A fails:
 $ sbatch --dependency=afterany:<jobID_A> jobB.sh
 ```
 
-> ## Make use of job dependency
->
-> Submit a job that sleeps for 30 seconds and then writes a message to a file (e.g. ``echo "hello" > file.txt``).
->
-> Submit a second job with ``--dependency=afterok:<jobID>`` to print the message in the file (e.g. ``cat file.txt``).
-{: .challenge}
 
 ### Setting a default allocation
 
@@ -130,8 +117,9 @@ $ sacctmgr show User <username>
 
 ### [Ahmdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law)
 
-  Speedup $S_P$ on $P$ processors is restricted by (f is the sequential fraction)  
-  $S_P = \frac{1}{1 + (P-1)f} < \frac{1}{f}$
+  Speedup `S_P` on `P` processors is restricted by (f is the sequential fraction)  
+  <img src="../img/eq_ahmdahl.png" alt="scheduling" width="200" align="middle"> 
+
 
   > If a program needs 20 hours using a single processor core, and a particular part of the 
   > program which takes one hour to execute cannot be parallelized, while the remaining 
@@ -170,15 +158,6 @@ $ sacctmgr show User <username>
 
  - **Play around with job parameters/algorithms/settings** and see if you can improve the parallel efficiency.
 
-> ## Measure the scaling of a small program
->
-> Download the C code for computing &pi; from 
-> [here](https://pdc-web-01.csc.kth.se/files/support/files/scale.c)
->
-> Compile and run the code with different number of threads and number of integration points.
->
-> How would you measure strong scaling and weak scaling?
-{: .challenge}
 
 ### Benchmark before you optimize
 
