@@ -97,9 +97,10 @@ $ sbatch --dependency=afterany:<jobID_A> jobB.sh
 > Edit the example job array script such that it
 > - asks for a short time (e.g. `#SBATCH -t 00:05:00`)
 > - requests a small job array (e.g. `#SBATCH -a 0-4`)
+> - creates the folder if it doesn't exist (e.g. `mkdir -p $CURRENT_DIR`)
 > - runs a small calculation (e.g. `srun -n 1 python -c "print (${SLURM_ARRAY_TASK_ID}**2)"`)
 >
-> Create a series of folders (`data0`, `data1`, `data2`, `data3`, `data4`) and submit the job.
+> Submit the job and examine the output in different folders.
 {: .challenge}
 
 > ## Make use of job dependency
