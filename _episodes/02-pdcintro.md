@@ -112,11 +112,13 @@ Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tet
 - Introduction to HPC held in August every year (MPI, OpenMP, GPU, HPC architecture, profiling...)
 
 **Various courses and workshops** 
+- [HPC tools for the Modern Era (Oct 25-26 2018)](https://www.pdc.kth.se/about/calendar/pdc-prace-workshop-hpc-tools-for-the-modern-era-1.842504?date=2018-10-25&orgdate=2018-10-01&length=1&orglength=31)
 - Programming with GPGPU
 - Distributed and Parallel Computing 
 - Cloud Computing
 - Software Development Tools
-- CodeRefinery workshops
+- [Software Carpentry workshops](https://software-carpentry.org/)
+- [CodeRefinery workshops](https://coderefinery.org/)
 
 **PDC Pub and Open House**
 - Held in spring every year
@@ -131,15 +133,9 @@ Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tet
 **PDC/SeRC seminar series**
 - Monthly lunch-time seminars given by leading e-Science researchers on a wide range of topics
 
-**PDC/PRACE workshop "HPC tools for the Modern Era" (Oct 25-26)**
-- HPC tips and tricks
-- Jupyter Notebooks
-- Singularity Containers
-- Allinea/Arm Profiling tools
+**Practical Deep Learning (March 20-21, 2019)**
+- Practical introduction to deep learning, convolutional and recurrent neural networks, GPU computing, and tools to train and apply deep neural networks
 
-<a href="https://www.pdc.kth.se/about/events/workshops/pdc-prace-workshop-hpc-tools-for-the-modern-era-1.842504">
-   <img src="../img/PDC-PRACE-workshop.jpg" alt="Application experts" width="450" align="middle"> 
-</a>
 
 All events can be found on the [events calendar](https://www.pdc.kth.se/about/events).
 
