@@ -103,7 +103,7 @@ Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tet
 - Provide training.
 
 <a href="https://www.pdc.kth.se/hpc-services/application-experts-1.737439">
-   <img src="../img/AEs.png" alt="Application experts" width="550" align="middle"> 
+   <img src="../img/AEs_jan2019.png" alt="Application experts" width="550" align="middle"> 
 </a>
 
 ## Training and other activites at PDC
