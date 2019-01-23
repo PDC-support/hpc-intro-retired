@@ -4,14 +4,17 @@ title: "Job scheduling"
 teaching: 10
 exercises: 10
 questions:
-  - "What is Slurm?"
+  - "What is SLURM?"
   - "What's the difference between interactive and batch jobs?"
+  - "What other nice features does SLURM offer?"
 objectives:
   - "Understand the difference between interactive and batch jobs"
   - "Learn to write and submit batch scripts"
+  - "Learn about job arrays and job dependencies"
 keypoints:
-  - "Slurm is a powerful job scheduler used in clusters around the world"
+  - "SLURM is a powerful job scheduler used in clusters around the world"
   - "Jobs on PDC clusters can be either be *interactive* (`salloc`) or based on *batch* scripts (`sbatch`)"
+  - "Job arrays and dependencies are SLURM features that sometimes come in handy"
 ---
 
 The computational resources on a supercomputer are shared simultaneously between 
@@ -23,31 +26,31 @@ is maximally utilized?
 
 <img src="../img/scheduling_jobs.png" alt="scheduling" width="600" align="middle"> 
 
-## What is Slurm?
+## What is SLURM?
 
-[Slurm](https://slurm.schedmd.com/) is an open source, 
+[SLURM](https://slurm.schedmd.com/) is an open source, 
 fault-tolerant, and highly scalable cluster management and job scheduling system:
 - Allocates access to resources for some duration of time.
 - Provides a framework for starting, executing, and monitoring work on the set of allocated nodes.
 - Arbitrates contention for resources by managing a queue.
 
-How does Slurm ensure that resources are shared in a fair and balanced way 
+How does SLURM ensure that resources are shared in a fair and balanced way 
 between competing users?   
-A key quantity is the *Job Priority*, which Slurm computes based on
+A key quantity is the *Job Priority*, which SLURM computes based on
 - **Age:** The length of time a job has been waiting.
 - **Fair-share:** The difference between the portion of the computing resource 
   that has been promised and the amount of resources that has been consumed.
 - **Job size:** The number of nodes and duration of time a job is allocated.
 - **Partition:** A factor associated with each node partition.
 
-## How is the Slurm scheduler used?
+## How is the SLURM scheduler used?
 
-*Jobs* can be run on PDC clusters using Slurm in two different ways:
+*Jobs* can be run on PDC clusters using SLURM in two different ways:
 - **Batch jobs** 
   - The user prepares a *batch script* with directives to 
-    Slurm about the number of nodes and time duration requested for the job, along
+    SLURM about the number of nodes and time duration requested for the job, along
     with commands which perform the desired calculations.
-  - The script is *submitted* to the batch queue, Slurm evaluates its priority 
+  - The script is *submitted* to the batch queue, SLURM evaluates its priority 
     and starts executing it when it reaches the front of the queue.
   - When the job is finished, the user retrieves the output files.
 - **Interactive jobs** 
@@ -57,27 +60,27 @@ A key quantity is the *Job Priority*, which Slurm computes based on
   - When the job reaches the front of the queue, the user gets access to the 
     resources and can run commands or open GUIs to perform the desired calculations.
 
-### Slurm commands
+### SLURM commands
 
-To work with the Slurm scheduler, you need to learn a few Slurm commands. The 
-first five commands in the table below are typically all you need to use Slurm,
+To work with the SLURM scheduler, you need to learn a few SLURM commands. The 
+first five commands in the table below are typically all you need to use SLURM,
 while the remaining four can be useful but are not needed.
 
 | Command	| Action	|
 | ------------- | ------------- |
 | `sbatch <script>`     | Submit batch script to queue |
 | `salloc <resource specs>`     | Request interactive resources |
-| `squeue [-u <username>]`     | Inspect the Slurm queue       |
+| `squeue [-u <username>]`     | Inspect the SLURM queue       |
 | `srun <script>`       | Initiate job |
 | `scancel <job-id>`    | Cancel running job            |
 | ------------- | ------------- |
-| `scontrol` | View and modify Slurm config and state |
+| `scontrol` | View and modify SLURM config and state |
 | `scontrol show job <job-id>` | Show details about job |
-| `sinfo`              | View Slurm nodes and partitions |
+| `sinfo`              | View SLURM nodes and partitions |
 | `sacct`              | Get info on running or completed jobs |
 | ------------- | ------------- |
 
-### Slurm environment variables
+### SLURM environment variables
 
 A number of environment variables get defined when a job starts executing.
 These are not necessary to know about or use, but they can be convenient for, e.g., 
@@ -98,7 +101,7 @@ writing general batch scripts that can work on different clusters.
 
 We will now explore different ways to interact with the scheduler and see 
 how to run interactive jobs. We will be working on Tegner.   
-Let's first inspect Slurm nodes and partitions:
+Let's first inspect SLURM nodes and partitions:
 ```
 [tegner]$ sinfo
 
@@ -160,7 +163,7 @@ When your allocation is granted, *a new terminal session starts*.
 >   running `hostname` (without `srun`), is it what you expected?**
 {: .challenge}
 
-> ## What Slurm environment variables have been set? 
+> ## What SLURM environment variables have been set? 
 >
 > - **Try typing `echo $SLUR` and press `Tab` key a couple of times for autocompletion.**
 > - **Print out (`echo`) a few of the variables.**
@@ -171,7 +174,7 @@ Let's now stop our interactive session and move on to batch jobs.
 ### Batch job scripts
 
 The most common usage of supercomputer resources is through batch scripts.
-Here is an basic batch script which contains a minimal number of Slurm options.
+Here is an basic batch script which contains a minimal number of SLURM options.
 
 ```bash
 #!/bin/bash -l
@@ -198,7 +201,7 @@ mpirun -n 48 ./myexe > my_output_file 2>&1
 - All `#SBATCH` options need to be at the top of the script.
 - The environment for the job (e.g. modules, environment variables) needs to be specified.
   - **What modules would you need to load on Tegner in this case?**
-- When the script completes (i.e. when `./myexe` finishes) an exit status is returned to Slurm and the job stops (regardless of how much time is left of the requested time)
+- When the script completes (i.e. when `./myexe` finishes) an exit status is returned to SLURM and the job stops (regardless of how much time is left of the requested time)
 - Note that when running on Beskow, use `aprun -n <nproc>` instead of `mpirun -n <nproc>`.
 
 
@@ -217,7 +220,7 @@ mpirun -n 48 ./myexe > my_output_file 2>&1
 > 
 > When this script gets executed, it will run `hello_mpi` and `hostname` on a 
 > compute node allocated for your job, and then "sleep" for 60 seconds.
-> - **Submit this script to the Slurm queue using the `sbatch` command.**
+> - **Submit this script to the SLURM queue using the `sbatch` command.**
 > - **When you have submitted it, run `squeue -u $USER` to monitor the queue.**
 >   - **What is the job-ID of your running job? Try using it with `scontrol show job <job-ID>`.** 
 >   - **What does the `ST` column mean?**
@@ -225,9 +228,9 @@ mpirun -n 48 ./myexe > my_output_file 2>&1
 > - **After the job finishes, inspect the output files of your job.**
 {: .challenge}
 
-### Other useful Slurm options
+### Other useful SLURM options
 
-We have seen a few options to Slurm that can be used as flags on the command line 
+We have seen a few options to SLURM that can be used as flags on the command line 
 with the `salloc` command, or as options to `#SBATCH` in batch scripts. Here's 
 a longer list which is still far from exhaustive. 
 Some work for both `salloc` and `sbatch`, others only for `sbatch`.
@@ -240,9 +243,9 @@ Some work for both `salloc` and `sbatch`, others only for `sbatch`.
 | `-J` or `--job-name`      | Job name |
 | `-o` or `--output` (`sbatch` only) | Filename for standard output |
 | `-e` or `--error` (`sbatch` only) | Filename for standard error |
-| `--mail-type`       | What info Slurm should send by email (NONE, BEGIN, END, FAIL, ALL) |
+| `--mail-type`       | What info SLURM should send by email (NONE, BEGIN, END, FAIL, ALL) |
 | `--mail-user`  | Email address if other than your address set in `$USER/.profile` |
-| `--reservation` | Name of a Slurm reservation (used e.g. for courses) |
+| `--reservation` | Name of a SLURM reservation (used e.g. for courses) |
 | `-a` or `--array` (`sbatch` only) | Submit a job array (see [next episode](../09-tipstricks))|
 | `--ntasks-per-node`  | Request that ntasks be invoked on each node |
 | `-c` or `--cpus-per-task` | How many CPUs each task should have |
@@ -255,3 +258,122 @@ Some work for both `salloc` and `sbatch`, others only for `sbatch`.
 | ------------------------- | ---------------------- |
 | `--ntasks-per-node=32` | Request a 32-core Haswell node on Beskow |
 | `--ntasks-per-node=36` | Request a 36-core Broadwell node on Beskow |
+
+### Setting a default allocation
+
+If you want to avoid having to set `-A <20XX-YY-ZZ>` in all your batch job scripts and when 
+you run `salloc`, you can set a default SLURM account:
+```bash
+$ sacctmgr modify user <username> set defaultaccount=<20XX-YY-ZZ> where cluster=Beskow
+```
+To see if a default account is set, run
+```bash
+$ sacctmgr show User <username>
+```
+
+> Note that `sacctmgr` only works on Beskow.
+
+### Being friends with SLURM
+  - Avoid wide short jobs (massively parallel but very short runtime).
+  - Avoid massive output to STDOUT.
+  - Try to provide a good estimate of the job duration before submitting.
+
+---
+
+### (Optional) Job arrays
+
+In scientific computing, one often needs to run a number of calculations of the
+same type. SLURM *job arrays* are useful to manage many jobs which run on the
+same number of nodes and take roughly the same time to complete.
+
+Suppose you have 100 jobs residing in folders `data0`, `data1`, ..., `data99`.
+Below is an example of a job array, in which 100 separate jobs are executed in
+one shot in the corresponding directories.
+
+```bash
+#!/bin/bash -l
+# The -l above is required to get the full environment with modules
+
+# Set the allocation to be charged for this job
+# not required if you have set a default allocation
+#SBATCH -A edu18.prace
+
+# Use the reservation for the workshop
+#SBATCH --reservation=prace-2018-10-25
+
+# The name of the script is myjob
+#SBATCH -J myjobarray
+
+# 1 hour wall-clock time will be given to this job
+#SBATCH -t 01:00:00
+
+# Number of nodes used for each individual job
+#SBATCH --nodes=1
+
+#SBATCH -e error_file.e
+#SBATCH -o output_file.o
+
+# Indices of individual jobs in the job array
+#SBATCH -a 0-99
+
+# Fetch one directory from the array based on the task ID
+# Note: index starts from 0
+CURRENT_DIR=data${SLURM_ARRAY_TASK_ID}
+echo "Running simulation in $CURRENT_DIR"
+
+# Go to job folder
+cd $CURRENT_DIR
+echo "Simulation in $CURRENT_DIR" > my_output_file
+
+# Run individual job
+mpirun -n 32 ./myexe >> my_output_file
+```
+
+---
+
+### (Optional) Job dependencies
+
+Sometimes you may want one job to start after another job has been completed, for example to 
+use the output of the first job as input to the second job.
+This can be accomplished with *job dependencies*.   
+
+Let's say we have two jobs, A and B. We want job B to start after job A has successfully completed.
+
+We first start job A by submitting it:
+```bash
+$ sbatch <jobA.sh>
+```
+We then make note of the assigned job ID for job A, and submit job B with the added 
+condition that it only starts after job A has successfully completed:
+```bash
+$ sbatch --dependency=afterok:<jobID_A> jobB.sh
+```
+If we want job B to start after several other jobs have completed, 
+we can specify additional jobs, using a ':' as a delimiter:
+```bash
+$ sbatch --dependency=afterok:<jobID_A>:<jobID_C>:<jobID_D> jobB.sh
+```
+We can also tell SLURM to run job B, even if job A fails:
+```bash
+$ sbatch --dependency=afterany:<jobID_A> jobB.sh
+```
+
+> ## Submit a small job array
+>
+> Edit the example job array script such that it
+> - asks for a short time (e.g. `#SBATCH -t 00:05:00`)
+> - requests a small job array (e.g. `#SBATCH -a 0-4`)
+> - creates the folder if it doesn't exist (e.g. `mkdir -p $CURRENT_DIR`)
+> - runs a small calculation (e.g. `srun -n 1 python -c "print (${SLURM_ARRAY_TASK_ID}**2)"`)
+>
+> Submit the job and examine the output in different folders.
+{: .challenge}
+
+> ## Make use of job dependency
+>
+> 1. Submit a job that sleeps for 30 seconds and then writes a message to a file.
+>    - `sleep 30 && echo "hello" > file.txt`
+> 2. Submit a second job with ``--dependency=afterok:<jobID>`` to print the message in the file. 
+>    - `cat file.txt`
+{: .challenge}
+
