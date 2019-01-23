@@ -207,3 +207,11 @@ more general than the `chmod` command which only changes file permissions.
 {: .challenge}
 
 
+---
+
+## Being friends with the file system when running jobs
+
+  - Avoid creating very many small files (it slows down Lustre).
+  - Try instead to write to few large files.
+  - Always use the Lustre file system, not AFS (AFS isn't even available on Beskow compute nodes).
+
