@@ -10,8 +10,8 @@ objectives:
   - "Learn how to use Midnight Commander, GNU Screen and tmux"
   - "Learn how to use Jupyter notebooks in an HPC environment"
 keypoints:
-  - "kp1"
-  - "kp2"
+  - "MidnightCommander, GNU screen, tmux and Jupyter offer alternative ways 
+    to interact with HPC systems"
 ---
 
 # HPC accessibility
@@ -112,25 +112,30 @@ an HPC environment, but is it absolutely essential? Are there any other
 more high-level user interfaces out there?
 
 PDC [offers the possibility of running Jupyter on PDC resources](https://www.kth.se/blogs/pdc/2019/01/using-jupyter-notebooks-to-manage-slurm-jobs/), and 
-connecting to the running server from your own browser. With the help 
-of a simple package installed into Python environments on Beskow and 
-Tegner, you will then be able to submit and monitor SLURM batch jobs 
-and do light-weight pre- and postprocessing work, as well as interactive 
-analysis on-the-fly during.
+connecting to the running server from your own browser. 
 
-### Security and configuration
 
-Before starting to use Jupyter at PDC, we have to make sure that the 
-connection between our browser and the Jupyter server running on the 
-Beskow/Tegner login node is secure. The following three steps need to be 
-performed once, before starting our first session:
+> ## Configuring Jupyter on PDC
+> 
+> Before starting to use Jupyter at PDC, we have to make sure that the 
+> connection between our browser and the Jupyter server running on the 
+> Beskow/Tegner login node is secure. 
+> 
+> - **Go through the three configuration steps listed in [the software 
+>   documentation page for Jupyter](https://www.pdc.kth.se/software/software/Jupyter-Notebooks/index.html) (choose either Beskow or Tegner)**
+{: .challenge}
 
-- Generating a Jupyter configuration file.
-- Setting a strong Jupyter password.
-- Setting up a self-signed SSL certificate to enable https.
-
-A detailed step-by-step guide on how to do these is provided in the 
-[PDC software documentation pages](https://www.pdc.kth.se/software/software/Jupyter-Notebooks.)
+> ## Managing SLURM jobs from Jupyter
+>
+> With the help of a simple package installed into Python environments on 
+> Beskow and Tegner, it is possible to submit and monitor 
+> SLURM batch jobs and do light-weight pre- and postprocessing work, 
+> as well as interactive on-the-fly analysis during a running job, from 
+> within a Jupyter notebook.
+>
+> - **Go through the steps on [this PDC blog post](https://www.kth.se/blogs/pdc/2019/01/using-jupyter-notebooks-to-manage-slurm-jobs/). You will learn how 
+>   to submit, monitor and interactively analyze a running job.**
+{: .challenge}
 
 
 
