@@ -111,6 +111,27 @@ Knowing Linux shell scripting makes life simpler when working in
 an HPC environment, but is it absolutely essential? Are there any other 
 more high-level user interfaces out there?
 
+PDC [offers the possibility of running Jupyter on PDC resources](https://www.kth.se/blogs/pdc/2019/01/using-jupyter-notebooks-to-manage-slurm-jobs/), and 
+connecting to the running server from your own browser. With the help 
+of a simple package installed into Python environments on Beskow and 
+Tegner, you will then be able to submit and monitor SLURM batch jobs 
+and do light-weight pre- and postprocessing work, as well as interactive 
+analysis on-the-fly during.
+
+### Security and configuration
+
+Before starting to use Jupyter at PDC, we have to make sure that the 
+connection between our browser and the Jupyter server running on the 
+Beskow/Tegner login node is secure. The following three steps need to be 
+performed once, before starting our first session:
+
+- Generating a Jupyter configuration file.
+- Setting a strong Jupyter password.
+- Setting up a self-signed SSL certificate to enable https.
+
+A detailed step-by-step guide on how to do these is provided in the 
+[PDC software documentation pages](https://www.pdc.kth.se/software/software/Jupyter-Notebooks.)
+
 
 
 
