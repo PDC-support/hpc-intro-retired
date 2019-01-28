@@ -19,8 +19,13 @@ keypoints:
 > This material is adopted from [this course material developed at Aalto, Finland](https://scicomp.aalto.fi/training/linux-shell-tutorial.html). Sources [can be found here](https://github.com/AaltoScienceIT/scicomp-docs/blob/master/training/linux-shell-tutorial.rst)
 
 This course consists of two parts: 
-- Linux Shell Basics 
-- Linux Shell Scripting. 
+- [Linux Shell Basics](#basics)
+  - [Processes and files](#processes-files)
+  - [Interactive usage](#interactive-usage)
+- [Linux Shell Scripting](#scripting)
+  - [BASH magic](#bash-magic)
+  - [Programmatic logic](#prog-logic)
+  - [Arrays, traps, input and more](#arrays-traps)
 
 The first covers introductory level shell usage (which also is a backdoor
 introduction to Linux basics). The second covers actual BASH
@@ -28,40 +33,41 @@ scripting, using learning by doing.
 
 Starred exercises (*) are for advanced users who would like further stimulation.
 
-## 1. Linux Shell Basics
+---
 
-### 1.1 Processes and files
+## Linux Shell Basics {#basics}
+
+### Processes and files {#processes-files}
 
 #### First touch: getting a BASH shell
 
 
 Set yourself up with a BASH shell.  Connect to a server or open on your own computer.
-Examples and demos given during the lecture are done on Triton, though should work
-on all other Linux installations.
+Examples and demos given during the lecture are done on Tegner, 
+though should work on all other Linux installations.
 
 - Linux and Mac users: just open a terminal window. If you wish you can login
-  to Triton or any other `Aalto Linux server <http://scicomp.aalto.fi/aalto/remoteaccess.html>`__.
-- Windows users: install PuTTY [#putty]_ then *SSH* to any interactive server
-  at Aalto or your department.
+  to Tegner or Beskow.
+- Windows users: [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html), follow the configuration instructions and then log in to Tegner.
 
 ---
 
 #### About the Linux Shell
 
 - A *shell* is what you get when your terminal window is open. It is a
-  command-line (CLI), an interface that interpreters and executes the
+  command-line interface (CLI), an interface that interpreters and executes
   commands.
 - The name comes from being a "shell" (layer) around the operating
   system.  It connects and binds all programs together.
 - This is the basic, raw method of using UNIX-like systems.  It may
   not be used everyday, but it's really good (necessary) for any type
   of automation and scripting - as is often needed in science, when
-  connecting pieces together, or when using Triton.
-- There are multiple shells.  This talk is about `bash
-  <https://en.wikipedia.org/wiki/Bash_(Unix_shell)>`__, which is the
-  most common one.  `zsh <https://en.wikipedia.org/wiki/Z_shell>`__ is
+  connecting pieces together, or when using HPC systems like at PDC.
+- There are multiple shells.  This talk is about 
+  [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)), which is the
+  most common one.  [zsh](https://en.wikipedia.org/wiki/Z_shell) is
   another common shell which is somewhat similar but has some more
-  powerful features.  `tcsh <https://en.wikipedia.org/wiki/Tcsh>`__ is
+  powerful features.  [tcsh](https://en.wikipedia.org/wiki/Tcsh) is
   another shell from a completely different family (the csh family),
   which has quite different syntax.
 - ``bash`` is a "Bourne shell": the "bourne-again shell".  An open source
@@ -85,8 +91,9 @@ on all other Linux installations.
 
 #### What's a UNIX process?
 
-- To understand a shell, let's first understand what processes are.
-- All programs are a process: process is a program in action.
+- To understand a shell, and what happens when we run commands, 
+  let's first understand what processes are.
+- All programs are processes: a process is a program in action.
 - Processes have:
 
   - Process ID (integer)
@@ -118,16 +125,19 @@ id
 echo $SHELL
 ```
 
-Is your default shell is a ``/bin/bash``? Login to kosh/taltta and run ``chsh -s /bin/bash``
+Is your default shell ``/bin/bash``? 
 
-Another way to find out what SHELL you are running:
+Another way to find out what shell you are running:
 
 ```bash
 ps -p $$
 ```
 
-Where am I: ``pwd`` (this shows the first piece of process
-information: current directory)
+Where am I: 
+```bash
+pwd
+``` 
+(this shows the first piece of process information: current directory)
 
 ---
 
@@ -139,7 +149,7 @@ Before you Google for the command examples, try
 man command_name
 ```
 
-Your best friend ever -- ``man`` -- collection of manuals. Type
+Your best friend ever, ``man`` is collection of manuals. Type
 */search_word* for searching through the man page.  But... if it's a
 builtin, you need to use ``help``.
 
@@ -155,20 +165,20 @@ There are two types of commands:
 - For the most part, these behave similarly, which is a good thing!
   You don't have to tell which is which.
 
-**Hint** ``type -a`` to find what is behind the name
+**Hint:** type ``type -a`` to find what is behind the name.
 
-- **echo**: prints out ``echo something to type`` # types whatever you put after
+- **echo**: prints out ``echo something to type`` # types whatever you put after.
 
-**Disable built-in command** ``enable -n echo``, after this */usr/bin/echo*
-becomes a default instead of built-in *echo*
+**Disable built-in command:** ``enable -n echo``, after this */usr/bin/echo*
+becomes a default instead of built-in *echo*.
 
 ---
 
 #### Working with processes
 
 All processes are related, a command executed in shell is a child process of
-the shell. When child process is terminated it is reported back to parent process.
-When you log out all shell child processes terminated along with the
+the shell. When a child process is terminated it is reported back to parent process.
+When you log out, all shell child processes are terminated along with the
 shell.  You can see the whole family tree with ``ps af``.
 One can kill a process or make it "nicer".
 
@@ -193,13 +203,14 @@ foreground process is directly connected to your screen and
 keyboard. A background process doesn't have input connected.  There
 can only be one foreground at a time (obviously).
 
-If you add ``&`` right after the command will send the process to
+If you add ``&`` right after the command it will send the process to
 background. Example: ``firefox --no-remote &``, and same can be done with
 any terminal command/function, like ``man pstree &``.  In the big
 picture, the ``&`` serves the same role as ``;`` to separate commands,
 but backgrounds the first and goes straight to the next.
 
-If you have already running process, you can background with Ctrl-z and then
+If you have a process already running, you can send it to background 
+with Ctrl-z and then
 ``bg``. Drawback: there is no easy way to redirect the running task
 output, so if it generates output it covers your screen.
 
@@ -211,7 +222,7 @@ Kill a foreground job: Ctrl-c
 
 **Hint:** For running X Window apps while you logged in from other
 Linux / MacOS make sure you use ``ssh -X ...`` to log in. For Windows users,
-you need to install Xming [#xming]_ on your workstation.
+you need to install [Xming](http://www.straightrunning.com/XmingNotes/).
 
 **Hint:** For immediate job-state change notifications, use ``set notify``. To automatically
 stop background processes if they try writing to the screen ``stty tostop``
@@ -238,30 +249,28 @@ Some people have their ``screen`` open forever, which just keeps
 running and never gets closed.  Wherever they are, they ssh in,
 connect, and resume right where they left off.
 
-Example: ``irssi`` on kosh / lyta
 
-
-[Lecture notes: that should be a first half, then joint hands-on/break ~30 mins]
-
-> Exercise 1.1.1
->  - for Aalto users: set your SHELL to BASH if you have not yet done so: ``chsh -s /bin/bash`` on kosh
+> ## Exercise 1.1
+> 
 >  - find out with *man* how to use *top* / *pstree* / *ps* to list all the running processes that belong to you
 >    Tip: *top* has both command line options and hot keys.
 > 
 >    - (*) see ``man ps`` and find out how to list a processes tree with ps, both
 >      all processes and only your own (but all your processes, associated with all terminals)
 > 
->  - with pgrep list all bash and then zsh sessions on kosh or triton
->  - log in to triton/kosh and run ``man ps``, send it to background, and ``logout``, then
->    log in again. Is it still there? Play with the ``screen``, run a session , then detach it
->    and log out, then log in back and get your original screen session back.
+>  - with pgrep list all bash and then zsh sessions on Tegner.
+>  - log in to Tegner and run ``man ps``, send it to background, and ``logout``, then
+>    log in again. Is it still there? Play with the ``screen``, run a session, 
+>    then detach it and log out, then log in back and get 
+>    your original screen session back.
 >  - run ``man htop``, send it to backround, and then kill it with ``kill``. Tip: one can
 >    do it by background job number or by PID.
 >  - Imagine a use case: your current ssh session got stuck and does not response. Open another
 >    ssh session to the same remote host and kill the first one. Tip: ``echo $$`` gives you current
 >    bash PID.
 > 
->    - (*) get any X Window application (firefox, xterm, etc) to run on Triton / kosh
+>    - (*) get any X Window application (firefox, xterm, etc) to run on Tegner
+{: .challenge}
   
 ---
 
@@ -271,10 +280,10 @@ Files contain data.  They have a name, permissions, owner
 (user+group), contents, and some other metadata.
 
 Filenames may contain any character except '/', which is reseved as a separator between
-directory and filenames. The special characters would require quotaion while dealing,
-with such filenames, though it makes sence to avoid them anyway.
+directory and filenames. The special characters require quotation while dealing
+with such filenames, so it makes sense to avoid them.
 
-Path can be absolute, starts with '/' or relative, that is related to the current directory.
+Path can be absolute (starting with '/') or relative (related to the current directory).
 
 ``ls`` is the standard way of getting information about files. By default it lists 
 your current directory (i.e. *pwd*), but there are many options:
@@ -290,7 +299,7 @@ ls -A ~/directory1
 ls -lA ../../directory2
 ```
 
-Special notations and expanssions in BASH, can be used with any command:
+Special notations and expansions in BASH, can be used with any command:
 
 ```bash
 ./, ../, ~, *, ?, [], [!], {abc,xyz}, {1..10}
@@ -302,11 +311,10 @@ For the quotation:
 '', "", \
 ```
 
-Quotation matters `` "$USER"`` vs ``echo '$USER'``
+Quotation matters: ``echo "$USER"`` vs ``echo '$USER'``
 
-
-BASH first expand the expanssions and substitute the wildcards, and then
-execute the command. Could be as complex as:
+BASH first expands the expansions and substitute the wildcards, and then
+executes the command. Could be as complex as:
 
 ```bash
 ls -l ~/[!abc]???/dir{123,456}/filename*.{1..9}.txt
@@ -324,11 +332,12 @@ For file/directory meta information or content type:
 ls, stat, file
 ``` 
 
-Note that ``cd`` is a shell builtin which change's the shell's own
+Note that ``cd`` is a shell builtin which changes the shell's own
 working directory.  This is the base from which all other commands
 work: ``ls`` by default tells you the current directory.  ``.`` is the
-current directory, ``..`` is the parent directory, ``~`` is your HOME.  This is
-inherited to other commands you run. ``cd`` with no options drops your to your $HOME.
+current directory, ``..`` is the parent directory, ``~`` is your HOME.  
+This is inherited to other commands you run. ``cd`` with no options 
+drops you to your $HOME.
 
 ```bash
 # copy a directory preserving all the metadata to two levels up
@@ -394,7 +403,8 @@ Extra permission bits:
   another user (example */tmp*)
 
 Setting default access permissions: add to *.bashrc* ``umask 027``
-[#umask]_.  The ``umask`` is what permissions are *removed* from any newly
+[see here](https://www.computerhope.com/unix/uumask.htm). 
+The ``umask`` is what permissions are *removed* from any newly
 created file by default.  So ``umask 027`` means "by default,
 g-w,o-rwx any newly created files".  It's not really changing the
 permissions, just the default the operating system will create with.
@@ -402,7 +412,7 @@ permissions, just the default the operating system will create with.
 **Hint:**
 even though file has a read access the top directory must be
 searchable before external user or group will be able to access
-it. Sometimes on Triton, people do ``chmod -R o-rwx $WRKDIR; chmod o+x
+it. Sometimes on Tegner, people do ``chmod -R o-rwx $WRKDIR; chmod o+x
 $WRKDIR``.  Execute (``x``) without read (``r``) means that you can
 access files inside if you know the exact name, but not list the
 directory.  The permissions of the files themselves still matter.
@@ -414,7 +424,7 @@ directory.  The permissions of the files themselves still matter.
 Access Control Lists (ACLs) are advanced access permissions.  They
 don't work everywhere, for example mostly do no work on NFS
 mounted directories.  They are otherwise supported on ext4, lustre,
-etc (thus works on Triton $WRKDIR).
+etc (thus works on Tegner $WRKDIR).
 
 * In "normal" unix, files have only "owner" and "group", and permissions
   for owner/group/others.  This can be rather limiting.
@@ -431,14 +441,14 @@ etc (thus works on Triton $WRKDIR).
   - Revoke granted access ``setfacl -x u:<user> <file_or_dir>``
   - See current stage ``getfacl <file_or_dir>``
 
-**File managers** on Triton we have installed Midnight Commander -- ``mc``
+**File managers** on Tegner we have installed Midnight Commander -- ``mc``
 
 **Advanced file status** to get file meta info ``stat <file_or_dir>``
 
 
 
 :Exercise 1.1.2:
- - mkdir in your ``$HOME`` (or ``$WRKDIR`` if on Triton), cd there and ``touch`` a file.
+ - mkdir in your ``$HOME`` (or ``$WRKDIR`` if on Tegner), cd there and ``touch`` a file.
    Rename it. Make a copy and then remove the original.  What does
    ``touch`` do?
  - list all files in /usr/bin and /usr/sbin that start with non-letter characters with
@@ -458,14 +468,14 @@ etc (thus works on Triton $WRKDIR).
    have a private working space for your group. Tip: see groups that you are a member of ``id -Gn``
  - ``ls -ld`` tells you that directory has permissions ``rwxr-Sr--``. Do group members have
    access there?
- - create a directory (in WRKDIR if on Triton and in /tmp if on any other server),
+ - create a directory (in WRKDIR if on Tegner and in /tmp if on any other server),
    use ``setfacl`` to set its permissions so that only you and some
    user/group of your choice would have access to it.
  - (*) create a directory and a subdirectory in it and set their permissions to 700 with one command.
 
 ---
 
-### 1.2 Interactive usage
+### Interactive usage {#interactive-usage}
 
 #### find
 
@@ -487,8 +497,9 @@ find /etc/
 ``` 
 
 Other search options: by modification/accessing time, by ownership, by access
-type, joint conditions, case-insensitive, that do not match, etc [#find1]_
-[#find2]_:
+type, joint conditions, case-insensitive, that do not match, etc. 
+(see [here](https://alvinalexander.com/unix/edu/examples/find.shtml) 
+and [here](http://www.softpanorama.org/Tools/Find/index.shtml)):
 
 ```bash
 # -or-  'find ~ $WRKDIR -name file.txt' one can search more than one dir at once
@@ -521,9 +532,9 @@ expressions.  Thus, you can get amazingly complex if you want to.
 Take a look at the 'EXAMPLES' section in *man find* for the comprehensive list
 of examples and explanations.
 
-**find on Triton**  On Triton's WRKDIR you should use ``lfs find``.  This uses a raw lustre connection
+**find on Tegner**  On Tegner's WRKDIR you should use ``lfs find``.  This uses a raw lustre connection
 to make it more efficient than accessing every file. It has somewhat limited abilities as comparing
-to GNU find. For details ``man lfs`` on Triton.
+to GNU find. For details ``man lfs`` on Tegner.
 
 **Fast find -- locate**  Another utility that you may find useful ``locate <pattern>``, but on
 workstations only.  This uses a cached database of all files, and
@@ -572,7 +583,7 @@ gunzip file.gz
 
 #### Transferring files (+archiving on the fly)
 
-For Triton users the ability to transfer files to/from Triton is essential.
+For Tegner users the ability to transfer files to/from Tegner is essential.
 Same applicable to file transfer between your home workstation and kosh etc.
 
 Several use cases:
@@ -581,21 +592,21 @@ Several use cases:
 # transferring a file from your HOME on kosh to your home worstaion
 scp -r AALTO_LOGIN@kosh.aalto.fi:file_to_copy .
  
-# transferring files from Triton to your Aalto workstation
+# transferring files from Tegner to your Aalto workstation
 scp -r triton.aalto.fi:/scratch/work/LOGIN_NAME/some/files path/to/copy/to
 ``` 
 
-(*) Another use case, copying to Triton, or making a directory backup with ``rsync``:
+(*) Another use case, copying to Tegner, or making a directory backup with ``rsync``:
 
 ```bash
 rsync -urlptDxv --chmod=Dg+s somefile triton.aalto.fi:/scratch/work/LOGIN_NAME  # copy a file to $WRKDIR
 rsync -urlptDxv --chmod=Dg+s dir1/ triton.aalto.fi:/scratch/work/LOGINNAME/dir1/  # sync two directories
 ``` 
 
-(*) Transferring and archiving your Triton data on the fly to some other place:
+(*) Transferring and archiving your Tegner data on the fly to some other place:
 
 ```bash
-# login to Triton
+# login to Tegner
 cd $WRKDIR
 tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_file.tar.gz'
 ``` 
@@ -607,7 +618,7 @@ tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_fil
 
    - (*) apply ``chmod o-rwx`` to all recently found files with ``find``
 
- - Make a tar.gz archive of any of your directory at your HOME (or WRKDIR if on Triton), when done
+ - Make a tar.gz archive of any of your directory at your HOME (or WRKDIR if on Tegner), when done
    list the archive content, then append another file/directory to the existing archive.
    
    - (*) Extract only one particular file to some subdirectory from the archive
@@ -674,7 +685,8 @@ export CDPATH=$HOME:$WRKDIR:$WRKDIR/project
 - To get an idea how complicated .bashrc can be take a look at <https://www.tldp.org/LDP/abs/html/sample-bashrc.html>
 
 
-One of the things to play with: command line prompt defined in PS1 [#ps1]_
+One of the things to play with: command line prompt defined in 
+[PS1](https://www.ibm.com/developerworks/linux/library/l-tip-prompt/).
 
 ```bash
 PS1="[\d \t \u@\h:\w ] $ "
@@ -835,8 +847,7 @@ Chaining: ``command_a ; command_b``: always runs both commands.
 Remember exit codes?  In shell, 0=success and anything 1-255=failure.
 Note that this is opposite of normal Boolean logic!
 
-The ``&&`` and ``||`` are `short-circuit
-<https://en.wikipedia.org/wiki/Short-circuit_evaluation>`__ (lazy)
+The ``&&`` and ``||`` are [short-circuit](https://en.wikipedia.org/wiki/Short-circuit_evaluation) (lazy)
 boolean operators.  They can be used for quick conditionsals.
 
 * ``command_a && command_b``
@@ -921,10 +932,10 @@ grep "<[Hh][12]>" file.html
 
 ---
 
-## 2. Linux Shell Scripting
+## Linux Shell Scripting {#scripting}
 
 
-### 2.1 BASH magic
+### BASH magic {#bash-magic}
 
 Last time, we focused on interactive things from the command line.
 Now, we build on that some and end up with making our own scripts.
@@ -1173,11 +1184,11 @@ anywhere they can be read by the shell).
  - (*) Join *find* and *grep* power and find all the files in /{usr/,}{bin,sbin} that have '#!/bin/bash' in it
 
 :Exercise 2.2:
- - On Triton find (lfs find ... ) all the dirs/files at $WRKDIR that do not belong to your group.
-   Tip: on Triton at WRKDIR your username $USER and group name are the same. On any other filesystem,
+ - On Tegner find (lfs find ... ) all the dirs/files at $WRKDIR that do not belong to your group.
+   Tip: on Tegner at WRKDIR your username $USER and group name are the same. On any other filesystem,
    ``$(id -gn)`` returns your group name.
  - Extend above command to fix the group ownership  (... | xargs)
- - On Triton go through all $WRKDIR subdirectories with 'lfs find ...' and set s-bit for the group 
+ - On Tegner go through all $WRKDIR subdirectories with 'lfs find ...' and set s-bit for the group 
 ---
 
 #### Your ~/bin and PATH
@@ -1426,7 +1437,7 @@ echo ${!var2}  # returns 'Hello' instead of 'var1'
  
 ---
 
-### 2.2 programming logic
+### Programming logic {#prog-logic}
 
 #### Tests: ``[[ ]]``
 
@@ -1777,7 +1788,7 @@ done | sort > filename
 The *list* can be anything what produces a list, like Brace expansion *{1..10}*, command substitution etc.:
 
 ```bash
-# on Triton, do something to all pending jobs based on squeue output
+# on Tegner, do something to all pending jobs based on squeue output
 for jobid in $(squeue -h -u $USER -t PD -o %A); do
   scontrol update JobId=$jobid StartTime=now+5days
 done
@@ -1817,7 +1828,7 @@ echo Sum of 1..$n is $s
 # can be run as sort of "deamon", process should be stopped with Ctrl-c or killed
 while true; do : ; done
 
-# drop an email every 10 minutes about running jobs on Triton
+# drop an email every 10 minutes about running jobs on Tegner
 # can be used in combination with 'screen', and run in background
 while true; do
   squeue -t R -u $USER | mail -s 'running jobs' mister.x@aalto.fi
@@ -1852,7 +1863,7 @@ done < <(file -b *)
 All the things mentioned above for *for* loop applicable to ``while`` / ``until`` loops.
 
 *printf* should be familiar to programmers, allows formatted output
- similar to C printf. [#printf]_
+ similar to [C printf](http://wiki.bash-hackers.org/commands/builtin/printf).
 
 Loop control: normally *for* loop iterates until it has processed all its input arguments.
 *while* and *until* loops iterate until the loop control returns a certain status. But if
@@ -1905,7 +1916,7 @@ done
 
 ---
 
-### 2.3 arrays, traps, input and more
+### Arrays, traps, input and more {#arrays-traps}
 
 
 #### Arrays
@@ -2434,7 +2445,7 @@ parallel bash -c "echo hi; sleep 2; echo bye" -- 1 2 3
 parallel -j 3 -- ls df "echo hi"
 ```
 
-On Triton we have installed Tollef Fog Heen's version of parallel from *moreutils-parallel* CentOS' RPM.
+On Tegner we have installed Tollef Fog Heen's version of parallel from *moreutils-parallel* CentOS' RPM.
 GNU project has its own though, with different syntax, but of exactly the same name, so do not get
 confused.
 
@@ -2442,7 +2453,7 @@ confused.
 
 #### About homework assignments
 
-Available on Triton. See details in the *$course_directory/assignment/homework.txt*.
+Available on Tegner. See details in the *$course_directory/assignment/homework.txt*.
 
 ---
 
@@ -2473,7 +2484,7 @@ Additional topics:
  * select command
  * placeholders: working with the templates
  * managing processes: kill, nice
- * more Triton examples/demos
+ * more Tegner examples/demos
  * revise coreutils section, expand the examples and explanations, make it clear 
    that BASH is about getting those small utilities to work together
  * benchmark: C-code vs BASH, Python vs BASH, Perl vs BASH
@@ -2503,15 +2514,15 @@ Parts that did not fit.
   your life much easier.
 
 SSH keys and proxy jumping makes life way easier. For example, logging
-on to Triton from your Linux workstation or from kosh/lyta.
+on to Tegner from your Linux workstation or from kosh/lyta.
 
-For PuTTY (Windows) SSH keys generation, please consult section "Using public keys for SSH authentication" at [#putty-sshkeys]_
+For PuTTY (Windows) SSH keys generation, please consult section "Using public keys for SSH authentication" at [this page](https://the.earth.li/~sgtatham/putty/0.70/htmldoc/).
 
 On Linux/Mac: generate a key on the client machine
 
 ```bash
 ssh-keygen -o  # you will be prompted for a location to save the keys, and a passphrase for the keys. Make sure passphrase is strong (!)
-ssh-copy-id aalto_login@triton.aalto.fi   # transfer file to a Triton, or/and any other host you want to login to
+ssh-copy-id aalto_login@triton.aalto.fi   # transfer file to a Tegner, or/and any other host you want to login to
 ```
 
 From now on you should be able to login with the SSH key instead of
@@ -2523,7 +2534,7 @@ Note that same key can be used on multiple different computers.
 SSH proxy is yet another trick to make life easier: allows to jump
 through a node (in OpenSSH version 7.2 and earlier ``-J`` option is
 not supported yet, here is an old recipe that works on Ubuntu
-16.04). By using this, you can directly connect to a system (Triton)
+16.04). By using this, you can directly connect to a system (Tegner)
 through a jump host (kosh):  On the client side, add to
 ``~/.ssh/config`` file (create it if does not exists and make it
 readable by you only):
