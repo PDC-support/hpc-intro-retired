@@ -77,12 +77,6 @@ though should work on all other Linux installations.
   to Tegner or Beskow.
 - Windows users: [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html), follow the configuration instructions and then log in to Tegner.
 
-When the shell starts, it typically reads a few setup files to modify 
-its behaviour. Some of these are in your home directory (~/), 
-and you can edit them yourself:
- - ``.bash_login`` is read by login shells.
- - ``.bashrc`` is read by interactive shells, but not by a login shell.
-
 ---
 
 #### Basic shell operation
@@ -511,8 +505,8 @@ To get file meta info: ``stat <file_or_dir>``
 
 * ``find`` is a very unixy program: it finds files, but in the most
   flexible way possible.
-* It is a amazingly complicated program
-* It is a number one in searching files in shell
+* It is a amazingly complicated program.
+* It is number one in searching files in shell.
 
 With no options, just recursively lists all files starting in current directory:
 
@@ -532,7 +526,7 @@ type, joint conditions, case-insensitive, that do not match, etc.
 and [here](http://www.softpanorama.org/Tools/Find/index.shtml)):
 
 ```bash
-# -or-  'find ~ $WRKDIR -name file.txt' one can search more than one dir at once
+# -or-  'find ~ /cfs/klemming/nobackup/u/username -name file.txt' one can search more than one dir at once
 find ~ -name file.txt
  
 # look for jpeg files in the current dir only
@@ -562,11 +556,14 @@ expressions.  Thus, you can get amazingly complex if you want to.
 Take a look at the 'EXAMPLES' section in *man find* for the comprehensive list
 of examples and explanations.
 
-**find on Tegner**  On Tegner's WRKDIR you should use ``lfs find``.  This uses a raw lustre connection
-to make it more efficient than accessing every file. It has somewhat limited abilities as comparing
+**find on Lustre:**   
+In your klemming directories it's usually more efficient to use ``lfs find``.  
+This uses a raw lustre connection to make it more efficient than 
+accessing every file. It has somewhat limited abilities as comparing
 to GNU find. For details ``man lfs`` on Tegner.
 
-**Fast find -- locate**  Another utility that you may find useful ``locate <pattern>``, but on
+**Fast find -- locate:**   
+Another utility that you may find useful ``locate <pattern>``, but on
 workstations only.  This uses a cached database of all files, and
 just searches that database so it is much faster.
 
@@ -588,12 +585,16 @@ tar -caf arhive_name.tar.gz directory_to_be_archived/
 # extract files
 tar -xaf archive_name.tar.gz -C path/to/directory
 ``` 
- 
-Other command line options: *r* - append files to the end of an
-archive, *t* - list archive content. *f* is for the filename, and *a*
-selects the compression method based on the archive file suffix (in
-this example gzip, due to the .gz suffix. Without compression
-files/directories are simply packed as is.
+
+- *f* is for the filename
+- *a* selects the compression method based on the archive file suffix (in
+  this example gzip, due to the .gz suffix. 
+- Without compression files/directories are simply packed as is. 
+
+Other command line options: 
+- *r* - append files to the end of an archive.
+- *t* - list archive content.
+
 
 ```bash
 # xz has better compression ratio than gzip, but is very slow
@@ -613,27 +614,22 @@ gunzip file.gz
 
 #### Transferring files (+archiving on the fly)
 
-For Tegner users the ability to transfer files to/from Tegner is essential.
-Same applicable to file transfer between your home workstation and kosh etc.
-
-Several use cases:
+For PDC users the ability to transfer files to/from PDC systems is essential.
+For large transfers (big data, many files), you should use the transfer nodes:
 
 ```bash
-# transferring a file from your HOME on kosh to your home worstaion
-scp -r AALTO_LOGIN@kosh.aalto.fi:file_to_copy .
- 
-# transferring files from Tegner to your Aalto workstation
-scp -r triton.aalto.fi:/scratch/work/LOGIN_NAME/some/files path/to/copy/to
+# transferring a file from your HOME on PDC to your home worstation
+scp -r username@t04n27.pdc.kth.se:file_to_copy .  # or t04n28
 ``` 
 
-(Optional) Another use case, copying to Tegner, or making a directory backup with ``rsync``:
+(Optional) Another use case, copying to PDC, or making a directory backup with ``rsync``:
 
 ```bash
-rsync -urlptDxv --chmod=Dg+s somefile triton.aalto.fi:/scratch/work/LOGIN_NAME  # copy a file to $WRKDIR
-rsync -urlptDxv --chmod=Dg+s dir1/ triton.aalto.fi:/scratch/work/LOGINNAME/dir1/  # sync two directories
+rsync -urlptDxv --chmod=Dg+s somefile username@t04n27.pdc.kth.se:/cfs/klemming/nobackup/u/username/  # copy a file to klemming
+rsync -urlptDxv --chmod=Dg+s username@t04n28.pdc.kth.se:/cfs/klemming/nobackup/u/username/dir1/  dir1/  # sync two directories
 ``` 
 
-(Optional) Transferring and archiving your Tegner data on the fly to some other place:
+(Optional) Transferring and archiving your PDC data on the fly to some other place:
 
 ```bash
 # login to Tegner
@@ -641,14 +637,10 @@ cd $WRKDIR
 tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_file.tar.gz'
 ``` 
 
-[Lecture notes: this session has three theory+excersise hands-ons, roughly 40+20 minutes each]
-
 > ## Exercise: find, tar and scp/rsync
 >
 > - Find with ``find`` all the files in your $HOME that are readable or writable by everyone
->
 >   - (Optional) apply ``chmod o-rwx`` to all recently found files with ``find``
->
 > - Make a tar.gz archive of any of your directory at your HOME (or WRKDIR if on Tegner), when done
 >   list the archive content, then append another file/directory to the existing archive.
 >   
@@ -664,37 +656,41 @@ tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_fil
 #### How to make things faster: hotkeys
 
 - Is it annoying to have to type everything in the shell?  No, because
-  we have hotkeys.  In fact, it can become much more efficient and
+  we have hotkeys!  In fact, it can become much more efficient and
   powerful to use the shell.
 - Most important key: **TAB**: autocomplete.  You should never be
   typing full filenames or command names.  TAB can complete almost anything
 
 Common hotkeys:
 
-- TAB -- autocomlpetion
-- Home ``or`` Ctrl-a -- start of the command line
-- End ``or`` Ctrl-e -- end
-- Ctrl-left/right arrows ``or`` Alt-b/Alt-f  - moving by one word there and back
-- up/down arrows -- command history
-- Ctrl-l -- clear the screen
-- Ctrl-Shift-c -- copy
-- Ctrl-Shift-v -- paste
-- Ctrl-Shift--  -- undo the last changes on cli
-- Alt-r -- undo all changes made to this line
-- Ctrl-r -- command history search: backward (hit Ctrl-r, then start typing the search word, hit Ctrl-r again to go through commands that have the search word in it)
-- Ctrl-s  -- search command history furtherword (for this to work one needs to disable default suspend keys ``stty -ixon``)
-- Ctrl-u  -- remove beginning of the line, from cursor
-- Ctrl-k -- remove end of the line, from cursor
-- Ctrl-w -- remove previous word
+| Hotkey | Effect |
+| ------ | ------ |
+| TAB | autocompletion |
+| Home ``or`` Ctrl-a | start of the command line |
+| End ``or`` Ctrl-e | end |
+| Ctrl-left/right arrows ``or`` Alt-b/Alt-f  | moving by one word there and back |
+| up/down arrows | command history |
+| Ctrl-l | clear the screen |
+| Ctrl-Shift-c | copy |
+| Ctrl-Shift-v | paste |
+| Ctrl-Shift- -  | undo the last changes on cli |
+| Alt-r | undo all changes made to this line |
+| Ctrl-r | command history search: backward (hit Ctrl-r, then start typing the search word, hit Ctrl-r again to go through commands that have the search word in it) |
+| Ctrl-s  | search command history furtherword (for this to work one needs to disable default suspend keys ``stty -ixon``) |
+| Ctrl-u  | remove beginning of the line, from cursor |
+| Ctrl-k | remove end of the line, from cursor |
+| Ctrl-w | remove previous word |
 
-**inputrc** Check */etc/inpurc* for some default key bindings, more can be defined *~/.inputrc* (left as a home exercise)
+**inputrc:**  
+Check */etc/inpurc* for some default key bindings, more can be defined *~/.inputrc* (left as a home exercise)
 
-**CDPATH** helps changing directories faster. When you type ``cd dirname``, the shell tries to go
+**CDPATH:**  
+Helps changing directories faster. When you type ``cd dirname``, the shell tries to go
 to one of the local subdirectories and if it is not found shell will try the same command from every
 directory listed in the *$CDPATH*.
 
 ```bash
-export CDPATH=$HOME:$WRKDIR:$WRKDIR/project
+export CDPATH=$HOME:/cfs/klemming/nobackup/u/username
 ``` 
 
 ---
@@ -706,15 +702,15 @@ export CDPATH=$HOME:$WRKDIR:$WRKDIR/project
   to set configuration.
 - You can always test things in your own shell and see if it works
   before putting it in the config files.  Highly recommended!
-- You customize your environment means setting or expanding aliases,
-  variables, functions.
+- Customizing your environment means setting or expanding aliases,
+  variables, functions, etc.
 - The config files are:
-
   - ``.bashrc`` (when SSH) and
   - ``.bash_profile`` (interactive login to a workstation)
   - they are often a symlink from one to another
   
-- To get an idea how complicated .bashrc can be take a look at <https://www.tldp.org/LDP/abs/html/sample-bashrc.html>
+- To get inspiration for things to put in your .bashrc file, 
+  take a look at this [(very elaborate) sample file](<https://www.tldp.org/LDP/abs/html/sample-bashrc.html>).
 
 
 One of the things to play with: command line prompt defined in 
@@ -1223,8 +1219,8 @@ anywhere they can be read by the shell).
 
 > ## Exercise 2.2
 >
-> - On Tegner find (lfs find ... ) all the dirs/files at $WRKDIR that do not belong to your group.
->   Tip: on Tegner at WRKDIR your username $USER and group name are the same. On any other filesystem,
+> - On Tegner find (lfs find ... ) all the dirs/files on klemming that do not belong to your group.
+>   Tip: on klemming, your username $USER and group name are the same. On any other filesystem,
 >   ``$(id -gn)`` returns your group name.
 > - Extend above command to fix the group ownership  (... | xargs)
 > - On Tegner go through all $WRKDIR subdirectories with 'lfs find ...' and set s-bit for the group 
