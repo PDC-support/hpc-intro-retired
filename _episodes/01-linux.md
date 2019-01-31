@@ -263,7 +263,7 @@ running and never gets closed.  Wherever they are, they ssh in,
 connect, and resume right where they left off.
 
 
-> ## Exercise 1.1
+> ## Exercise: Processes
 > 
 >  - Find out with *man* how to use *top* / *pstree* / *ps* to list all the running processes that belong to you.  
 >    Tip: *top* has both command line options and hotkeys.
@@ -470,7 +470,7 @@ To get file meta info: ``stat <file_or_dir>``
 
 
 
-> ## Exercise 1.2
+> ## Exercise: Files and directories
 >
 > - What does ``touch`` do? Read the first paragraph in the manpage.
 > - Create a directory in your ``$HOME``, cd there and ``touch`` a file.
@@ -485,6 +485,10 @@ To get file meta info: ``stat <file_or_dir>``
 > - Explore ``stat file`` output. What metadata do you find?  Try
 >   to stat files of different types (regular file, directory, link,
 >   special device in /dev, named pipe)
+{: .challenge}
+
+> ## Exercise: Permissions
+>
 > - Create a directory, use ``chmod`` to allow user and any group members
 >   full access and no access for others
 > - (Optional) Change that directory group ownership with ``chown`` or 
@@ -639,7 +643,7 @@ tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_fil
 
 [Lecture notes: this session has three theory+excersise hands-ons, roughly 40+20 minutes each]
 
-> ## Exercise 1.3
+> ## Exercise: find, tar and scp/rsync
 >
 > - Find with ``find`` all the files in your $HOME that are readable or writable by everyone
 >
@@ -757,7 +761,7 @@ Other quick ways to add something to a file (no need for an editor)
 Try: add above mentioned ``export PS1`` to *.bashrc*. Remember ``source .bashrc`` to enable changes
 
 
-> ## Exercise 1.4
+> ## Exercise: Shell configuration files
 >
 > - link *.bash_profile* to *.bashrc*. Tip: see ``ln`` command from the previous session.
 > - open *~/.bashrc* for eiditng and add there CDPATH example from above, customize
@@ -944,7 +948,7 @@ ps auxw | grep firefox
 grep "<[Hh][12]>" file.html
 ``` 
 
-> ## Exercise 1.5
+> ## Exercise: grep and pipelines
 >
 > - make a pipe that counts number of files/directories (including dot files) in your directory
 > - grep directories out of ``ls -l``
