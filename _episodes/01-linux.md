@@ -31,7 +31,7 @@ The first covers introductory level shell usage (which also is a backdoor
 introduction to Linux basics). The second covers actual BASH
 scripting, using learning by doing.
 
-Starred exercises (*) are for advanced users who would like further stimulation.
+Exercises marked "optional" are for advanced users who would like further stimulation.
 
 ---
 
@@ -149,7 +149,7 @@ Before you Google for the command examples, try
 man command_name
 ```
 
-Your best friend ever, ``man`` is collection of manuals. Type
+Your best friend ever, ``man`` is a collection of manuals. Type
 */search_word* for searching through the man page.  But... if it's a
 builtin, you need to use ``help``.
 
@@ -167,7 +167,7 @@ There are two types of commands:
 
 **Hint:** type ``type -a`` to find what is behind the name.
 
-- **echo**: prints out ``echo something to type`` # types whatever you put after.
+- ``echo something to print out``: prints whatever you put after.
 
 **Disable built-in command:** ``enable -n echo``, after this */usr/bin/echo*
 becomes a default instead of built-in *echo*.
@@ -198,21 +198,24 @@ useful when you backup your data in background or alike.
 
 #### Foreground and background processes
 
-The shell has a concept of foreground and background processes: a
-foreground process is directly connected to your screen and
-keyboard. A background process doesn't have input connected.  There
-can only be one foreground at a time (obviously).
+The shell has a concept of foreground and background processes: 
+- A foreground process is directly connected to your screen and
+keyboard. 
+- A background process doesn't have input connected.  
+- There can only be one foreground at a time (obviously).
 
 If you add ``&`` right after the command it will send the process to
-background. Example: ``firefox --no-remote &``, and same can be done with
-any terminal command/function, like ``man pstree &``.  In the big
-picture, the ``&`` serves the same role as ``;`` to separate commands,
-but backgrounds the first and goes straight to the next.
+background. 
+- Example: ``firefox --no-remote &`` (same can be done with
+  any terminal command/function, like ``man pstree &``).  
+- The ``&`` serves the same role as ``;`` to separate commands,
+  but backgrounds the first and goes straight to the next.
 
 If you have a process already running, you can send it to background 
 with Ctrl-z and then
-``bg``. Drawback: there is no easy way to redirect the running task
-output, so if it generates output it covers your screen.
+``bg``. 
+- Drawback: no easy way to redirect the running task
+  output, so if it generates output it covers your screen.
 
 List the jobs running in the background with ``jobs``, get a job back
 online with  ``fg`` or ``fg <job_number>``. There can be multiple
@@ -229,19 +232,20 @@ stop background processes if they try writing to the screen ``stty tostop``
 
 ---
 
-#### Exit the shell and 'screen' utility
+#### Exiting the shell and the 'screen' utility
 
 ``logout`` or Ctrl-d (if you don't want Ctrl-d to quit, set ``export IGNOREEOF=1`` in *.bashrc*).
 
-Of course, quitting your shell is annoying, since you have to start
-over.  Luckily there are programs so that you don't have to do this.
+However, quitting your shell can be annoying if you have customized 
+your environment and would need to start over when reopening the shell.
+Luckily there are programs so that you don't have to start over.
 In order to keep your sessions running while you logged out, you
-should learn about the ``screen`` program.
+should learn about the ``screen`` program:
 
  - ``screen`` to start a session
  - *Ctrl-a d* to detach the session while you are connected
  - ``screen -ls`` to list currently running sessions
- - ``screen -rx <session_id>`` to attach the session, one can use TAB for the autocompletion or skip the <session_id> if there is only one session running
+ - ``screen -rx <session_id>`` to attach to the session (use TAB for the autocompletion or skip <session_id> if there is only one session running)
  - ``tmux`` is a newer program with the same style.  It has some extra
    features and some missing features still.
 
@@ -252,24 +256,24 @@ connect, and resume right where they left off.
 
 > ## Exercise 1.1
 > 
->  - find out with *man* how to use *top* / *pstree* / *ps* to list all the running processes that belong to you
->    Tip: *top* has both command line options and hot keys.
+>  - Find out with *man* how to use *top* / *pstree* / *ps* to list all the running processes that belong to you.  
+>    Tip: *top* has both command line options and hotkeys.
 > 
->    - (*) see ``man ps`` and find out how to list a processes tree with ps, both
+>    - (optional) see ``man ps`` and find out how to list a processes tree with ps, both
 >      all processes and only your own (but all your processes, associated with all terminals)
 > 
->  - with pgrep list all bash and then zsh sessions on Tegner.
->  - log in to Tegner and run ``man ps``, send it to background, and ``logout``, then
+>  - With pgrep list all bash and then zsh sessions on Tegner.
+>  - Log in to Tegner and run ``man ps``, send it to background, and ``logout``, then
 >    log in again. Is it still there? Play with the ``screen``, run a session, 
 >    then detach it and log out, then log in back and get 
 >    your original screen session back.
->  - run ``man htop``, send it to backround, and then kill it with ``kill``. Tip: one can
+>  - Run ``man htop``, send it to backround, and then kill it with ``kill``. Tip: one can
 >    do it by background job number or by PID.
 >  - Imagine a use case: your current ssh session got stuck and does not response. Open another
 >    ssh session to the same remote host and kill the first one. Tip: ``echo $$`` gives you current
 >    bash PID.
 > 
->    - (*) get any X Window application (firefox, xterm, etc) to run on Tegner
+>    - (optional) get any X Window application (firefox, xterm, etc) to run on Tegner
 {: .challenge}
   
 ---
@@ -311,7 +315,7 @@ For the quotation:
 '', "", \
 ```
 
-Quotation matters: ``echo "$USER"`` vs ``echo '$USER'``
+Quotation matters; try typing both ``echo "$USER"`` and ``echo '$USER'``.
 
 BASH first expands the expansions and substitute the wildcards, and then
 executes the command. Could be as complex as:
@@ -334,12 +338,25 @@ ls, stat, file
 
 Note that ``cd`` is a shell builtin which changes the shell's own
 working directory.  This is the base from which all other commands
-work: ``ls`` by default tells you the current directory.  ``.`` is the
-current directory, ``..`` is the parent directory, ``~`` is your HOME.  
-This is inherited to other commands you run. ``cd`` with no options 
-drops you to your $HOME.
+work:
+ - ``ls`` by default tells you the current directory.  
+ - ``.`` is the current directory. 
+ - ``..`` is the parent directory. 
+ - ``~`` is your HOME.  
+
+This is inherited to other commands you run. 
+
+``cd`` with no options drops you to your $HOME.
 
 ```bash
+# create several directories at once
+mkdir dir1 dir2 dir3
+# -or-
+mkdir dir{1,2,3}
+
+# copy a directory recursively
+cp -r dir1 dir2/
+
 # copy a directory preserving all the metadata to two levels up
 cp -a dir1/ ../../
 
@@ -352,18 +369,13 @@ rm -rf dir2/ dir1/ filename*
 # create an empty file if doesn't exist or update its access/modification time
 touch filename
 
-# create several directories at once
-mkdir dir3 dir4 dir5
-# -or-
-mkdir dir{3,4,5}
-
 # make a link to a target file (hard link by default, -s for symlinks)
 ln target_file ../link_name
 ```
 
 **Discover other ls features** ``ls -lX``, ``ls -ltr``, ``ls -Q``
 
-You may also find useful ``rename`` utility implemented by Larry Wall.
+You may also find the ``rename`` utility useful.
 
 ---
 
@@ -371,11 +383,11 @@ You may also find useful ``rename`` utility implemented by Larry Wall.
 
 - Permissions are one of the types of file metadata.
 - They tell you if you can *read* a file, *write* a file, and
-  *execute a file/list directory*
-- Each of these for both *user*, *group*, and *others*
-- Here is a typical permission bits for a file: ``-rw-r--r--``
+  *execute a file/list directory*.
+- Each of these apply to *user*, *group*, and *others*.
+- Here is a typical permission bits for a file: ``-rw-r--r--``.
 - In general, it is ``rwxrwxrwx`` -- read, write, execute/search for
-  user, group, others respectively
+  user, group, others respectively.
 - ``ls -l`` gives you details on files.
 
 ---
@@ -403,75 +415,80 @@ Extra permission bits:
   another user (example */tmp*)
 
 Setting default access permissions: add to *.bashrc* ``umask 027``
-[see here](https://www.computerhope.com/unix/uumask.htm). 
-The ``umask`` is what permissions are *removed* from any newly
+[(see here)](https://www.computerhope.com/unix/uumask.htm).  
+The ``umask`` number respresents what permissions are *removed* from any newly
 created file by default.  So ``umask 027`` means "by default,
-g-w,o-rwx any newly created files".  It's not really changing the
-permissions, just the default the operating system will create with.
+g-w,o-rwx any newly created files".  It doesn't change any
+permissions, just sets the default that the operating system will create 
+files with.
 
-**Hint:**
-even though file has a read access the top directory must be
+**Hint:**  
+Even though a file has read access, the top directory must be
 searchable before external user or group will be able to access
-it. Sometimes on Tegner, people do ``chmod -R o-rwx $WRKDIR; chmod o+x
+it. Sometimes people do ``chmod -R o-rwx $WRKDIR; chmod o+x
 $WRKDIR``.  Execute (``x``) without read (``r``) means that you can
 access files inside if you know the exact name, but not list the
 directory.  The permissions of the files themselves still matter.
 
 ---
 
-#### Modifying permissions: advanced (*)
+#### Modifying permissions: advanced 
 
 Access Control Lists (ACLs) are advanced access permissions.  They
 don't work everywhere, for example mostly do no work on NFS
-mounted directories.  They are otherwise supported on ext4, lustre,
-etc (thus works on Tegner $WRKDIR).
+mounted directories.  They are otherwise supported on ext4, Lustre,
+etc. (thus work on /cfs/klemming).
 
 * In "normal" unix, files have only "owner" and "group", and permissions
   for owner/group/others.  This can be rather limiting.
 * Access control lists (ACLS) are an extension that allows an
   arbitrary number of users and groups to have access rights to
-  files.  The basic concept is that you have: 
+  files.   
 * ACLs don't show up in normal ``ls -l`` output, but there is an extra
   plus sign: ``-rw-rwxr--+``.  ACLs generally work well, but there are
   some programs that won't preserve them when you copy/move files, etc.
-* POSIX (unx) ACLs are controlled with ``getfacl`` and ``setfacl``
-
+* POSIX (unix) ACLs are controlled with ``getfacl`` and ``setfacl``
   - Allow read access for a user ``setfacl -m u:<user>:r <file_or_dir>``
   - Allow read/write access for a group ``setfacl -m g:<group>:rw <file_or_dir>``
   - Revoke granted access ``setfacl -x u:<user> <file_or_dir>``
   - See current stage ``getfacl <file_or_dir>``
 
-**File managers** on Tegner we have installed Midnight Commander -- ``mc``
+**File managers**  
+On Beskow and Tegner we have installed Midnight Commander: ``mc``.
 
-**Advanced file status** to get file meta info ``stat <file_or_dir>``
+**Advanced file status**   
+To get file meta info: ``stat <file_or_dir>``
 
 
 
-:Exercise 1.1.2:
- - mkdir in your ``$HOME`` (or ``$WRKDIR`` if on Tegner), cd there and ``touch`` a file.
-   Rename it. Make a copy and then remove the original.  What does
-   ``touch`` do?
- - list all files in /usr/bin and /usr/sbin that start with non-letter characters with
-   one ``ls`` command
- - (*) list with ``ls`` dot files/directories only (by default it
-   lists all files/directories but not those that begin with ``.``).
-   "dotfiles" are a convention where filenames that begin with ``.``
-   such as ``.bashrc`` are considered "hidden".
- - Explore ``stat file`` output. What metadata do you find?  Try
-   to stat files of different types (regular file, directory, link,
-   special device in /dev, named pipe)
- - create a directory, use ``chmod`` to allow user and any group members
-   full access and no access for others
- - (*) change that directory group ownership with ``chown`` or ``chgrp`` (any group that you
-   belong to is fine), set s-bit for the group and
-   apply t-bit to a directory, check that the upper directory has *o+x* bit set: now you should
-   have a private working space for your group. Tip: see groups that you are a member of ``id -Gn``
- - ``ls -ld`` tells you that directory has permissions ``rwxr-Sr--``. Do group members have
-   access there?
- - create a directory (in WRKDIR if on Tegner and in /tmp if on any other server),
-   use ``setfacl`` to set its permissions so that only you and some
-   user/group of your choice would have access to it.
- - (*) create a directory and a subdirectory in it and set their permissions to 700 with one command.
+> ## Exercise 1.2
+>
+> - What does ``touch`` do? Read the first paragraph in the manpage.
+> - Create a directory in your ``$HOME``, cd there and ``touch`` a file.
+>   Rename it. Make a copy and then remove the original. 
+> - List all files in /usr/bin that start with letter x.
+> - (Optional) List all files in /usr/bin and /usr/sbin that start with 
+>   non-letter characters, using only one ``ls`` command.
+> - (Optional) list with ``ls`` dot files/directories only (by default it
+>   lists all files/directories but not those that begin with ``.``).
+>   "dotfiles" are a convention where filenames that begin with ``.``
+>   such as ``.bashrc`` are considered "hidden".
+> - Explore ``stat file`` output. What metadata do you find?  Try
+>   to stat files of different types (regular file, directory, link,
+>   special device in /dev, named pipe)
+> - Create a directory, use ``chmod`` to allow user and any group members
+>   full access and no access for others
+> - (Optional) Change that directory group ownership with ``chown`` or 
+>   ``chgrp`` (any group that you belong to is fine), set s-bit for the 
+>   group and apply t-bit to a directory, check that the upper directory 
+>   has *o+x* bit set: now you should have a private working space for 
+>   your group. Tip: see groups that you are a member of using ``id -Gn``
+> - (Optional) Create a directory and a subdirectory in it and set their 
+>   permissions to 700 with one command.
+> - Create a directory (in /cfs/klemming/nobackup if on Tegner and in /tmp if on any other server),
+>   use ``setfacl`` to set its permissions so that only you and some
+>   user/group of your choice would have access to it.
+{: .challenge}
 
 ---
 
