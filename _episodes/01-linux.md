@@ -16,10 +16,12 @@ keypoints:
 ## Course basics
 
 
-> This material is adopted from [this course material developed at Aalto, Finland](https://scicomp.aalto.fi/training/linux-shell-tutorial.html). Sources [can be found here](https://github.com/AaltoScienceIT/scicomp-docs/blob/master/training/linux-shell-tutorial.rst)
+> This material is based on several excellent resources available online, 
+> in particular [this course material developed at Aalto, Finland](https://scicomp.aalto.fi/training/linux-shell-tutorial.html), and [these documentation pages at the University of Oslo](https://www.mn.uio.no/geo/english/services/it/help/using-linux).
 
-This course consists of two parts: 
+This material consists of two parts: 
 - [Linux Shell Basics](#basics)
+  - [What is a shell?](#what-is-shell)
   - [Processes and files](#processes-files)
   - [Interactive usage](#interactive-usage)
 - [Linux Shell Scripting](#scripting)
@@ -37,20 +39,7 @@ Exercises marked "optional" are for advanced users who would like further stimul
 
 ## Linux Shell Basics {#basics}
 
-### Processes and files {#processes-files}
-
-#### First touch: getting a BASH shell
-
-
-Set yourself up with a BASH shell.  Connect to a server or open on your own computer.
-Examples and demos given during the lecture are done on Tegner, 
-though should work on all other Linux installations.
-
-- Linux and Mac users: just open a terminal window. If you wish you can login
-  to Tegner or Beskow.
-- Windows users: [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html), follow the configuration instructions and then log in to Tegner.
-
----
+### What is a shell? {#what-is-shell}
 
 #### About the Linux Shell
 
@@ -78,6 +67,24 @@ though should work on all other Linux installations.
 
 ---
 
+#### Getting a BASH shell
+
+Set yourself up with a BASH shell.  Connect to a server or open on your own computer.
+Examples and demos given during the lecture are done on Tegner, 
+though should work on all other Linux installations.
+
+- Linux and Mac users: just open a terminal window. If you wish you can login
+  to Tegner or Beskow.
+- Windows users: [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html), follow the configuration instructions and then log in to Tegner.
+
+When the shell starts, it typically reads a few setup files to modify 
+its behaviour. Some of these are in your home directory (~/), 
+and you can edit them yourself:
+ - ``.bash_login`` is read by login shells.
+ - ``.bashrc`` is read by interactive shells, but not by a login shell.
+
+---
+
 #### Basic shell operation
 
 - You type things on the screen (standard input or stdin).  The shell
@@ -88,6 +95,8 @@ though should work on all other Linux installations.
   the process, output (standard output) goes to the screen.
 
 ---
+
+### Processes and files {#processes-files}
 
 #### What's a UNIX process?
 
@@ -613,14 +622,14 @@ scp -r AALTO_LOGIN@kosh.aalto.fi:file_to_copy .
 scp -r triton.aalto.fi:/scratch/work/LOGIN_NAME/some/files path/to/copy/to
 ``` 
 
-(*) Another use case, copying to Tegner, or making a directory backup with ``rsync``:
+(Optional) Another use case, copying to Tegner, or making a directory backup with ``rsync``:
 
 ```bash
 rsync -urlptDxv --chmod=Dg+s somefile triton.aalto.fi:/scratch/work/LOGIN_NAME  # copy a file to $WRKDIR
 rsync -urlptDxv --chmod=Dg+s dir1/ triton.aalto.fi:/scratch/work/LOGINNAME/dir1/  # sync two directories
 ``` 
 
-(*) Transferring and archiving your Tegner data on the fly to some other place:
+(Optional) Transferring and archiving your Tegner data on the fly to some other place:
 
 ```bash
 # login to Tegner
@@ -630,19 +639,21 @@ tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_fil
 
 [Lecture notes: this session has three theory+excersise hands-ons, roughly 40+20 minutes each]
 
-:Exercise 1.2.1:
- - Find with ``find`` all the files in your $HOME that are readable or writable by everyone
-
-   - (*) apply ``chmod o-rwx`` to all recently found files with ``find``
-
- - Make a tar.gz archive of any of your directory at your HOME (or WRKDIR if on Tegner), when done
-   list the archive content, then append another file/directory to the existing archive.
-   
-   - (*) Extract only one particular file to some subdirectory from the archive
-   
- - Transfer just created archive using either ``scp`` or ``rsync``.
- 
-   - (*) Try ssh+tar combo to make transfer and archive on the fly.
+> ## Exercise 1.3
+>
+> - Find with ``find`` all the files in your $HOME that are readable or writable by everyone
+>
+>   - (Optional) apply ``chmod o-rwx`` to all recently found files with ``find``
+>
+> - Make a tar.gz archive of any of your directory at your HOME (or WRKDIR if on Tegner), when done
+>   list the archive content, then append another file/directory to the existing archive.
+>   
+>   - (Optional) Extract only one particular file to some subdirectory from the archive
+>   
+> - Transfer just created archive using either ``scp`` or ``rsync``.
+> 
+>   - (Optional) Try ssh+tar combo to make transfer and archive on the fly.
+{: .challenge}
 
 ---
 
@@ -746,16 +757,18 @@ Other quick ways to add something to a file (no need for an editor)
 Try: add above mentioned ``export PS1`` to *.bashrc*. Remember ``source .bashrc`` to enable changes
 
 
-:Exercise 1.2.2:
- - link *.bash_profile* to *.bashrc*. Tip: see ``ln`` command from the previous session.
- - open *~/.bashrc* for eiditng and add there CDPATH example from above, customize
-   it for your needs and test. Tip: remember ``source ~/.bashrc``.
- - add ``umask 027`` to *.bashrc*, try creating files. Tip: ``umask -S`` prints your current setting.
- - customize a prompt ``$PS1`` and add it to your *.bashrc*, make sure is has
-   a current directory name and the hostname in it in the format *hostname:/path/to/current/dir*.
-   Hint: save the original PS1 like ``oldPS1=$PS1`` to be able to recover it any time.
- - (*) Set some default options for the ``less`` program in your bashrc.
-   Examples: case-insensitive searching, long prompt, wrapping lines.
+> ## Exercise 1.4
+>
+> - link *.bash_profile* to *.bashrc*. Tip: see ``ln`` command from the previous session.
+> - open *~/.bashrc* for eiditng and add there CDPATH example from above, customize
+>   it for your needs and test. Tip: remember ``source ~/.bashrc``.
+> - add ``umask 027`` to *.bashrc*, try creating files. Tip: ``umask -S`` prints your current setting.
+> - customize a prompt ``$PS1`` and add it to your *.bashrc*, make sure is has
+>   a current directory name and the hostname in it in the format *hostname:/path/to/current/dir*.
+>   Hint: save the original PS1 like ``oldPS1=$PS1`` to be able to recover it any time.
+> - (Optional) Set some default options for the ``less`` program in your bashrc.
+>   Examples: case-insensitive searching, long prompt, wrapping lines.
+{: .challenge}
 
 ---
 
@@ -931,21 +944,23 @@ ps auxw | grep firefox
 grep "<[Hh][12]>" file.html
 ``` 
 
-:Exercise 1.2.3:
- - make a pipe that counts number of files/directories (including dot files) in your directory
- - grep directories out of ``ls -l``
- - grep all but blank lines in triton:/etc/bashrc
-
-   - expand the previous one to filter out commented lines also (line starts with #). Note that
-     lines may have spaces before # mark.
-
- - count unique logged in users on triton. Tip: ``w`` or ``users`` gives you
-   a list of all currently login users, many of them have several sessions open.
- - (*) Play with the commands grep, cut: find at least two ways to
-   extract IP addresses only out of /etc/hosts. Tip: *grep* has *-o* option, thus one can build
-   a regular expression that will grab exactly what you need.
- - (*) Using pipes and commands echo/tr/uniq, find doubled words out of 'My
-   Do Do list: Find a a Doubled Word'. Any easier way to do it?
+> ## Exercise 1.5
+>
+> - make a pipe that counts number of files/directories (including dot files) in your directory
+> - grep directories out of ``ls -l``
+> - grep all but blank lines in triton:/etc/bashrc
+>
+>   - expand the previous one to filter out commented lines also (line starts with #). Note that
+>     lines may have spaces before # mark.
+>
+> - count unique logged in users on triton. Tip: ``w`` or ``users`` gives you
+>   a list of all currently login users, many of them have several sessions open.
+> - (Optional) Play with the commands grep, cut: find at least two ways to
+>   extract IP addresses only out of /etc/hosts. Tip: *grep* has *-o* option, thus one can build
+>   a regular expression that will grab exactly what you need.
+> - (Optional) Using pipes and commands echo/tr/uniq, find doubled words out of 'My
+>   Do Do list: Find a a Doubled Word'. Any easier way to do it?
+{: .challenge}
 
 ---
 
@@ -1191,21 +1206,26 @@ anywhere they can be read by the shell).
 
 [Lecturer's notes: about 30 mins joint hands-on session + break]
 
-:Exercise 2.1:
- - Define above mentioned ``ping ...`` command as an alias (you name it, literally) in *.bashrc*
-   once you verify it works. Then ``source .bashrc`` and try the new alias.
- - Pick up */scratch/scip/BASH/windows.txt* file and convert it to UNIX format using ``tr`` and
-   redirects only. Tip: remind first session examples.
- - Find all the files in your $HOME that are readable or writable by everyone
- - (*) Using find, duplicate current directory tree (to some other dir, only tree, no content)
- - (*) Join *find* and *grep* power and find all the files in /{usr/,}{bin,sbin} that have '#!/bin/bash' in it
+> ## Exercise 2.1
+>
+> - Define above mentioned ``ping ...`` command as an alias (you name it, literally) in *.bashrc*
+>   once you verify it works. Then ``source .bashrc`` and try the new alias.
+> - Pick up */scratch/scip/BASH/windows.txt* file and convert it to UNIX format using ``tr`` and
+>   redirects only. Tip: remind first session examples.
+> - Find all the files in your $HOME that are readable or writable by everyone
+> - (Optional) Using find, duplicate current directory tree (to some other dir, only tree, no content)
+> - (Optional) Join *find* and *grep* power and find all the files in /{usr/,}{bin,sbin} that have '#!/bin/bash' in it
+{: .challenge}
 
-:Exercise 2.2:
- - On Tegner find (lfs find ... ) all the dirs/files at $WRKDIR that do not belong to your group.
-   Tip: on Tegner at WRKDIR your username $USER and group name are the same. On any other filesystem,
-   ``$(id -gn)`` returns your group name.
- - Extend above command to fix the group ownership  (... | xargs)
- - On Tegner go through all $WRKDIR subdirectories with 'lfs find ...' and set s-bit for the group 
+> ## Exercise 2.2
+>
+> - On Tegner find (lfs find ... ) all the dirs/files at $WRKDIR that do not belong to your group.
+>   Tip: on Tegner at WRKDIR your username $USER and group name are the same. On any other filesystem,
+>   ``$(id -gn)`` returns your group name.
+> - Extend above command to fix the group ownership  (... | xargs)
+> - On Tegner go through all $WRKDIR subdirectories with 'lfs find ...' and set s-bit for the group 
+{: .challenge}
+
 ---
 
 #### Your ~/bin and PATH
@@ -1438,19 +1458,21 @@ echo ${!var2}  # returns 'Hello' instead of 'var1'
 
 [Lecturer's note: ~20 minutes for the hands-on exercises. Solution examples can be given at very end.]
 
-:Exercise 2.3:
- - Expand *lcd()* function to have WRKDIR as a default directory in case function is invoked
-   without any input parameter.
- - Implement a 'fast find' function ``ff word``. The function should return a long listing
-   (ls -ldA) of any file or directory names that contain the <word>. Make search case insensitive.
-   Note: your newly ceated functions should go to *~/bin/functions*
- - Write two functions ``get_filename()`` and ``get_extension()``. Both should accept a full filename
-   like *path/to/filename.ext* of any length and return *filename* or *ext* correspondingly.
-   Extenssion can be of any length. Function should handle missing argument case correctly.
- - Expand *get_filename()* so that it would accept extenssion pattern as a second argument (if given) and
-   return *filename* out of *path/to/filename.tar.gz* or alike. I.e. ``get_filename path/to/filename.tar.gz tar.gz``
- - (*) By now one should be able to explain: ``:() { :|:&; };:``. *&* in this case sends process
-   to background. [WARNING: it is a forkbomb]
+> ## Exercise 2.3
+>
+> - Expand *lcd()* function to have WRKDIR as a default directory in case function is invoked
+>   without any input parameter.
+> - Implement a 'fast find' function ``ff word``. The function should return a long listing
+>   (ls -ldA) of any file or directory names that contain the <word>. Make search case insensitive.
+>   Note: your newly ceated functions should go to *~/bin/functions*
+> - Write two functions ``get_filename()`` and ``get_extension()``. Both should accept a full filename
+>   like *path/to/filename.ext* of any length and return *filename* or *ext* correspondingly.
+>   Extenssion can be of any length. Function should handle missing argument case correctly.
+> - Expand *get_filename()* so that it would accept extenssion pattern as a second argument (if given) and
+>   return *filename* out of *path/to/filename.tar.gz* or alike. I.e. ``get_filename path/to/filename.tar.gz tar.gz``
+> - (Optional) By now one should be able to explain: ``:() { :|:&; };:``. *&* in this case sends process
+>   to background. [WARNING: it is a forkbomb]
+{: .challenge}
  
 ---
 
@@ -1671,19 +1693,21 @@ esac
 # to make a file executable 'cx filename'
 ```
 
-:Exercise 3.1:
- - Using BASH builtin functionality implement ``my_grep pattern string`` script that picks
-   up a pattern ($1) and a string ($2) as an input and reports whether pattern matches any
-   part of the string or not.
-
-   - The script must check that number of input parameters is correct.
-   - Expand *my_grep* script to make search case insensitive
-
- - Implement a ``my_mkdir`` script that either accepts a directory name as an input parameter or requests it
-   with ``read`` if no input parameter is given. Script should create a directory if does not exist with
-   the access permissions 700.
-
-   - Add a sanity check so that directory name should allow alphanumeric characters only.
+> ## Exercise 3.1
+>
+> - Using BASH builtin functionality implement ``my_grep pattern string`` script that picks
+>   up a pattern ($1) and a string ($2) as an input and reports whether pattern matches any
+>   part of the string or not.
+>
+>   - The script must check that number of input parameters is correct.
+>   - Expand *my_grep* script to make search case insensitive
+>
+> - Implement a ``my_mkdir`` script that either accepts a directory name as an input parameter or requests it
+>   with ``read`` if no input parameter is given. Script should create a directory if does not exist with
+>   the access permissions 700.
+>
+>   - Add a sanity check so that directory name should allow alphanumeric characters only.
+{: .challenge}
 
 ---
 
@@ -1911,25 +1935,26 @@ for dir in $dir_list; do
 done
 ```
 
-:Exercise 3.2:
- - Write separate scripts that count a sum of any *1+2+3+4+..+n*
-   sequence, both the Gauss version and direct summation.  Accept the
-   *n* on the command line.  Benchmark them with *time* for n=10000 or
-   more.
-
-   - For the direct summation one can avoid loops, how? Tip: discover ``eval $(echo {1..$n})``
-
- - On kosh/lyta run ``net ads search samaccountname=$USER accountExpires 2>/dev/null``
-   to get your account expiration date. It is a 18-digit timestamp, the number of 100-nanoseconds
-   intervals since Jan 1, 1601 UTC. Implement a function that accept a user name, and if not given
-   uses current user by default, and then converts it to the human readable time format.
-   Tip: http://meinit.nl/convert-active-directory-lastlogon-time-to-unix-readable-time
-
-   - Expand it to handle "Got 0 replies" response, i.e. account name not found.
-
- - Using for loop rename all the files in the directories *dir1/* and *dir2/* which file names
-   are like *filename.txt* to *filename.edited.txt*. Where *filename* can be anything.
-
+> ## Exercise 3.2
+>
+> - Write separate scripts that count a sum of any *1+2+3+4+..+n*
+>   sequence, both the Gauss version and direct summation.  Accept the
+>   *n* on the command line.  Benchmark them with *time* for n=10000 or
+>   more.
+>
+>   - For the direct summation one can avoid loops, how? Tip: discover ``eval $(echo {1..$n})``
+>
+> - On kosh/lyta run ``net ads search samaccountname=$USER accountExpires 2>/dev/null``
+>   to get your account expiration date. It is a 18-digit timestamp, the number of 100-nanoseconds
+>   intervals since Jan 1, 1601 UTC. Implement a function that accept a user name, and if not given
+>   uses current user by default, and then converts it to the human readable time format.
+>   Tip: http://meinit.nl/convert-active-directory-lastlogon-time-to-unix-readable-time
+>
+>   - Expand it to handle "Got 0 replies" response, i.e. account name not found.
+>
+> - Using for loop rename all the files in the directories *dir1/* and *dir2/* which file names
+>   are like *filename.txt* to *filename.edited.txt*. Where *filename* can be anything.
+{: .challenge}
 
 ---
 
@@ -2230,14 +2255,14 @@ If you implement a script that can accept both STDIN and positional
 parameters, you have to check both.
 
 
-:Exercise 4.1:
- - make a script/function that produces an array of random numbers, make sure that numbers are unique
- 
-   - one version should use BASH functionality only (Tip: ``$RANDOM``)
-   - the other can be done with one line (Tip: ``shuf``)
-
- - Implement a Bubble sort using arrays and loops and other built-in BASH functionality (no *sort* etc).
- - (*) Implement a one-liner that sorts text file lines by lines length (Tip: awk or sed)
+> ## Exercise 4.1
+>
+> - make a script/function that produces an array of random numbers, make sure that numbers are unique
+>   - one version should use BASH functionality only (Tip: ``$RANDOM``)
+>   - the other can be done with one line (Tip: ``shuf``)
+> - Implement a Bubble sort using arrays and loops and other built-in BASH functionality (no *sort* etc).
+> - (Optional) Implement a one-liner that sorts text file lines by lines length (Tip: awk or sed)
+{: .challenge}
 
 ---
 
