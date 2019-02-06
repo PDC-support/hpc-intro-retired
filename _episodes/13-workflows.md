@@ -11,6 +11,8 @@ objectives:
 
 # HPC workflows
 
+> This material is based on [this CodeRefinery lesson](https://coderefinery.github.io/reproducible-research/03-workflow-management/)
+
 ## Directory structure for projects
 
 - It is good to keep all files associated with a project in a single folder.
@@ -38,7 +40,8 @@ project_name/
 
 ## Automating your workflow
 
-Automated reproducible workflows enable you to figure out 
+Automated workflows increase the reproducibility of computational 
+research, and enable you to figure out 
 precisely what data and what code were used to generate a result:
 
  - Provide a historical record (provenance) of data, its origins and causal relationships.
@@ -69,16 +72,19 @@ of desirable properties:
 
 - Gentle learning curve, based on Python.
 - Free, open-source, and installs easily via pip.
-- Cross-platform (Windows, MacOS, Linux) and compatible with all HPC schedulers
+- Cross-platform (Windows, MacOS, Linux) and **compatible with all HPC schedulers**
   - same workflow works without modification and scales appropriately whether on a laptop or cluster .
 - Heavily used in bioinformatics, but is completely general.
 
 <img src="../img/snakemake.png" style="height: 250px;"/>
 
-> To follow along, **clone** this [repository](https://github.com/coderefinery/word-count):
+> To follow along in the example workflow exercise below, log in to Tegner and then **clone** this [repository](https://github.com/coderefinery/word-count) into your klemming nobackup directory:
 > ```shell
 > $ git clone https://github.com/coderefinery/word-count.git
 > ```
+
+The project is about counting the frequency distribution of words in a given text, plotting bar charts and testing 
+[Zipf's law](https://en.wikipedia.org/wiki/Zipf%27s_law).
 
 The example project directory is like this:
 ```bash
@@ -92,6 +98,23 @@ word_count/
 |-- requirements.txt
 |-- license.md
 |-- ...                              
+```
+
+> Note that the project includes a README file, a requirements file with software dependencies, and a license file.
+
+The texts that we want to analyze for the project is in the `data/` directory (four books in plain text), 
+along with LICENSE_TEXTS.md which contains the license for the texts and their origins. 
+
+The data directory is like this:
+```bash
+word_count/
+|-- data/
+|   |--LICENSE_TEXTS.md
+|   |--abyss.txt
+|   |--isles.txt
+|   |--last.txt
+|   |--sierra.txt
+|-- ...                            
 ```
 
 #### Generating results
@@ -125,3 +148,98 @@ $ python source/zipf_test.py processed_data/abyss.dat > results/results.txt
 
 ---
 
+#### Automating the workflow
+
+We will now use a Snakefile to automatically run all the steps of the 
+workflow, taking care of the dependencies between each step. The 
+Snakefile looks like this:
+
+```python
+# a list of all the books we are analyzing
+DATA = glob_wildcards('data/{book}.txt').book
+
+# this is for running on HPC resources
+localrules: all, clean, make_archive
+
+# the default rule
+rule all:
+    input:
+        'zipf_analysis.tar.gz'
+
+# delete everything so we can re-run things
+rule clean:
+    shell:
+        '''
+        rm -rf source/__pycache__
+        rm -f zipf_analysis.tar.gz processed_data/* results/*
+        '''
+
+# count words in one of our books
+# logfiles from each run are put in .log files"
+rule count_words:
+    input:
+        wc='source/wordcount.py',
+        book='data/{file}.txt'
+    output: 'processed_data/{file}.dat'
+    threads: 4
+    log: 'processed_data/{file}.log'
+    shell:
+        '''
+        echo "Running {input.wc} with {threads} cores on {input.book}." &> {log} &&
+            python {input.wc} {input.book} {output} >> {log} 2>&1
+        '''
+
+# create a plot for each book
+# shows example usage of the resources keyword
+rule make_plot:
+    input:
+        plotcount='source/plotcount.py',
+	book='processed_data/{file}.dat'
+    output: 'results/{file}.png'
+    resources: gpu=1
+    shell: 'python {input.plotcount} {input.book} {output}'
+
+# generate summary table
+rule zipf_test:
+    input:
+        zipf='source/zipf_test.py',
+        books=expand('processed_data/{book}.dat', book=DATA)
+    output: 'results/results.txt'
+    shell:  'python {input.zipf} {input.books} > {output}'
+
+# create an archive with all of our results
+rule make_archive:
+    input:
+        expand('results/{book}.png', book=DATA),
+        expand('processed_data/{book}.dat', book=DATA),
+        'results/results.txt'
+    output: 'zipf_analysis.tar.gz'
+    shell: 'tar -czvf {output} {input}'
+```
+
+#### Running the workflow in batch jobs
+
+```bash
+{
+    "__default__" :
+    {
+        "account" : "pdc.staff",
+        "time" : "00:05:00",
+        "n" : 1,
+        "partition" : "main"
+    },
+    "tegner" :
+    {
+        "account" : "pdc.staff",
+        "time" : "00:05:00",
+        "n" : 24,
+        "partition" : "main"
+    }
+}
+```
+
+
+```bash
+$ snakemake -j 999 --cluster-config cluster.json --cluster "sbatch -A {c
+luster.account} -p {cluster.partition} -n {cluster.n}  -t {cluster.time}"
+```
