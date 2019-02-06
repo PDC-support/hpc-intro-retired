@@ -11,7 +11,7 @@ objectives:
 
 # HPC workflows
 
-> This material is based on [this CodeRefinery lesson](https://coderefinery.github.io/reproducible-research/03-workflow-management/)
+> This material is based on [a CodeRefinery lesson](https://coderefinery.github.io/reproducible-research/).
 
 ## Directory structure for projects
 
@@ -42,14 +42,15 @@ project_name/
 
 Automated workflows increase the reproducibility of computational 
 research, and enable you to figure out 
-precisely what data and what code were used to generate a result:
+precisely what data and what code were used to generate a result.
+Such workflows:
 
  - Provide a historical record (provenance) of data, its origins and causal relationships.
  - Can be used to ensure quality of data based on ancestral data, or find sources of errors.
  - Allow automated recreation of data.
- - Implemented in many workflow management tools.
+ - Are implemented in many workflow management tools.
 
-What are workflow management tools?
+But what are workflow management tools?
 
 - Orchestrated and repeatable pattern for a series of computational or data manipulation steps.
 - Typical homemade workflows: series of scripts that read data and input, call programs and produce outputs.
@@ -65,7 +66,7 @@ What are workflow management tools?
 
 ---
 
-### Simple workflow with [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html)
+### Simple workflow example with [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html)
 
 Snakemake is a workflow management tool with a number 
 of desirable properties:
@@ -78,12 +79,26 @@ of desirable properties:
 
 <img src="../img/snakemake.png" style="height: 250px;"/>
 
-> To follow along in the example workflow exercise below, log in to Tegner and then **clone** this [repository](https://github.com/coderefinery/word-count) into your klemming nobackup directory:
-> ```shell
-> $ git clone https://github.com/coderefinery/word-count.git
-> ```
+#### Setup
 
-The project is about counting the frequency distribution of words in a given text, plotting bar charts and testing 
+First log in to Tegner, then load an Anaconda module 
+and activate the snakemake environment:
+
+```bash
+$ module add anaconda/py36/5.0.1
+$ source activate snakemake
+```
+
+To follow along in this exercise, go to your klemming nobackup directory 
+and **clone** this [repository](https://github.com/coderefinery/word-count):
+
+```shell
+$ git clone https://github.com/coderefinery/word-count.git
+```
+
+#### About the project
+
+The example project is about counting the frequency distribution of words in a given text, plotting bar charts and testing 
 [Zipf's law](https://en.wikipedia.org/wiki/Zipf%27s_law).
 
 The example project directory is like this:
@@ -100,7 +115,7 @@ word_count/
 |-- ...                              
 ```
 
-> Note that the project includes a README file, a requirements file with software dependencies, and a license file.
+Note that the project includes a README file, a requirements file with software dependencies, and a license file.
 
 The texts that we want to analyze for the project is in the `data/` directory (four books in plain text), 
 along with LICENSE_TEXTS.md which contains the license for the texts and their origins. 
@@ -135,14 +150,21 @@ and generate a plot by:
 $ python source/plotcount.py processed_data/abyss.dat results/abyss.png
 ```
 
-and finally compute the ratio between the frequencies of the two most common words (Zipf's law predicts this ratio to be 2)
+and compute the ratio between the frequencies of the two most common words (Zipf's law predicts this ratio to be 2):
 ```bash
 $ python source/zipf_test.py processed_data/abyss.dat > results/results.txt
 ```
 
+and finally create a tarball of the results:
+```bash
+$ tar -czvf zipf_analysis.tar.gz results/abyss.dat processed_data/abyss.dat results/results.txt
+```
+
+Have a look at the generated output files!
+
 - In simple cases it's easy to figure out what the input is and how results are computed from it.
 - As projects grow, it becomes more difficult to keep track of all steps of a workflow.
-- The complete workflow for this example project looks like this:
+- The complete workflow for the Zipf test project looks like:
 
 <img src="../img/snakemake_dag.png" style="height: 300px;"/>
 
@@ -158,10 +180,10 @@ Snakefile looks like this:
 # a list of all the books we are analyzing
 DATA = glob_wildcards('data/{book}.txt').book
 
-# this is for running on HPC resources
+# localrules are for HPC workflows - these rules will not be run as batch jobs
 localrules: all, clean, make_archive
 
-# the default rule
+# the default rule (first rule to appear in snakefile)
 rule all:
     input:
         'zipf_analysis.tar.gz'
@@ -174,14 +196,13 @@ rule clean:
         rm -f zipf_analysis.tar.gz processed_data/* results/*
         '''
 
-# count words in one of our books
+# count words the books
 # logfiles from each run are put in .log files"
 rule count_words:
     input:
         wc='source/wordcount.py',
         book='data/{file}.txt'
     output: 'processed_data/{file}.dat'
-    threads: 4
     log: 'processed_data/{file}.log'
     shell:
         '''
@@ -189,14 +210,12 @@ rule count_words:
             python {input.wc} {input.book} {output} >> {log} 2>&1
         '''
 
-# create a plot for each book
-# shows example usage of the resources keyword
+# create plots for each book
 rule make_plot:
     input:
         plotcount='source/plotcount.py',
 	book='processed_data/{file}.dat'
     output: 'results/{file}.png'
-    resources: gpu=1
     shell: 'python {input.plotcount} {input.book} {output}'
 
 # generate summary table
@@ -215,31 +234,77 @@ rule make_archive:
         'results/results.txt'
     output: 'zipf_analysis.tar.gz'
     shell: 'tar -czvf {output} {input}'
+
+# success/error reporting, from https://twitter.com/khanaziz84/status/1082203240752734208
+onsuccess:
+    print("Success, have a cake!")
+    shell("mail -s 'Snakemake workflow completed: Have a beer!' your-email@somewhere.com < {log}")
+
+onerror:
+    print("Error, Snakemake aborted!")
+    shell("mail -s 'Snakemake workflow aborted: Have a coffee and see logs inside!' your-email@somewhere.com < {log}")
 ```
 
+- Let's discuss this Snakefile!
+  - rules, special rules
+  - `input` (dependencies), `output` (targets), `shell` (command)
+  - wildcards (`{input}`)
+  - named dependencies (`{input.book}`)
+  - pattern rules (`{file}`)
+  - python functions from snakemake.io (`glob_wildcards()`, `expand()`)
+
+We copy-paste this Snakefile into a file called Snakefile, 
+and run all steps of our workflow with a single command:
+```bash
+$ snakemake
+```
+
+We see lots of output, and hopefully all steps complete successfully.
+
 #### Running the workflow in batch jobs
+
+All steps of this example workflow finish within seconds on a single core, 
+but you might be dealing with heavy calculations that need to be run 
+on a cluster. 
+
+To let Snakemake execute the rules on compute nodes, we need to 
+specify SLURM flags in a configuration file (json or yaml):
 
 ```bash
 {
     "__default__" :
     {
-        "account" : "pdc.staff",
+        "account" : "edu19.intropdc",
         "time" : "00:05:00",
         "n" : 1,
         "partition" : "main"
     },
-    "tegner" :
+    "zipf_test" :
     {
-        "account" : "pdc.staff",
-        "time" : "00:05:00",
+        "account" : "edu19.intropdc",
+        "time" : "00:10:00",
         "n" : 24,
         "partition" : "main"
     }
 }
 ```
 
+- Each rule in the Snakefile can have a unique cluster configuration (#cores, time, etc.)
+- If a rule is not found in the cluster config file, the `__default__` rule is used for it.
+
+We copy-paste the config file to a file `cluster.json`, clean all output:
+```bash
+$ snakemake clean
+```
+
+and run the workflow as batch scripts:
 
 ```bash
-$ snakemake -j 999 --cluster-config cluster.json --cluster "sbatch -A {c
-luster.account} -p {cluster.partition} -n {cluster.n}  -t {cluster.time}"
+$ snakemake -j 50 --cluster-config cluster.json --cluster "sbatch -A {cluster.account} -p {cluster.partition} -n {cluster.n}  -t {cluster.time}"
 ```
+
+- The `-j` flag determines how many jobs Snakemake is allowed to have running at the same time.
+- Try monitoring the SLURM queue.
+- Check that all output files are generated, and whether any SLURM output files have been created.
+
+
