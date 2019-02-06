@@ -1,6 +1,6 @@
 ---
 layout: episode
-title: "HPC accessibility"
+title: "(Optional) HPC accessibility"
 teaching: 10
 exercises: 20
 questions:
