@@ -28,11 +28,10 @@ Exercises marked "optional" are for advanced users who would like further stimul
 
 ---
 
-## Linux Shell Basics {#basics}
 
-### What is a shell? {#what-is-shell}
+## What is a shell? {#what-is-shell}
 
-#### About the Linux Shell
+### About the Linux Shell
 
 - A *shell* is what you get when your terminal window is open. It is a
   command-line interface (CLI), an interface that interpreters and executes
@@ -58,7 +57,7 @@ Exercises marked "optional" are for advanced users who would like further stimul
 
 ---
 
-#### Getting a BASH shell
+### Getting a BASH shell
 
 Set yourself up with a BASH shell.  Connect to a server or open on your own computer.
 Examples and demos given during the lecture are done on Tegner, 
@@ -70,7 +69,7 @@ though should work on all other Linux installations.
 
 ---
 
-#### Basic shell operation
+### Basic shell operation
 
 - You type things on the screen (standard input or stdin).  The shell
   uses this to make a command.
@@ -81,9 +80,9 @@ though should work on all other Linux installations.
 
 ---
 
-### Processes and files {#processes-files}
+## Processes and files {#processes-files}
 
-#### What's a UNIX process?
+### What's a UNIX process?
 
 - To understand a shell, and what happens when we run commands, 
   let's first understand what processes are.
@@ -135,7 +134,7 @@ pwd
 
 ---
 
-#### Getting help in terminal
+### Getting help in terminal
 
 Before you Google for the command examples, try
 
@@ -149,7 +148,7 @@ builtin, you need to use ``help``.
 
 ---
 
-#### Built-in and external commands
+### Built-in and external commands
 
 There are two types of commands:
 
@@ -168,7 +167,7 @@ becomes a default instead of built-in *echo*.
 
 ---
 
-#### Working with processes
+### Working with processes
 
 All processes are related, a command executed in shell is a child process of
 the shell. When a child process is terminated it is reported back to parent process.
@@ -190,7 +189,7 @@ useful when you backup your data in background or alike.
 
 ---
 
-#### Foreground and background processes
+### Foreground and background processes
 
 The shell has a concept of foreground and background processes: 
 - A foreground process is directly connected to your screen and
@@ -248,7 +247,7 @@ stop background processes if they try writing to the screen ``stty tostop``
 
 ---
 
-#### Exiting the shell, and the [GNU screen](https://www.gnu.org/software/screen/) utility
+### Exiting the shell, and the [GNU screen](https://www.gnu.org/software/screen/) utility
 
 To exit the shell, type `logout` or press Ctrl-d.
 
@@ -314,7 +313,7 @@ connect, and resume right where they left off.
   
 ---
 
-#### Files and directories
+### Files and directories
 
 Files contain data.  They have a name, permissions, owner
 (user+group), contents, and some other metadata.
@@ -415,7 +414,7 @@ You may also find the ``rename`` utility useful.
 
 ---
 
-#### File/directory permissions
+### File/directory permissions
 
 - Permissions are one of the types of file metadata.
 - They tell you if you can *read* a file, *write* a file, and
@@ -428,7 +427,7 @@ You may also find the ``rename`` utility useful.
 
 ---
 
-#### Modifying permissions: the easy part
+### Modifying permissions: the easy part
 
 chmod/chown is what will work on all filesystems:
 
@@ -468,7 +467,7 @@ directory.  The permissions of the files themselves still matter.
 
 ---
 
-#### Modifying permissions: advanced 
+### Modifying permissions: advanced 
 
 Access Control Lists (ACLs) are advanced access permissions.  They
 don't work everywhere, for example mostly do no work on NFS
@@ -532,9 +531,9 @@ To get file meta info: ``stat <file_or_dir>``
 
 ---
 
-### Interactive usage {#interactive-usage}
+## Interactive usage {#interactive-usage}
 
-#### find
+### find
 
 * ``find`` is a very unixy program: it finds files, but in the most
   flexible way possible.
@@ -604,7 +603,7 @@ just searches that database so it is much faster.
 
 ---
 
-#### File archiving
+### File archiving
 
 
 ``tar`` is the de-facto standard tool for saving many files or
@@ -645,7 +644,7 @@ gunzip file.gz
  
 ---
 
-#### Transferring files (+archiving on the fly)
+### Transferring files (+archiving on the fly)
 
 For PDC users the ability to transfer files to/from PDC systems is essential.
 For large transfers (big data, many files), you should use the transfer nodes:
@@ -686,7 +685,7 @@ tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_fil
 
 ---
 
-#### How to make things faster: hotkeys
+### How to make things faster: hotkeys
 
 - Is it annoying to have to type everything in the shell?  No, because
   we have hotkeys!  In fact, it can become much more efficient and
@@ -728,7 +727,7 @@ export CDPATH=$HOME:/cfs/klemming/nobackup/u/username
 
 ---
 
-#### Initialization files and configuration
+### Initialization files and configuration
 
 - When the shell first starts (when you login), it reads some files.
   These are normal shell files, and it evaluates normal shell commands
@@ -758,7 +757,7 @@ permanent, should be added to *.bashrc* like ``export PS1``.
 
 ---
 
-#### Creating/editing/viewing file
+### Creating/editing/viewing file
 
 * A *text editor* edits files as ASCII.  These are your best friend.
   In fact, text files are your best friend: rawest, most efficient,
@@ -805,7 +804,7 @@ Try: add above mentioned ``export PS1`` to *.bashrc*. Remember ``source .bashrc`
 
 ---
 
-#### Utilities: the building blocks of shell
+### Utilities: the building blocks of shell
 
 
  - wide range of all kind of utilities available in Linux
@@ -821,7 +820,7 @@ We catch many of them on the way.
 
 ---
 
-#### Input and output: redirect and pipes
+### Input and output: redirect and pipes
 
 * Programs can display something: ``echo this is some output`` or ``cat``
 * Programs can take some input: e.g. ``less`` by default displays
@@ -899,7 +898,7 @@ https://www.gnu.org/software/coreutils/manual/coreutils.html
 
 ---
 
-#### Pipelines: ;, &&, and ||
+### Pipelines: ;, &&, and ||
 
 - You can put several commands on the same line using different
   separators.
@@ -931,7 +930,7 @@ Try: ``cd /nonexistent_dir && ls /nonexistent_dir`` compare with ``cd /nonexiste
 Try: ``ping -c 1 8.8.8.8 > /dev/null && echo online || echo offline``
 
 
-#### grep
+### grep
 
 Later on you'll find out that ``grep`` is one of the most useful
 commands you ever discover on Linux (except for all the *other* most
