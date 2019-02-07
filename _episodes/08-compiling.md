@@ -4,7 +4,7 @@ title: "Building software"
 teaching: 10
 exercises: 10
 questions:
-  - "How do I compile serial, parallel and GPU code on PDC systems?"
+  - "How do I compile serial, parallel and GPU codes on PDC systems?"
 objectives:
   - "Get familiar with compiler environments and compiler wrappers"
 keypoints:

@@ -4,7 +4,7 @@ title: "(Optional) Linux shell scripting"
 teaching: 30
 exercises: 30
 questions:
-  - "How does the shell scripting work?"
+  - "How does shell scripting work?"
 objectives:
   - "Learn useful shell scripting techniques"
 keypoints:

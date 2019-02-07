@@ -5,7 +5,7 @@ teaching: 5
 exercises: 5
 questions:
   - "What is HPC?"
-  - "How can you use HPC?"
+  - "How can I use HPC?"
 objectives:
   - "Get an overview of what cluster computing is."
   - "Discuss benefits and challenges in using HPC systems."
