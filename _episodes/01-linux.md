@@ -233,30 +233,6 @@ you need to install [Xming](http://www.straightrunning.com/XmingNotes/).
 **Hint:** For immediate job-state change notifications, use ``set notify``. To automatically
 stop background processes if they try writing to the screen ``stty tostop``
 
----
-
-#### Exiting the shell and the 'screen' utility
-
-``logout`` or Ctrl-d (if you don't want Ctrl-d to quit, set ``export IGNOREEOF=1`` in *.bashrc*).
-
-However, quitting your shell can be annoying if you have customized 
-your environment and would need to start over when reopening the shell.
-Luckily there are programs so that you don't have to start over.
-In order to keep your sessions running while you logged out, you
-should learn about the ``screen`` program:
-
- - ``screen`` to start a session
- - *Ctrl-a d* to detach the session while you are connected
- - ``screen -ls`` to list currently running sessions
- - ``screen -rx <session_id>`` to attach to the session (use TAB for the autocompletion or skip <session_id> if there is only one session running)
- - ``tmux`` is a newer program with the same style.  It has some extra
-   features and some missing features still.
-
-Some people have their ``screen`` open forever, which just keeps
-running and never gets closed.  Wherever they are, they ssh in,
-connect, and resume right where they left off.
-
-
 > ## Exercise: Processes
 > 
 >  - Find out with *man* how to use *top* / *pstree* / *ps* to list all the running processes that belong to you.  
@@ -278,6 +254,72 @@ connect, and resume right where they left off.
 > 
 >    - (optional) get any X Window application (firefox, xterm, etc) to run on Tegner
 {: .challenge}
+
+---
+
+#### Exiting the shell, and the [GNU screen](https://www.gnu.org/software/screen/) utility
+
+To exit the shell, type `logout` or press Ctrl-d.
+
+However, quitting your shell can be annoying if you have customized 
+your environment and would need to start over when reopening the shell.
+Luckily there are programs so that you don't have to start over.
+`screen` is a full-screen window manager that multiplexes a physical 
+terminal between several processes, typically interactive shells
+When `screen` is called, it creates a single window with a shell in it 
+and then gets out of your way so that you can use the program as you 
+normally would.  
+With `screen`, you can:
+ - Manage persistent terminal sessions, which survive if connection crashes 
+   or if you need to abrubtly abandon your work.
+ - Save screen processes when logging out and resume where you left off, 
+ - Have multiple windows connected to the same terminal session.
+ - Copy and paste (including block-copy) between different 
+   screens without mouse.
+
+**Screen commands short list**
+
+| command | Explanation |
+| ------- | ----------- |
+| screen | start a session | 
+| screen -S [name] | start a named session |
+| screen -ls | list running sessions |
+| screen -x | attach to a running session |
+| screen -r [name] | attach to session with [name] |
+
+The `screen` commands inside a screen session are prefixed by an 
+escape key, by default `Ctrl-a` (`C-a`): 
+
+| `screen` command | Explanation |
+| ---------------- | ----------- |
+| C-a d | detach from session |
+| exit (C-d) | kill the window/session |
+| C-a c | create new window |
+| C-a C-a | change to last-visited window |
+| C-a <number> | change to window by number |
+| C-a " | see window list (and select) |
+
+> ## Trying out screen
+>
+> The `screen` window manager can be really useful to preserve the state
+> of a terminal session. Try the following steps:
+> - Log in to Tegner, load a couple of random modules and export some 
+>   random environment variables (e.g., `export foo=bar`).
+> - Imagine that you need to catch the bus, but that you don't want to lose 
+>   your environment. Start a screen session with `screen`.
+> - Detach from your screen session with `Ctrl-a d`, and log out from Tegner.
+> - Imagine that a day has passed, and log back in to Tegner.
+> - List all screen sessions. Reattach to "yesterday's" screen session, 
+>   and check that the environment is the same as when you left it.
+> - If you have time, try playing around with screen some more, 
+>   using the commands listed above or by finding inspiration from 
+>   [online](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/)
+>   [tutorials](https://kb.iu.edu/d/acuy).
+{: .challenge}
+
+Some people have their ``screen`` open forever, which just keeps
+running and never gets closed.  Wherever they are, they ssh in,
+connect, and resume right where they left off.
   
 ---
 
@@ -969,8 +1011,8 @@ grep "<[Hh][12]>" file.html
 
 ### BASH magic {#bash-magic}
 
-Last time, we focused on interactive things from the command line.
-Now, we build on that some and end up with making our own scripts.
+So far we have been focusing on interactive work from the command line.
+Now, we build on that and end up with making our own scripts.
 
 ---
 
@@ -1057,7 +1099,7 @@ command first.
 
 ```bash
 # get the latest modified file to a variable
-newest=$(ls -F1t | grep -v */ | head -1)
+newest=$(ls -F1t | grep -v / | head -1)
 
 # save current date to a variable
 today=$(date +%Y-%m-%d)
