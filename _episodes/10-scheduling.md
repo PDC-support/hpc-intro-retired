@@ -130,7 +130,7 @@ The output shows:
 > 
 > You need to belong to a time allocation in order to use PDC resources.
 > Generally, you would follow the procedure described 
-> [in the previous episode](../03-gettingaccess) and apply for an allocation.
+> [in the previous episode]({{ site.baseurl }}/04-gettingaccess) and apply for an allocation.
 > For this workshop, an allocation has been set up called `edu19.intropdc`.
 {: .callout}
 
