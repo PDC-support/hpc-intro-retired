@@ -1,7 +1,7 @@
 ---
 layout: episode
 title: "(Optional) Automating HPC workflows"
-teaching: 20
+teaching: 10
 exercises: 10
 questions:
   - "How can I automatize my HPC workflows?"

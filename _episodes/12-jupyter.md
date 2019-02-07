@@ -2,7 +2,7 @@
 layout: episode
 title: "(Optional) Jupyter Notebooks"
 teaching: 10
-exercises: 20
+exercises: 10
 questions:
   - "I love Jupyter notebooks, can I use them at PDC?"
 objectives:
