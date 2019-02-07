@@ -1,8 +1,8 @@
 ---
 layout: episode
 title: "Linux shell tutorial"
-teaching: 5
-exercises: 5
+teaching: 30
+exercises: 30
 questions:
   - "How does the Linux shell work?"
 objectives:

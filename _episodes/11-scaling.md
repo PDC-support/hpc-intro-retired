@@ -1,7 +1,7 @@
 ---
 layout: episode
 title: "Scaling tests for efficient HPC usage"
-teaching: 20
+teaching: 10
 exercises: 10
 questions:
   - "How can I maximize the efficiency of my HPC jobs?"
