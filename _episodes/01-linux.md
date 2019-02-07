@@ -310,6 +310,10 @@ escape key, by default `Ctrl-a` (`C-a`):
 Some people have their ``screen`` open forever, which just keeps
 running and never gets closed.  Wherever they are, they ssh in,
 connect, and resume right where they left off.
+
+#### [tmux](https://github.com/tmux/tmux/wiki) 
+- [tmux](https://github.com/tmux/tmux/wiki) is similar to screen 
+   with some minor pros and cons, try it out to see which one you like better!
   
 ---
 
