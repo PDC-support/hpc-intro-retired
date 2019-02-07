@@ -215,3 +215,20 @@ more general than the `chmod` command which only changes file permissions.
   - Try instead to write to few large files.
   - Always use the Lustre file system, not AFS (AFS isn't even available on Beskow compute nodes).
 
+---
+
+## [GNU Midnight Commander](https://midnight-commander.org/)
+
+Midnight Commander is a visual free cross-platform orthodox file manager. 
+It is a console application with a text user interface.
+
+Midnight Commander is available at PDC:
+
+```bash
+$ module add midnightcommander
+$ mc
+```
+
+This will open an in-terminal graphical interface where you can use both 
+the keyboard and mouse.
+<img src="../img/mc.png" alt="Midnight Commander" width="600" align="middle"> 

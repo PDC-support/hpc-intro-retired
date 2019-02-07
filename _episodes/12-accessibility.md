@@ -7,7 +7,6 @@ questions:
   - "Are there alternative ways to interact with HPC systems?"
   - "I love Jupyter Notebooks, can I use them at PDC?"
 objectives:
-  - "Learn how to use Midnight Commander, GNU Screen and tmux"
   - "Learn how to use Jupyter notebooks in an HPC environment"
 keypoints:
   - "MidnightCommander, GNU screen, tmux and Jupyter offer alternative ways 
@@ -19,33 +18,10 @@ keypoints:
 Basic HPC usage hasn't changed much in decades - we still log in to 
 clusters using secure shell, use terminals to execute UNIX commands, 
 submit batch jobs to the job scheduler, etc. But there are alternative 
-ways to interact with HPC systems, and there are also many ways in 
-which traditional HPC usage can be made more convenient.
+ways to interact with HPC systems.
 
-In this episode we will learn about methods and tools to customize 
-and automatize the user interaction with an HPC system, in particular:
-
-- Midnight Commander to manage files and directories
-- `tmux` and `screen` to store terminal sessions
-- Jupyter Notebooks to manage SLURM jobs
-
----
-
-## [GNU Midnight Commander](https://midnight-commander.org/)
-
-Midnight Commander is a visual free cross-platform orthodox file manager. 
-It is a console application with a text user interface.
-
-Midnight Commander is available at PDC:
-
-```bash
-$ module add midnightcommander
-$ mc
-```
-
-This will open an in-terminal graphical interface where you can use both 
-the keyboard and mouse.
-<img src="../img/mc.png" alt="Midnight Commander" width="600" align="middle"> 
+In this episode we will learn how to use Jupyter Notebooks
+to manage SLURM jobs from your browser!
 
 ---
 
