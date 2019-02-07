@@ -21,6 +21,7 @@ keypoints:
 
 This material consists of the following parts: 
  - [What is a shell?](#what-is-shell)
+ - [Bash basics](#bash-basics)
  - [Processes and files](#processes-files)
  - [Interactive usage](#interactive-usage)
 
@@ -69,14 +70,84 @@ though should work on all other Linux installations.
 
 ---
 
-### Basic shell operation
+## Your very first bash commands ##
 
+We are now going to get familiar with the bash shell in a very low pace mode. We start with two commands.
+
+| command | Explanation |
+| ------- | ----------- |
+| pwd     | present work directory | 
+| ls      | list contents | 
+
+
+> ## Exercise: What is this bash thing?
+>
+> - What do you get if you type ``pwd`` in the terminal?
+> - If you are not on Tegnér, open a File Explorer. Find out the location you are viewing. Compare with outpout from ``pwd`` in the terminal.
+> - Now type ``ls`` in the terminal. Compare the output with the items you see in the File Explorer.
+{: .challenge}
+
+**Take home message:** bash shell is a text based tool to interact with the computer.
+
+**Main advantage:** high ratio of *action to key stroke* i.e. *efficiency*.
+
+When you work you typically want to manipulate files (ascii text, images, raw data etc) and folders in some way. Some typical bash commands to use are:
+
+
+| command | Explanation |
+| ------- | ----------- |
+| cd example_hpc | change directory to a directory called example_hpc |
+| mkdir new_dir  | create a new directory called new_dir |
+| cp file1 file2 | make a copy of file1 called file2 |
+| mv file1 new_dir/file2 | move file1 into new_folder and call that file2 |
+
+
+> ## Exercise: Copying files and moving between folders.
+>
+> - Using the bash shell, create a directory called *example_hpc*. Verify that it was created.
+> - Move into *example_hpc*. Obtain the name of the current location and check what items are present here.
+> - Execute ``cd ..`` and then check location. What happened? When answered, move back into *example_hpc*.
+> - Execute ``cd example_hpc`` in the terminal. Do you understand the output?
+> - Start your favorite text editor in your usual way. Create a new text file named *file1.txt* and save it inside the folder *example_hpc*.
+> - Use the terminal to copy this file to a new file named *file2.txt*. Check result.
+{: .challenge}
+
+
+## Relative vs. Absolute paths
+
+The final task in the feather weight class of this tutorial is to understand the concept of relative and absolute paths.
+
+| Relative | Absolute |
+| ------- | ----------- |
+| cd example_hpc | cd /home/tkl/example_hpc |
+| cd ..      | cd /home/tkl/ |
+| cd ../..   | cd /home/ |
+
+
+
+## List of further useful commands ##
+
+We are now going to get familiar with working through a bash shell and start by
+exploring two basic commands.
+
+| command | Explanation |
+| ------- | ----------- |
+| man ls   | prints manual on the command ls (just an example) | 
+| rm file1 | remove file1 (careful! no return in general) |
+| ls -l    | list files in long format |
+| history  | prints the command line history in order.  | 
+
+The last is an example of a *flag*. Many of these commands have ways to tailor the effect, steered by these flags. Use *man <command_name>* to learn about options for commands you use.
+
+
+## Basic shell operations
 - You type things on the screen (standard input or stdin).  The shell
   uses this to make a command.
 - The shell takes the command, splits it into words, does a lot more
   preprocessing, and then runs it.
 - When the command runs, the keyboard (still standard input) goes to
-  the process, output (standard output) goes to the screen.
+  the process, output (standard output) goes to the screen. 
+
 
 ---
 
