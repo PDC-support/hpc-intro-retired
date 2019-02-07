@@ -13,9 +13,12 @@ objectives:
 # HPC best practices
 
 - Work on improving your command line skills, this pays off in the long run.
-- Be friends with the file system.
+- Be friends with the file system, rather write one large file than thousands of small files.
 - Show good manners on the login node.
 - Use the transfer nodes for transfering large amounts of data.
+- Avoid massively parallel but very short jobs, this causes problems for the 
+  scheduler.
+- Avoid massive output to STDOUT.
 
 - Estimate how much time your job will take before submitting it (shortens queue time)
 - Some codes run faster when using fewer cores per node due to memory 

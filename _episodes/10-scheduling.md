@@ -131,14 +131,12 @@ The output shows:
 > You need to belong to a time allocation in order to use PDC resources.
 > Generally, you would follow the procedure described 
 > [in the previous episode](../03-gettingaccess) and apply for an allocation.
-> For this workshop, an allocation has been set up called `edu18.prace`.
-> Moreover, a *reservation* has been set up called `prace-2018-10-25` 
-> (tomorrow we'll use `prace-2018-10-26`).
+> For this workshop, an allocation has been set up called `edu19.intropdc`.
 {: .callout}
 
-Let us now allocate an interactive node for 20 minutes using the `salloc` command:
+Let us now allocate an interactive node for 10 minutes using the `salloc` command:
 ```bash
-[tegner]$ salloc -A edu18.prace --reservation=prace-2018-10-25 -t 0:20:0 --nodes=1
+[tegner]$ salloc -A edu19.intropdc -t 0:10:0 --nodes=1
 ```
 When your allocation is granted, *a new terminal session starts*.
 - Previous command history vanishes.
@@ -210,8 +208,7 @@ mpirun -n 48 ./myexe > my_output_file 2>&1
 > nobackup directory (`$SNIC_NOBACKUP`) where you compiled the MPI Hello World 
 > code (if you haven't done this already, revisit 
   [the previous episode](../07-compiling)). Modify it as follows:
-> - Use the workshop allocation `edu18.prace`.
-> - Use the workshop reservation `prace-2018-10-25`.
+> - Use the workshop allocation `edu19.intropdc`.
 > - Request only one node (24 cores) and 2 minutes.
 > - Load the modules `gcc/7.2.0` and `openmpi/3.0-gcc-7.2`
 > - Run the command `mpirun -n 24 ./hello_mpi`.
@@ -296,10 +293,7 @@ one shot in the corresponding directories.
 
 # Set the allocation to be charged for this job
 # not required if you have set a default allocation
-#SBATCH -A edu18.prace
-
-# Use the reservation for the workshop
-#SBATCH --reservation=prace-2018-10-25
+#SBATCH -A edu19.intropdc
 
 # The name of the script is myjob
 #SBATCH -J myjobarray

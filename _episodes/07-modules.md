@@ -14,7 +14,7 @@ keypoints:
   - "SNIC environment variables provide shortcuts to your AFS and Lustre directories."
 ---
 
-On a HPC system, no software is loaded by default. If we want to use a software package, 
+On a HPC system, software is typically not loaded by default. If we want to use a software package, 
 we will need to "load" it ourselves.
 
 Before we start using individual software packages, we should understand the reasoning 

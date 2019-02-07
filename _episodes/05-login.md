@@ -105,6 +105,12 @@ which copies files between hosts over a network.
 > $ ssh <username>@tegner.pdc.kth.se
 > ```
 > {: .bash}
+> If you haven't configured your `.ssh/config` file, you will have to 
+> explicitly add three flags for Kerberos authentication:
+> ```
+> $ ssh -o GSSAPIDelegateCredentials=yes -o GSSAPIKeyExchange=yes -o GSSAPIAuthentication=yes <username>@tegner.pdc.kth.se
+> ```
+> {: .bash}
 {: .challenge}
 
 > ## Being Certain Which System your Terminal is connected to
