@@ -12,12 +12,27 @@ objectives:
 
 # HPC best practices
 
+- Work on improving your command line skills, this pays off in the long run.
 - Be friends with the file system.
+- Show good manners on the login node.
+- Use the transfer nodes for transfering large amounts of data.
+
+- Estimate how much time your job will take before submitting it (shortens queue time)
+- Some codes run faster when using fewer cores per node due to memory 
+  requirements.
 - Calibrate your jobs, like you would do with an experimental apparatus
   - Use a test case where you know what the correct answer should be.
-- Keep all files associated with a project in a single folder.
 - Perform parallel scaling tests of your jobs.
-- Include all relevant information when you send in a support request.
+- If you have access to multiple clusters, run benchmark tests to see 
+  where your code runs fastest.
+
+- Compare different compilers (Intel, GNU, Cray...)
+- Use recent compiler versions when building code.
+
+- Keep all files associated with a project in a single folder.
+- Consider using automated workflow management tools if you run 
+  complicated workflows.  
+
 
 
 # Getting help
@@ -31,6 +46,7 @@ objectives:
   - [List of software installed on SNIC centres along with links to documentation (poorly maintained)](http://docs.snic.se/wiki/Software).
 - Send in a support request.
   - SNIC (and other national HPC providers) employs support staff and application experts who can help with basic and advanced problems.
+- Include all relevant information when you send in a support request.
 
 
 
