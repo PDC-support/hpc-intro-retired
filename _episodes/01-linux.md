@@ -123,32 +123,53 @@ The final task in the feather weight class of this tutorial is to understand the
 | cd ..      | cd /home/tkl/ |
 | cd ../..   | cd /home/ |
 
+**Take home message:** Absolute paths always work but relative paths are more convenient if used correctly.
 
 
 ## List of further useful commands ##
 
-We are now going to get familiar with working through a bash shell and start by
-exploring two basic commands.
 
 | command | Explanation |
 | ------- | ----------- |
-| man ls   | prints manual on the command ls (just an example) | 
-| rm file1 | remove file1 (careful! no return in general) |
-| ls -l    | list files in long format |
-| history  | prints the command line history in order.  | 
+| man ls    | prints manual on the command ls (just an example) | 
+| rm file1  | remove file1 (careful! no return in general) |
+| ls -l     | list files in long format |
+| history   | prints the command line history in order.  |
+| cat file  | prints all contents of file to stdout.  |
+| head file | prints first lines of file to stdout.  |
+| tail file | prints last lines of file to stdout.  |
 
-The last is an example of a *flag*. Many of these commands have ways to tailor the effect, steered by these flags. Use *man <command_name>* to learn about options for commands you use.
+
+``ls -l`` is an example of using a command with a *flag* (try it in the terminal!). Flags are usually options to customize the command usage . Use *man \<command\>* to learn about options for commands you use.
+
+We will now use a slightly more advanced command to create a dummy text file for next exercise.
+
+Type ``printf ' %i Hej \n' {1..20} > tmp_file.txt ``
 
 
-## Basic shell operations
+> ## Exercise: Reading the manual
+>
+> - Use ``ls -l`` to check contents in present location. Check time stamp of ``tmp_file.txt``
+> - Use ``cat`` to print all contents of this file.
+> - Read the manual for ``tail`` and find out how to print the last 4 lines.
+> - Try to guess the meaning of the different parts in the text string you used to produce the text file.
+{: .challenge}
+
+
+**Take home message:** If you master bash you can do advanced file manipulations fast. Remember that the manual is your friend - consult it before googling.
+
+
+
+## Summary of Bash Basics
 - You type things on the screen (standard input or stdin).  The shell
-  uses this to make a command.
+  uses this to make a **command**.
 - The shell takes the command, splits it into words, does a lot more
   preprocessing, and then runs it.
 - When the command runs, the keyboard (still standard input) goes to
-  the process, output (standard output) goes to the screen. 
+  the **process**, output (standard output) goes to the screen. 
 
 
+---
 ---
 
 ## Processes and files {#processes-files}
