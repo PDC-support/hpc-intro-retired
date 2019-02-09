@@ -236,7 +236,9 @@ is your command to use.
 
 #### Processes {#processes}
 
-Uptil now we have only focused on how to handle files and folders. But we typically also want to run programs.
+Uptil now we have only focused on how to handle files and folders.
+
+But we typically also want to **run programs.**
 
 - All running programs are *processes*
 - Processes have:
@@ -276,60 +278,51 @@ To kill a foreground process: Ctrl-c
 
 On the contrary, a *background* process does not have any input connected. You can have as many of these as your resources permit. Normally, you need an & after the comman to put the process in the background.
 
-To kill a background process: ``kill`` or ``pkill`` or from within ``top``
+To kill a background process: ``kill`` or ``pkill``, possible also from within ``top``.
 
 
+---
+---
 
 ### File/directory permissions
 
-- Permissions are one of the types of file metadata.
-- They tell you if you can *read* a file, *write* a file, and
-  *execute a file/list directory*.
-- Each of these apply to *user*, *group*, and *others*.
-- Here is a typical permission bits for a file: ``-rw-r--r--``.
-- In general, it is ``rwxrwxrwx`` -- read, write, execute/search for
-  user, group, others respectively.
-- ``ls -l`` gives you details on files.
+When you share resources with other people, it is important that your files have the correct access settings. 
+
+- Permissions are a type of *file metadata*.
+
+- They tell you who can: **r**ead, **w**rite, e**x**ecute a file/list directory.
+
+Let's see an example, produced by ls -l
+
+```bash
+-rw-r--r-- 1 tkl tkl  120 feb  3 19:51 file1.txt
+-rwx------ 1 tkl tkl 9865 feb  2 08:51 my_secret_code.ex
+drwx------ 2 tkl tkl 4096 feb  1 13:53 private_folder
+drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
+```
+
+- First character is specific for type of object. *d* is for directory.
+
+- Next we have three triplets:  *user*, *group*, and *others*.
+
+
+| command | Explanation |
+| ------- | ----------- |
+| chmod u+rwx fileA  | add **r**ead, **w**rite and e**x**ecution rights of fileA to **u**ser |
+| chmod o+r  fileA   | add **r**ead permission of fileA to **o**thers |
+| chmod o-wx fileA   | remove **w**rite and e**x**ecution rights of fileA for **o**thers | 
+
+
+Exercises on this will be available at the end of the session.
+
 
 ---
 
-### Modifying permissions: the easy part
+#### Environment variables {#environment-variables}
 
-chmod/chown is what will work on all filesystems:
 
-```bash
-chmod u+rwx,g-rwx,o-rwx <files>   # u=user, g=group, o=others, a=all
-# -or-
-chmod 700 <files>   # r=4, w=2, x=1
- 
-# recursive, changing all the subdirectories and files at once
-chmod -R <perm> <directory>
+---
 
-# changing group ownership (you must be a group member)
-chgrp group_name <file or directory>
-```
-
-Extra permission bits:
-
-- s-bit:  setuid/setgid bit, preserves user and/or group IDs.
-- t-bit: sticky bit, for directories it prevents from removing file by
-  another user (example */tmp*)
-
-Setting default access permissions: add to *.bashrc* ``umask 027``
-[(see here)](https://www.computerhope.com/unix/uumask.htm).  
-The ``umask`` number respresents what permissions are *removed* from any newly
-created file by default.  So ``umask 027`` means "by default,
-g-w,o-rwx any newly created files".  It doesn't change any
-permissions, just sets the default that the operating system will create 
-files with.
-
-**Hint:**  
-Even though a file has read access, the top directory must be
-searchable before external user or group will be able to access
-it. Sometimes people do ``chmod -R o-rwx $WRKDIR; chmod o+x
-$WRKDIR``.  Execute (``x``) without read (``r``) means that you can
-access files inside if you know the exact name, but not list the
-directory.  The permissions of the files themselves still matter.
 
 ---
 
