@@ -5,8 +5,10 @@ teaching: 30
 exercises: 30
 questions:
   - "How does the Linux shell work?"
+  - "Why use it?"
 objectives:
   - "Learn the basics of Linux shell"
+  - "Prepare for work on Tegnér"
 keypoints:
   - "kp1"
 ---
@@ -23,7 +25,7 @@ This material consists of the following parts:
  - [What is a shell?](#what-is-shell)
  - [Bash basics](#bash-basics)
  - [Processes and files](#processes-files)
- - [Interactive usage](#interactive-usage)
+ - [More advanced bash usage](#interactive-usage)
 
 Exercises marked "optional" are for advanced users who would like further stimulation.
 
@@ -34,45 +36,50 @@ Exercises marked "optional" are for advanced users who would like further stimul
 
 ### About the Linux Shell
 
-- A *shell* is what you get when your terminal window is open. It is a
-  command-line interface (CLI), an interface that interpreters and executes
-  commands.
-- The name comes from being a "shell" (layer) around the operating
-  system.  It connects and binds all programs together.
-- This is the basic, raw method of using UNIX-like systems.  It may
-  not be used everyday, but it's really good (necessary) for any type
-  of automation and scripting - as is often needed in science, when
-  connecting pieces together, or when using HPC systems like at PDC.
-- There are multiple shells.  This talk is about 
-  [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)), which is the
-  most common one.  [zsh](https://en.wikipedia.org/wiki/Z_shell) is
-  another common shell which is somewhat similar but has some more
-  powerful features.  [tcsh](https://en.wikipedia.org/wiki/Tcsh) is
-  another shell from a completely different family (the csh family),
-  which has quite different syntax.
-- ``bash`` is a "Bourne shell": the "bourne-again shell".  An open source
-  version of original Bourne shell.
-- It may not be obvious, but the concepts here also apply to Windows
-  programs and will help you understand them.  They also apply more
-  directly to Mac programs, because Mac is unix under the hood.
+- **A *shell* is what you get when your terminal window is open.**
+
+  It is a command-line interface (CLI).
+  
+- **It is a "layer" around the operating system.**
+
+  It connects and binds all programs together.
+  
+- **Provides efficiency**
+
+  Often required to use HPC systems (i.e. at PDC).
+  
+- **There are multiple shells.**
+
+  This session is about [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
+  
+- **Concepts are also relevant for Mac and Windows** 
+  
+---
+---
+---
+
+## BASH BASICS {#bash-basics}
+
+---
+#### Getting a BASH shell
+
+Set yourself up with a BASH shell. 
+
+- **Linux and Mac users:**
+
+  just open a terminal window.
+
+- **Windows users:**
+
+   [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html), follow the configuration instructions and then log in to Tegner.
 
 ---
 
-### Getting a BASH shell
+#### Your very first bash commands 
 
-Set yourself up with a BASH shell.  Connect to a server or open on your own computer.
-Examples and demos given during the lecture are done on Tegner, 
-though should work on all other Linux installations.
+We are now going to get familiar with the bash shell in a very low pace mode.
 
-- Linux and Mac users: just open a terminal window. If you wish you can login
-  to Tegner or Beskow.
-- Windows users: [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html), follow the configuration instructions and then log in to Tegner.
-
----
-
-## Your very first bash commands ##
-
-We are now going to get familiar with the bash shell in a very low pace mode. We start with two commands.
+We start with two commands.
 
 | command | Explanation |
 | ------- | ----------- |
@@ -83,37 +90,54 @@ We are now going to get familiar with the bash shell in a very low pace mode. We
 > ## Exercise: What is this bash thing?
 >
 > - What do you get if you type ``pwd`` in the terminal?
-> - If you are not on Tegnér, open a File Explorer. Find out the location you are viewing. Compare with outpout from ``pwd`` in the terminal.
-> - Now type ``ls`` in the terminal. Compare the output with the items you see in the File Explorer.
+> - If you are not on Tegnér, open a File Explorer.
+>
+>   Find out the location you are viewing. Compare with output from ``pwd``.
+>
+> - Type ``ls`` in the terminal. Compare with the items you see in the File Explorer.
 {: .challenge}
 
-**Take home message:** bash shell is a text based tool to interact with the computer.
+**Take home messages:**
 
-**Main advantage:** high ratio of *action to key stroke* i.e. *efficiency*.
+  *bash shell is a text based tool to interact with the computer.*
 
-When you work you typically want to manipulate files (ascii text, images, raw data etc) and folders in some way. Some typical bash commands to use are:
+  *you are always in the directory (folder) given by ``pwd``.*
 
+**Main advantage:**
+
+  *can be made highly efficient*.
+
+---
+
+#### Files and folders
+
+When you work you typically want to
+- manipulate files (ascii text, images, raw data etc)
+- manage folders and their contents in some way
+
+Some typical bash commands for these purposes are:
 
 | command | Explanation |
 | ------- | ----------- |
-| cd example_hpc | change directory to a directory called example_hpc |
-| mkdir new_dir  | create a new directory called new_dir |
-| cp file1 file2 | make a copy of file1 called file2 |
-| mv file1 new_dir/file2 | move file1 into new_folder and call that file2 |
+| cd example_hpc | change directory to *example_hpc* |
+| mkdir new_dir  | create a new directory called *new_dir* |
+| cp file1 file2 | make a copy of *file1* called *file2* |
+| mv file1 new_dir/file2 | move *file1* into *new_folder* and call that *file2* |
 
 
 > ## Exercise: Copying files and moving between folders.
 >
-> - Using the bash shell, create a directory called *example_hpc*. Verify that it was created.
-> - Move into *example_hpc*. Obtain the name of the current location and check what items are present here.
-> - Execute ``cd ..`` and then check location. What happened? When answered, move back into *example_hpc*.
+> - Create a directory called *example_hpc*. Verify that it was created.
+> - Move into *example_hpc*. Obtain the name of the current location. Check contents.
+> - Execute ``cd ..`` and then check location. What happened? Then move back into *example_hpc*.
 > - Execute ``cd example_hpc`` in the terminal. Do you understand the output?
-> - Start your favorite text editor in your usual way. Create a new text file named *file1.txt* and save it inside the folder *example_hpc*.
+> - Start a text editor in your usual way. Create a new text file named *file1.txt* and save it inside the folder *example_hpc*.
 > - Use the terminal to copy this file to a new file named *file2.txt*. Check result.
 {: .challenge}
 
+---
 
-## Relative vs. Absolute paths
+#### Relative vs. Absolute paths
 
 The final task in the feather weight class of this tutorial is to understand the concept of relative and absolute paths.
 
@@ -123,10 +147,13 @@ The final task in the feather weight class of this tutorial is to understand the
 | cd ..      | cd /home/tkl/ |
 | cd ../..   | cd /home/ |
 
-**Take home message:** Absolute paths always work but relative paths are more convenient if used correctly.
+**Take home message:**
 
+  Absolute paths always work but relative paths are more convenient.
 
-## List of further useful commands ##
+---
+
+#### List of further useful commands 
 
 
 | command | Explanation |
@@ -149,15 +176,172 @@ Type ``printf ' %i Hej \n' {1..20} > tmp_file.txt ``
 
 > ## Exercise: Reading the manual
 >
-> - Use ``ls -l`` to check contents in present location. Check time stamp of ``tmp_file.txt``
+> - Type ``ls -l`` and then check time stamp of ``tmp_file.txt``
 > - Use ``cat`` to print all contents of this file.
 > - Read the manual for ``tail`` and find out how to print the last 4 lines.
 > - Try to guess the meaning of the different parts in the text string you used to produce the text file.
 {: .challenge}
 
 
-**Take home message:** If you master bash you can do advanced file manipulations fast. Remember that the manual is your friend - consult it before googling.
+**Take home message:**
 
+  The manual is your friend - consult it before googling.
+
+
+
+### Files and directories
+
+Files contain data.  They have a name, permissions, owner
+(user+group), contents, and some other metadata.
+
+Filenames may contain any character except '/', which is reseved as a separator between
+directory and filenames. The special characters require quotation while dealing
+with such filenames, so it makes sense to avoid them.
+
+Path can be absolute (starting with '/') or relative (related to the current directory).
+
+``ls`` is the standard way of getting information about files. By default it lists 
+your current directory (i.e. *pwd*), but there are many options:
+
+```bash
+# list directory content
+ls /scratch/work
+
+# list directory files including dot files (i.e. hidden ones)
+ls -A ~/directory1
+ 
+# list all files and directories using long format (permissions, timestamps, etc)
+ls -lA ../../directory2
+```
+
+Special notations and expansions in BASH, can be used with any command:
+
+```bash
+./, ../, ~, *, ?, [], [!], {abc,xyz}, {1..10}
+``` 
+
+For the quotation:
+
+```bash
+'', "", \
+```
+
+Quotation matters; try typing both ``echo "$USER"`` and ``echo '$USER'``.
+
+BASH first expands the expansions and substitute the wildcards, and then
+executes the command. Could be as complex as:
+
+```bash
+ls -l ~/[!abc]???/dir{123,456}/filename*.{1..9}.txt
+```
+
+There are a variety of commands to manipulate files/directories:
+
+```bash
+cd, mkdir, cp, cp -r, rm, rm -r, mv, ln, touch
+```
+ 
+For file/directory meta information or content type:
+
+```bash
+ls, stat, file
+``` 
+
+Note that ``cd`` is a shell builtin which changes the shell's own
+working directory.  This is the base from which all other commands
+work:
+ - ``ls`` by default tells you the current directory.  
+ - ``.`` is the current directory. 
+ - ``..`` is the parent directory. 
+ - ``~`` is your HOME.  
+
+This is inherited to other commands you run. 
+
+``cd`` with no options drops you to your $HOME.
+
+```bash
+# create several directories at once
+mkdir dir1 dir2 dir3
+# -or-
+mkdir dir{1,2,3}
+
+# copy a directory recursively
+cp -r dir1 dir2/
+
+# copy a directory preserving all the metadata to two levels up
+cp -a dir1/ ../../
+
+# move all files with the names like filename1.txt, filename_abc.txt etc to dir2/
+mv filename*.txt dir2/
+
+# remove a directories/files in the current dir without asking for the confirmation
+rm -rf dir2/ dir1/ filename*
+
+# create an empty file if doesn't exist or update its access/modification time
+touch filename
+
+# make a link to a target file (hard link by default, -s for symlinks)
+ln target_file ../link_name
+```
+
+**Discover other ls features** ``ls -lX``, ``ls -ltr``, ``ls -Q``
+
+You may also find the ``rename`` utility useful.
+
+---
+
+### File/directory permissions
+
+- Permissions are one of the types of file metadata.
+- They tell you if you can *read* a file, *write* a file, and
+  *execute a file/list directory*.
+- Each of these apply to *user*, *group*, and *others*.
+- Here is a typical permission bits for a file: ``-rw-r--r--``.
+- In general, it is ``rwxrwxrwx`` -- read, write, execute/search for
+  user, group, others respectively.
+- ``ls -l`` gives you details on files.
+
+---
+
+### Modifying permissions: the easy part
+
+chmod/chown is what will work on all filesystems:
+
+```bash
+chmod u+rwx,g-rwx,o-rwx <files>   # u=user, g=group, o=others, a=all
+# -or-
+chmod 700 <files>   # r=4, w=2, x=1
+ 
+# recursive, changing all the subdirectories and files at once
+chmod -R <perm> <directory>
+
+# changing group ownership (you must be a group member)
+chgrp group_name <file or directory>
+```
+
+Extra permission bits:
+
+- s-bit:  setuid/setgid bit, preserves user and/or group IDs.
+- t-bit: sticky bit, for directories it prevents from removing file by
+  another user (example */tmp*)
+
+Setting default access permissions: add to *.bashrc* ``umask 027``
+[(see here)](https://www.computerhope.com/unix/uumask.htm).  
+The ``umask`` number respresents what permissions are *removed* from any newly
+created file by default.  So ``umask 027`` means "by default,
+g-w,o-rwx any newly created files".  It doesn't change any
+permissions, just sets the default that the operating system will create 
+files with.
+
+**Hint:**  
+Even though a file has read access, the top directory must be
+searchable before external user or group will be able to access
+it. Sometimes people do ``chmod -R o-rwx $WRKDIR; chmod o+x
+$WRKDIR``.  Execute (``x``) without read (``r``) means that you can
+access files inside if you know the exact name, but not list the
+directory.  The permissions of the files themselves still matter.
+
+---
 
 
 ## Summary of Bash Basics
@@ -407,160 +591,6 @@ connect, and resume right where they left off.
 - [tmux](https://github.com/tmux/tmux/wiki) is similar to screen 
    with some minor pros and cons, try it out to see which one you like better!
   
----
-
-### Files and directories
-
-Files contain data.  They have a name, permissions, owner
-(user+group), contents, and some other metadata.
-
-Filenames may contain any character except '/', which is reseved as a separator between
-directory and filenames. The special characters require quotation while dealing
-with such filenames, so it makes sense to avoid them.
-
-Path can be absolute (starting with '/') or relative (related to the current directory).
-
-``ls`` is the standard way of getting information about files. By default it lists 
-your current directory (i.e. *pwd*), but there are many options:
-
-```bash
-# list directory content
-ls /scratch/work
-
-# list directory files including dot files (i.e. hidden ones)
-ls -A ~/directory1
- 
-# list all files and directories using long format (permissions, timestamps, etc)
-ls -lA ../../directory2
-```
-
-Special notations and expansions in BASH, can be used with any command:
-
-```bash
-./, ../, ~, *, ?, [], [!], {abc,xyz}, {1..10}
-``` 
-
-For the quotation:
-
-```bash
-'', "", \
-```
-
-Quotation matters; try typing both ``echo "$USER"`` and ``echo '$USER'``.
-
-BASH first expands the expansions and substitute the wildcards, and then
-executes the command. Could be as complex as:
-
-```bash
-ls -l ~/[!abc]???/dir{123,456}/filename*.{1..9}.txt
-```
-
-There are a variety of commands to manipulate files/directories:
-
-```bash
-cd, mkdir, cp, cp -r, rm, rm -r, mv, ln, touch
-```
- 
-For file/directory meta information or content type:
-
-```bash
-ls, stat, file
-``` 
-
-Note that ``cd`` is a shell builtin which changes the shell's own
-working directory.  This is the base from which all other commands
-work:
- - ``ls`` by default tells you the current directory.  
- - ``.`` is the current directory. 
- - ``..`` is the parent directory. 
- - ``~`` is your HOME.  
-
-This is inherited to other commands you run. 
-
-``cd`` with no options drops you to your $HOME.
-
-```bash
-# create several directories at once
-mkdir dir1 dir2 dir3
-# -or-
-mkdir dir{1,2,3}
-
-# copy a directory recursively
-cp -r dir1 dir2/
-
-# copy a directory preserving all the metadata to two levels up
-cp -a dir1/ ../../
-
-# move all files with the names like filename1.txt, filename_abc.txt etc to dir2/
-mv filename*.txt dir2/
-
-# remove a directories/files in the current dir without asking for the confirmation
-rm -rf dir2/ dir1/ filename*
-
-# create an empty file if doesn't exist or update its access/modification time
-touch filename
-
-# make a link to a target file (hard link by default, -s for symlinks)
-ln target_file ../link_name
-```
-
-**Discover other ls features** ``ls -lX``, ``ls -ltr``, ``ls -Q``
-
-You may also find the ``rename`` utility useful.
-
----
-
-### File/directory permissions
-
-- Permissions are one of the types of file metadata.
-- They tell you if you can *read* a file, *write* a file, and
-  *execute a file/list directory*.
-- Each of these apply to *user*, *group*, and *others*.
-- Here is a typical permission bits for a file: ``-rw-r--r--``.
-- In general, it is ``rwxrwxrwx`` -- read, write, execute/search for
-  user, group, others respectively.
-- ``ls -l`` gives you details on files.
-
----
-
-### Modifying permissions: the easy part
-
-chmod/chown is what will work on all filesystems:
-
-```bash
-chmod u+rwx,g-rwx,o-rwx <files>   # u=user, g=group, o=others, a=all
-# -or-
-chmod 700 <files>   # r=4, w=2, x=1
- 
-# recursive, changing all the subdirectories and files at once
-chmod -R <perm> <directory>
-
-# changing group ownership (you must be a group member)
-chgrp group_name <file or directory>
-```
-
-Extra permission bits:
-
-- s-bit:  setuid/setgid bit, preserves user and/or group IDs.
-- t-bit: sticky bit, for directories it prevents from removing file by
-  another user (example */tmp*)
-
-Setting default access permissions: add to *.bashrc* ``umask 027``
-[(see here)](https://www.computerhope.com/unix/uumask.htm).  
-The ``umask`` number respresents what permissions are *removed* from any newly
-created file by default.  So ``umask 027`` means "by default,
-g-w,o-rwx any newly created files".  It doesn't change any
-permissions, just sets the default that the operating system will create 
-files with.
-
-**Hint:**  
-Even though a file has read access, the top directory must be
-searchable before external user or group will be able to access
-it. Sometimes people do ``chmod -R o-rwx $WRKDIR; chmod o+x
-$WRKDIR``.  Execute (``x``) without read (``r``) means that you can
-access files inside if you know the exact name, but not list the
-directory.  The permissions of the files themselves still matter.
-
 ---
 
 ### Modifying permissions: advanced 
