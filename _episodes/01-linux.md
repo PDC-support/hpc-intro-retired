@@ -87,7 +87,7 @@ We start with two commands.
 | ls      | list contents | 
 
 
-> ## Exercise: What is this bash thing?
+> ## Type-along-exercise: What is this bash thing?
 >
 > - What do you get if you type ``pwd`` in the terminal?
 > - If you are not on Tegnér, open a File Explorer.
@@ -125,7 +125,7 @@ Some typical bash commands for these purposes are:
 | mv file1 new_dir/file2 | move *file1* into *new_folder* and call that *file2* |
 
 
-> ## Exercise: Copying files and moving between folders.
+> ## Type-along-exercise: Copying files and moving between folders.
 >
 > - Create a directory called *example_hpc*. Verify that it was created.
 > - Move into *example_hpc*. Obtain the name of the current location. Check contents.
@@ -148,48 +148,295 @@ The final task in the feather weight class of this tutorial is to understand the
 | cd ../..   | cd /home/ |
 
 **Take home message:**
-
-  Absolute paths always work but relative paths are more convenient.
+  
+  *Absolute paths always work but relative paths are more convenient.*
 
 ---
 
-#### List of further useful commands 
+#### Learning some more commands
 
 
 | command | Explanation |
 | ------- | ----------- |
 | man ls    | prints manual on the command ls (just an example) | 
-| rm file1  | remove file1 (careful! no return in general) |
-| ls -l     | list files in long format |
-| history   | prints the command line history in order.  |
-| cat file  | prints all contents of file to stdout.  |
-| head file | prints first lines of file to stdout.  |
-| tail file | prints last lines of file to stdout.  |
+| rm file1  | remove file1 (careful! no return in general)      |
+| ls -l     | list files in long format                         |
+| history   | prints the command line history in order.         |
+| cat file  | prints all contents of file to stdout.            |
+| head file | prints first lines of file to stdout.             |
+| tail file | prints last lines of file to stdout.              |
 
 
-``ls -l`` is an example of using a command with a *flag* (try it in the terminal!). Flags are usually options to customize the command usage . Use *man \<command\>* to learn about options for commands you use.
+``ls -l`` is an example of using a command with a *flag*. These are usually options to customize the command. Use *man \<command\>* to learn about options for commands you use.
 
 We will now use a slightly more advanced command to create a dummy text file for next exercise.
 
-Type ``printf ' %i Hej \n' {1..20} > tmp_file.txt ``
 
 
-> ## Exercise: Reading the manual
->
+
+> ## Type-along-exercise: Reading the manual
+> - Type ``printf ' %i Hej \n' {1..20} > tmp_file.txt ``
 > - Type ``ls -l`` and then check time stamp of ``tmp_file.txt``
-> - Use ``cat`` to print all contents of this file.
-> - Read the manual for ``tail`` and find out how to print the last 4 lines.
+> - Use ``cat`` to print all contents of this file. 
+> - Print the last 4 lines, (read manual of ``tail``)
 > - Try to guess the meaning of the different parts in the text string you used to produce the text file.
+> - Type ``history``. 
 {: .challenge}
+
+
+**Take home messages:**
+
+  *Customize the command usage with flags.*
+
+  *The manual is your friend - consult it before googling. NB: Some special commands need ``help``* 
+
+  *In the learning phase, use ``history`` regurarily.*
+
+
+Often you wish to use commands in different ways depending on the situation.
+
+
+> ## Type-along-exercise: Practice
+>
+> - Type ``history > hpc_feb13.txt`` . Useful documentation!
+> - Type ``cd`` . Where are you now? Quick way to "go home".
+> - Type ``ls -lrt | tail -n 4``
+{: .challenge}
+
+
+In many cases you quickly want to find specific information in files. Then ``grep``
+is your command to use.
+
+
+| command | Explanation |
+| ------- | ----------- |
+| grep pattern file  | grabs all matches of *pattern* in *file* | 
+
+
+
+> ## Type-along-exercise: grep
+>
+> - Type ``cat /proc/cpuinfo``.
+> - Type ``cat /proc/cpuinfo | grep vendor_id``.
+> - Type ``cat -n /proc/cpuinfo | grep vendor_id``.
+{: .challenge}
+
 
 
 **Take home message:**
 
-  The manual is your friend - consult it before googling.
+   *``commandA > fileA`` redirects output from commandA to text fileA*
+
+   *``commandA | commandB`` is the symbol for pipe. You pipe the output from commandA to commandB.*
+
+   *Most commands work well alone and you can cherry pick which you need to combine into a unique result. **Modularity**.*
+
+
+---
+
+#### Processes {#processes}
+
+Uptil now we have only focused on how to handle files and folders. But we typically also want to run programs.
+
+- All running programs are *processes*
+- Processes have:
+
+  - Process ID (integer)
+  - Name (command being run)
+  - Command line arguments
+  - input and output: ``stdin`` (input, like from keyboard),
+    ``stdout`` (output, like to screen), ``stderr`` (like stdout)
+  - Return code (integer) when complete
+  - Working directory
+  - environment variables: key-values which get inherited across processes.
+
+- These concepts bind together *all* UNIX programs, even graphical ones.
+
+As an example, do the following:
+
+> #### Exercise: Watch processes
+>
+> - type ``top`` in your terminal
+> - open a new terminal and type ``firefox``.
+> - find the *pid* of firefox
+
+---
+
+#### Foreground and background processes
+
+The shell has a concept of *foreground* and *background* processes:
+
+**foreground**
+
+When you used ``top`` you started a *foreground* process. Our keyboard is connected as input to it and the screen is its output. There can only be one of these active at a time.
+
+To kill a foreground process: Ctrl-c
+
+**background**
+
+On the contrary, a *background* process does not have any input connected. You can have as many of these as your resources permit. Normally, you need an & after the comman to put the process in the background.
+
+To kill a background process: ``kill`` or ``pkill`` or from within ``top``
 
 
 
-### Files and directories
+### File/directory permissions
+
+- Permissions are one of the types of file metadata.
+- They tell you if you can *read* a file, *write* a file, and
+  *execute a file/list directory*.
+- Each of these apply to *user*, *group*, and *others*.
+- Here is a typical permission bits for a file: ``-rw-r--r--``.
+- In general, it is ``rwxrwxrwx`` -- read, write, execute/search for
+  user, group, others respectively.
+- ``ls -l`` gives you details on files.
+
+---
+
+### Modifying permissions: the easy part
+
+chmod/chown is what will work on all filesystems:
+
+```bash
+chmod u+rwx,g-rwx,o-rwx <files>   # u=user, g=group, o=others, a=all
+# -or-
+chmod 700 <files>   # r=4, w=2, x=1
+ 
+# recursive, changing all the subdirectories and files at once
+chmod -R <perm> <directory>
+
+# changing group ownership (you must be a group member)
+chgrp group_name <file or directory>
+```
+
+Extra permission bits:
+
+- s-bit:  setuid/setgid bit, preserves user and/or group IDs.
+- t-bit: sticky bit, for directories it prevents from removing file by
+  another user (example */tmp*)
+
+Setting default access permissions: add to *.bashrc* ``umask 027``
+[(see here)](https://www.computerhope.com/unix/uumask.htm).  
+The ``umask`` number respresents what permissions are *removed* from any newly
+created file by default.  So ``umask 027`` means "by default,
+g-w,o-rwx any newly created files".  It doesn't change any
+permissions, just sets the default that the operating system will create 
+files with.
+
+**Hint:**  
+Even though a file has read access, the top directory must be
+searchable before external user or group will be able to access
+it. Sometimes people do ``chmod -R o-rwx $WRKDIR; chmod o+x
+$WRKDIR``.  Execute (``x``) without read (``r``) means that you can
+access files inside if you know the exact name, but not list the
+directory.  The permissions of the files themselves still matter.
+
+---
+
+
+
+---
+---
+
+## Summary of Bash Basics
+- You type things on the screen (standard input or stdin).  The shell
+  uses this to make a **command**.
+- The shell takes the command, splits it into words, does a lot more
+  preprocessing, and then runs it.
+- When the command runs, the keyboard (still standard input) goes to
+  the **process**, output (standard output) goes to the screen. 
+
+
+---
+---
+---
+
+original contents
+
+---
+---
+---
+---
+
+
+
+### Working with processes
+
+All processes are related, a command executed in shell is a child process of
+the shell. When a child process is terminated it is reported back to parent process.
+When you log out, all shell child processes are terminated along with the
+shell.  You can see the whole family tree with ``ps af``.
+One can kill a process or make it "nicer".
+
+```bash
+pgrep -af <name>
+kill <PID>
+pkill <name>
+renice #priority <PID>
+```
+
+Making process "nicer", ``renice 19 <PID>``, means it will run only when nothing
+else in the system wants to.
+User can increase nice value from 0 (the base priority) up to 19. It is 
+useful when you backup your data in background or alike.
+
+
+
+**Hint:** For running X Window apps while you logged in from other
+Linux / MacOS make sure you use ``ssh -X ...`` to log in. For Windows users,
+you need to install [Xming](http://www.straightrunning.com/XmingNotes/).
+
+**Hint:** For immediate job-state change notifications, use ``set notify``. To automatically
+stop background processes if they try writing to the screen ``stty tostop``
+
+
+
+---
+
+If you add ``&`` right after the command it will send the process to
+background. 
+- Example: ``firefox --no-remote &`` (same can be done with
+  any terminal command/function, like ``man pstree &``).  
+- The ``&`` serves the same role as ``;`` to separate commands,
+  but backgrounds the first and goes straight to the next.
+
+If you have a process already running, you can send it to background 
+with Ctrl-z and then
+``bg``. 
+- Drawback: no easy way to redirect the running task
+  output, so if it generates output it covers your screen.
+
+List the jobs running in the background with ``jobs``, get a job back
+online with  ``fg`` or ``fg <job_number>``. There can be multiple
+background jobs.
+
+
+> ## Exercise: Processes
+> 
+>  - Find out with *man* how to use *top* / *pstree* / *ps* to list all the running processes that belong to you.  
+>    Tip: *top* has both command line options and hotkeys.
+> 
+>    - (optional) see ``man ps`` and find out how to list a processes tree with ps, both
+>      all processes and only your own (but all your processes, associated with all terminals)
+> 
+>  - With pgrep list all bash and then zsh sessions on Tegner.
+>  - Log in to Tegner and run ``man ps``, send it to background, and ``logout``, then
+>    log in again. Is it still there? Play with the ``screen``, run a session, 
+>    then detach it and log out, then log in back and get 
+>    your original screen session back.
+>  - Run ``man htop``, send it to backround, and then kill it with ``kill``. Tip: one can
+>    do it by background job number or by PID.
+>  - Imagine a use case: your current ssh session got stuck and does not response. Open another
+>    ssh session to the same remote host and kill the first one. Tip: ``echo $$`` gives you current
+>    bash PID.
+> 
+>    - (optional) get any X Window application (firefox, xterm, etc) to run on Tegner
+{: .challenge}
+
+
+
+
+#### Files and directories
 
 Files contain data.  They have a name, permissions, owner
 (user+group), contents, and some other metadata.
@@ -340,186 +587,6 @@ it. Sometimes people do ``chmod -R o-rwx $WRKDIR; chmod o+x
 $WRKDIR``.  Execute (``x``) without read (``r``) means that you can
 access files inside if you know the exact name, but not list the
 directory.  The permissions of the files themselves still matter.
-
----
-
-
-## Summary of Bash Basics
-- You type things on the screen (standard input or stdin).  The shell
-  uses this to make a **command**.
-- The shell takes the command, splits it into words, does a lot more
-  preprocessing, and then runs it.
-- When the command runs, the keyboard (still standard input) goes to
-  the **process**, output (standard output) goes to the screen. 
-
-
----
----
-
-## Processes and files {#processes-files}
-
-### What's a UNIX process?
-
-- To understand a shell, and what happens when we run commands, 
-  let's first understand what processes are.
-- All programs are processes: a process is a program in action.
-- Processes have:
-
-  - Process ID (integer)
-  - Name (command being run)
-  - Command line arguments
-  - input and output: ``stdin`` (input, like from keyboard),
-    ``stdout`` (output, like to screen), ``stderr`` (like stdout)
-  - Return code (integer) when complete
-  - Working directory
-  - environment variables: key-values which get inherited across processes.
-
-- These concepts bind together *all* UNIX programs, even graphical ones.
-
-Process listing commands (feel free to try, but we play more with them later)
-
-```bash
-top              # (q to quit)
-htop             # (q to quit)
-pstree
-pstree $USER
-pstree -pau $USER
-ps auxw
-```
-
-You can find info about your user (try them right away)
-
-```bash
-id
-echo $SHELL
-```
-
-Is your default shell ``/bin/bash``? 
-
-Another way to find out what shell you are running:
-
-```bash
-ps -p $$
-```
-
-Where am I: 
-```bash
-pwd
-``` 
-(this shows the first piece of process information: current directory)
-
----
-
-### Getting help in terminal
-
-Before you Google for the command examples, try
-
-```bash
-man command_name
-```
-
-Your best friend ever, ``man`` is a collection of manuals. Type
-*/search_word* for searching through the man page.  But... if it's a
-builtin, you need to use ``help``.
-
----
-
-### Built-in and external commands
-
-There are two types of commands:
-
-- shell built-in: ``cd``, ``pwd``, ``echo``, ``test``, etc.
-- external: ``ls``, ``date``, ``less``, ``lpr``, ``cat``, etc.
-- some can be both: e.g. ``test``.  Options not always the same!
-- For the most part, these behave similarly, which is a good thing!
-  You don't have to tell which is which.
-
-**Hint:** type ``type -a`` to find what is behind the name.
-
-- ``echo something to print out``: prints whatever you put after.
-
-**Disable built-in command:** ``enable -n echo``, after this */usr/bin/echo*
-becomes a default instead of built-in *echo*.
-
----
-
-### Working with processes
-
-All processes are related, a command executed in shell is a child process of
-the shell. When a child process is terminated it is reported back to parent process.
-When you log out, all shell child processes are terminated along with the
-shell.  You can see the whole family tree with ``ps af``.
-One can kill a process or make it "nicer".
-
-```bash
-pgrep -af <name>
-kill <PID>
-pkill <name>
-renice #priority <PID>
-```
-
-Making process "nicer", ``renice 19 <PID>``, means it will run only when nothing
-else in the system wants to.
-User can increase nice value from 0 (the base priority) up to 19. It is 
-useful when you backup your data in background or alike.
-
----
-
-### Foreground and background processes
-
-The shell has a concept of foreground and background processes: 
-- A foreground process is directly connected to your screen and
-keyboard. 
-- A background process doesn't have input connected.  
-- There can only be one foreground at a time (obviously).
-
-If you add ``&`` right after the command it will send the process to
-background. 
-- Example: ``firefox --no-remote &`` (same can be done with
-  any terminal command/function, like ``man pstree &``).  
-- The ``&`` serves the same role as ``;`` to separate commands,
-  but backgrounds the first and goes straight to the next.
-
-If you have a process already running, you can send it to background 
-with Ctrl-z and then
-``bg``. 
-- Drawback: no easy way to redirect the running task
-  output, so if it generates output it covers your screen.
-
-List the jobs running in the background with ``jobs``, get a job back
-online with  ``fg`` or ``fg <job_number>``. There can be multiple
-background jobs.
-
-Kill a foreground job: Ctrl-c
-
-**Hint:** For running X Window apps while you logged in from other
-Linux / MacOS make sure you use ``ssh -X ...`` to log in. For Windows users,
-you need to install [Xming](http://www.straightrunning.com/XmingNotes/).
-
-**Hint:** For immediate job-state change notifications, use ``set notify``. To automatically
-stop background processes if they try writing to the screen ``stty tostop``
-
-> ## Exercise: Processes
-> 
->  - Find out with *man* how to use *top* / *pstree* / *ps* to list all the running processes that belong to you.  
->    Tip: *top* has both command line options and hotkeys.
-> 
->    - (optional) see ``man ps`` and find out how to list a processes tree with ps, both
->      all processes and only your own (but all your processes, associated with all terminals)
-> 
->  - With pgrep list all bash and then zsh sessions on Tegner.
->  - Log in to Tegner and run ``man ps``, send it to background, and ``logout``, then
->    log in again. Is it still there? Play with the ``screen``, run a session, 
->    then detach it and log out, then log in back and get 
->    your original screen session back.
->  - Run ``man htop``, send it to backround, and then kill it with ``kill``. Tip: one can
->    do it by background job number or by PID.
->  - Imagine a use case: your current ssh session got stuck and does not response. Open another
->    ssh session to the same remote host and kill the first one. Tip: ``echo $$`` gives you current
->    bash PID.
-> 
->    - (optional) get any X Window application (firefox, xterm, etc) to run on Tegner
-{: .challenge}
 
 ---
 
@@ -1122,3 +1189,23 @@ grep "<[Hh][12]>" file.html
 
 ---
 
+
+
+### Built-in and external commands
+
+There are two types of commands:
+
+- shell built-in: ``cd``, ``pwd``, ``echo``, ``test``, etc.
+- external: ``ls``, ``date``, ``less``, ``lpr``, ``cat``, etc.
+- some can be both: e.g. ``test``.  Options not always the same!
+- For the most part, these behave similarly, which is a good thing!
+  You don't have to tell which is which.
+
+**Hint:** type ``type -a`` to find what is behind the name.
+
+- ``echo something to print out``: prints whatever you put after.
+
+**Disable built-in command:** ``enable -n echo``, after this */usr/bin/echo*
+becomes a default instead of built-in *echo*.
+
+---
