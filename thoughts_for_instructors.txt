@@ -1,0 +1,85 @@
+=============================
+Overview and time consumption
+=============================
+
+	Explanation			commands/concepts		Type of activity
+	-----------			-----------------		----------------
+
+Bash basics:
+* Concept of bash shell
+  - directories, list their contents	(pwd, ls)			type-along-exercise
+
+  - copy files, create directories	(cp, mv, cd, mkdir) 		type-along-exercise
+
+  - File paths	       			(relative, absolute)		demo
+  
+  - view files, read manuals		(man, cat, head,		type-along-exercise
+    	 	     			      tail, history)
+
+  - Some practice on combining		(grep, output redirection       type-along-exercise
+    commands.	     			 find, pipes)  
+
+>>> Estimated time usage so far: 15 min
+
+
+Processes:
+* You want to run programs and
+  running programs are processes
+  - General info and demo		(top, firefox, pid)		type-along/demo
+  - foreground and background		(&,kill, pkill, Ctrl-c)		type-along/demo (?)
+
+
+
+File/directory permissions
+* Concept of permissions		(rwx, user, group,	 	demo (exercises pushed later)
+  	     				 others, chmod)
+
+
+Hotkeys
+* Concept				(TAB)				type-along
+  					(home, end, up/down		listed		
+					Ctrl-l/r, Ctrl-Shift-s/v)
+					
+>>> Estimated time usage so far: 25 min
+
+
+
+Suggestion: Pause for 5 min and help people login to Tegner.
+	    For the actual login session later, they can first
+	    logout and then login as type-along.
+
+
+
+[On Tegner]
+
+hello Tegner
+* Quick hello				(w, last)			individual trials
+
+commandline editor - nano
+* Basic introdution			(nano)				type-along-exercise
+
+
+Environtment variables
+* Basic notion				(echo, $HOME, $)		type-along-exercise
+
+
+initialization/configuration files
+* .bashrc				(less, source			type-along-exercise
+  					 added HISTTIMEFORMAT)
+
+* .inputrc				(replace up/down,		type-along-exercise
+  					 copy file from	tkl)
+					 on purpose, no permission
+					 first)   
+
+>>> Estimated time usage so far: 40 min
+
+
+General exercises: easy to advanced
+
+
+
+
+
+
+

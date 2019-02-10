@@ -25,7 +25,10 @@ This material consists of the following parts:
  - [What is a shell?](#what-is-shell)
  - [Bash basics](#bash-basics)
  - [Processes and files](#processes-files)
- - [More advanced bash usage](#interactive-usage)
+ - [File permissions](#file-permissions)
+ - [Hotkeys](#hotkeys)
+ - [Environtmental variables and configuration](#env-config)
+ - [Exercises](#interactive-usage)
 
 Exercises marked "optional" are for advanced users who would like further stimulation.
 
@@ -56,11 +59,9 @@ Exercises marked "optional" are for advanced users who would like further stimul
   
 ---
 ---
----
 
 ## BASH BASICS {#bash-basics}
 
----
 #### Getting a BASH shell
 
 Set yourself up with a BASH shell. 
@@ -362,32 +363,138 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 
 
 
+**Take home message:**
+
+   * Always use TAB
+
+
 ---
 ---
 # PAUSE 5 min + Log in to Tegner
 ---
 ---
 
+> #### Exercise: Have a quick look-around on the login-node
+>
+> - Obtain the current location
+> - Type ``top`` to view processes and info on the server
+> - Type ``w`` to see which other users are logged in
+> - Type ``last -n 15`` to get a list of the last 15 logins
+
+
 #### Command line editor
+To work efficiently on HPC systems, it is usually good to use an editor directly in the terminal.
 
-#### Environment variables {#environment-variables}
+Some commonly used ones are
 
-#### Initialization and configuration
+- *nano*
+- *vim*
+- *emacs*
+
+As *nano* is the simplest one, we will use this one in this tutorial.
 
 
-**inputrc:**  
-Check */etc/inpurc* for some default key bindings, more can be defined *~/.inputrc* (left as a home exercise)
-
-**CDPATH:**  
-Helps changing directories faster. When you type ``cd dirname``, the shell tries to go
-to one of the local subdirectories and if it is not found shell will try the same command from every
-directory listed in the *$CDPATH*.
-
-```bash
-export CDPATH=$HOME:/cfs/klemming/nobackup/u/username
-``` 
+> ## Type-along-exercise: getting started with nano
+>
+> - Type ``nano``. Then write some text.
+> - Try to find out how to save the file.
+> - Exit the editor
+{: .challenge}
 
 ---
+
+#### Environment variables {#environment-variables}
+To save time, important names are often stored in so called environment variables. To display them we use ``echo``
+
+
+> ## Type-along-exercise: echo $SOME_EXAMPLES
+>
+> - Type ``echo $HOME``
+> - Type ``echo $HOSTNAME``
+> - Type ``echo $PATH``
+> - Type ``echo $`` and then press TAB to see what happens
+{: .challenge}
+
+These give you further power to customize your session to fit your needs.
+
+
+#### Initialization and configuration
+Normally, the file containing many of these user defaults is ``.bashrc`` located in $HOME.
+
+> ## Type-along-exercise: edit your .bashrc
+>
+> - Type ``more .bashrc`` and examine the contents.
+> - Type ``HISTTIMEFORMAT="%d/%m/%y %T "`` , save and close
+> - Type ``source .bashrc`` to reload the information there. (you could also log off and then log in)
+{: .challenge}
+
+Another useful file is ``.inputrc``
+
+> ## Type-along-exercise: copy my .inputrc
+>
+> - Type ``cp /afs/pdc.kth.se/home/t/torkj/Public/.inputrc .inputrc``
+> - Type ``source .inputrc``
+> - Start typing any old command you typed on Tegner, then press shift+up.
+{: .challenge}
+
+
+
+**Take home message:**
+
+   * You can store names in environment variables
+
+   * Customize your session with configuration files
+
+---
+
+# Summary of commands used so far
+
+Commands used so far
+
+| command | Explanation |
+| ------- | ----------- |
+| pwd     | present work directory | 
+| ls      | list contents |
+| cd example_hpc | change directory to *example_hpc* |
+| mkdir new_dir  | create a new directory called *new_dir* |
+| cp file1 file2 | make a copy of *file1* called *file2* |
+| mv file1 new_dir/file2 | move *file1* into *new_folder* and call that *file2* |
+| cd example_hpc | cd /home/tkl/example_hpc |
+| cd ..      | cd /home/tkl/ |
+| cd ../..   | cd /home/ |
+| man ls    | prints manual on the command ls (just an example) | 
+| rm file1  | remove file1 (careful! no return in general)      |
+| ls -l     | list files in long format                         |
+| history   | prints the command line history in order.         |
+| cat file  | prints all contents of file to stdout.            |
+| head file | prints first lines of file to stdout.             |
+| tail file | prints last lines of file to stdout.              |
+| find -name Objname | looks for ``Objname`` recursively starting from current location | 
+| find /home -name Objname | looks for ``Objname`` starting from ``/home``  |
+| grep pattern file  | grabs all matches of *pattern* in *file* |
+| chmod u+rwx fileA  | add **r**ead, **w**rite and e**x**ecution rights of fileA to **u**ser |
+| chmod o+r  fileA   | add **r**ead permission of fileA to **o**thers |
+| chmod o-wx fileA   | remove **w**rite and e**x**ecution rights of fileA for **o**thers |
+| echo $HOSTNAME     | displays the string stored in environmental variable HOSTNAME
+| source .bashrc     | loads the file .bashrc that contains envinromental variables |
+| w	 	     | list which users are logged in |
+| last -n 10	     | list the lastest 10 logins |
+
+---
+
+| Hotkey | Effect |
+| ------ | ------ |
+| TAB | autocompletion |
+| Home ``or`` Ctrl-a | start of the command line |
+| End ``or`` Ctrl-e | end |
+| up/down arrows | traverse command history |
+| Ctrl-l | clear the screen |
+| Ctrl-Shift-c | copy |
+| Ctrl-Shift-v | paste |
+| Ctrl-r | command history search in reverse order |
+
+NB: we put commands in .inputrc instead for last hotkey!
+
 
 ## EXERCISES
 
@@ -396,13 +503,6 @@ export CDPATH=$HOME:/cfs/klemming/nobackup/u/username
 ---
 ---
 
-## Summary of Bash Basics
-- You type things on the screen (standard input or stdin).  The shell
-  uses this to make a **command**.
-- The shell takes the command, splits it into words, does a lot more
-  preprocessing, and then runs it.
-- When the command runs, the keyboard (still standard input) goes to
-  the **process**, output (standard output) goes to the screen. 
 
 
 ---
