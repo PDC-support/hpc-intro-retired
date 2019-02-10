@@ -69,7 +69,7 @@ Set yourself up with a BASH shell.
 
   just open a terminal window.
 
-- **Windows users:**
+- **Windows users:**  [TODO] Log these in on Tegner right away??
 
    [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html), follow the configuration instructions and then log in to Tegner.
 
@@ -193,14 +193,19 @@ We will now use a slightly more advanced command to create a dummy text file for
   *In the learning phase, use ``history`` regurarily.*
 
 
-Often you wish to use commands in different ways depending on the situation.
+
+---
+#### Some practice and sneak peek ahead
+
+
+Often you wish to combine commands in different ways to tailor the effect.
 
 
 > ## Type-along-exercise: Practice
 >
 > - Type ``history > hpc_feb13.txt`` . Useful documentation!
 > - Type ``cd`` . Where are you now? Quick way to "go home".
-> - Type ``ls -lrt | tail -n 4``
+> - Type ``ls -lrt | tail -n 4`` . What happened?
 {: .challenge}
 
 
@@ -213,7 +218,7 @@ is your command to use.
 | grep pattern file  | grabs all matches of *pattern* in *file* | 
 
 
-
+[TODO] Choose file that is guaranteed to exitst on all systems?
 > ## Type-along-exercise: grep
 >
 > - Type ``cat /proc/cpuinfo``.
@@ -227,7 +232,7 @@ is your command to use.
 
    *``commandA > fileA`` redirects output from commandA to text fileA*
 
-   *``commandA | commandB`` is the symbol for pipe. You pipe the output from commandA to commandB.*
+   *``commandA | commandB`` means that you* ***pipe*** *the output from commandA to commandB.*
 
    *Most commands work well alone and you can cherry pick which you need to combine into a unique result. **Modularity**.*
 
@@ -313,10 +318,53 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 | chmod o-wx fileA   | remove **w**rite and e**x**ecution rights of fileA for **o**thers | 
 
 
-Exercises on this will be available at the end of the session.
+**Exercises on this will be available at the end of the session.**
 
 
 ---
+
+
+### How to make things faster: hotkeys
+
+- Avoid typing every character in the shell - **use hotkeys!**
+- These are **short cuts** to find command you are looking for in the shell.
+- Most important key: **TAB**: autocomplete.
+
+**You should never be  typing full filenames or command names. TAB can complete almost anything**
+
+#### Common hotkeys:
+
+| Hotkey | Effect |
+| ------ | ------ |
+| TAB | autocompletion |
+| Home ``or`` Ctrl-a | start of the command line |
+| End ``or`` Ctrl-e | end |
+| Ctrl-left/right arrows ``or`` Alt-b/Alt-f  | moving by one word there and back |
+| up/down arrows | command history |
+| Ctrl-l | clear the screen |
+| Ctrl-Shift-c | copy |
+| Ctrl-Shift-v | paste |
+| Ctrl-Shift- -  | undo the last changes on cli |
+| Alt-r | undo all changes made to this line |
+| Ctrl-r | command history search: backward (hit Ctrl-r, then start typing the search word, hit Ctrl-r again to go through commands that have the search word in it) |
+| Ctrl-s  | search command history furtherword (for this to work one needs to disable default suspend keys ``stty -ixon``) |
+| Ctrl-u  | remove beginning of the line, from cursor |
+| Ctrl-k | remove end of the line, from cursor |
+| Ctrl-w | remove previous word |
+
+**inputrc:**  
+Check */etc/inpurc* for some default key bindings, more can be defined *~/.inputrc* (left as a home exercise)
+
+**CDPATH:**  
+Helps changing directories faster. When you type ``cd dirname``, the shell tries to go
+to one of the local subdirectories and if it is not found shell will try the same command from every
+directory listed in the *$CDPATH*.
+
+```bash
+export CDPATH=$HOME:/cfs/klemming/nobackup/u/username
+``` 
+
+
 
 #### Environment variables {#environment-variables}
 
