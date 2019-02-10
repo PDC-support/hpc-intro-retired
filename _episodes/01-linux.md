@@ -69,7 +69,7 @@ Set yourself up with a BASH shell.
 
   just open a terminal window.
 
-- **Windows users:**  [TODO] Log these in on Tegner right away??
+- **Windows users:**  [TODO] Log these in on Tegner right away?
 
    [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html), follow the configuration instructions and then log in to Tegner.
 
@@ -339,18 +339,19 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 | TAB | autocompletion |
 | Home ``or`` Ctrl-a | start of the command line |
 | End ``or`` Ctrl-e | end |
-| Ctrl-left/right arrows ``or`` Alt-b/Alt-f  | moving by one word there and back |
-| up/down arrows | command history |
+| up/down arrows | traverse command history |
 | Ctrl-l | clear the screen |
 | Ctrl-Shift-c | copy |
 | Ctrl-Shift-v | paste |
-| Ctrl-Shift- -  | undo the last changes on cli |
-| Alt-r | undo all changes made to this line |
-| Ctrl-r | command history search: backward (hit Ctrl-r, then start typing the search word, hit Ctrl-r again to go through commands that have the search word in it) |
-| Ctrl-s  | search command history furtherword (for this to work one needs to disable default suspend keys ``stty -ixon``) |
-| Ctrl-u  | remove beginning of the line, from cursor |
-| Ctrl-k | remove end of the line, from cursor |
-| Ctrl-w | remove previous word |
+| Ctrl-r | command history search in reverse order |
+
+
+
+
+#### Environment variables {#environment-variables}
+
+#### Initialization and configuration
+
 
 **inputrc:**  
 Check */etc/inpurc* for some default key bindings, more can be defined *~/.inputrc* (left as a home exercise)
@@ -363,11 +364,6 @@ directory listed in the *$CDPATH*.
 ```bash
 export CDPATH=$HOME:/cfs/klemming/nobackup/u/username
 ``` 
-
-
-
-#### Environment variables {#environment-variables}
-
 
 ---
 
