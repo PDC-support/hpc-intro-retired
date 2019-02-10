@@ -169,17 +169,13 @@ The final task in the feather weight class of this tutorial is to understand the
 
 ``ls -l`` is an example of using a command with a *flag*. These are usually options to customize the command. Use *man \<command\>* to learn about options for commands you use.
 
-We will now use a slightly more advanced command to create a dummy text file for next exercise.
-
-
-
 > ## Type-along-exercise: Reading the manual
-> - Type ``printf ' %i Hej \n' {1..20} > tmp_file.txt ``
+> - Type ``history``
+> - Type ``history > tmp_file.txt``. 
 > - Type ``ls -l`` and then check time stamp of ``tmp_file.txt``
 > - Use ``cat`` to print all contents of this file. 
 > - Print the last 4 lines, (read manual of ``tail``)
-> - Try to guess the meaning of the different parts in the text string you used to produce the text file.
-> - Type ``history``. 
+> - Try to guess the meaning of ``">"``
 {: .challenge}
 
 
@@ -208,7 +204,6 @@ Often you wish to combine commands in different ways to tailor the effect.
 {: .challenge}
 
 
----
 Where is that file again? Use ``find``
 
 
@@ -225,8 +220,6 @@ Where is that file again? Use ``find``
 {: .challenge}
 
 
----
-
 In many cases you quickly want to find specific information in files. Then ``grep``
 is your command to use.
 
@@ -238,10 +231,7 @@ is your command to use.
 
 > ## Type-along-exercise: grep
 >
->
-> - Type ``cat /proc/cpuinfo``.
-> - Type ``cat /proc/cpuinfo | grep vendor_id``.
-> - Type ``cat -n /proc/cpuinfo | grep vendor_id``.
+> - Type ``grep mkdir paste_dirname_here/hpc_feb13.txt``.
 {: .challenge}
 
 
@@ -255,6 +245,7 @@ is your command to use.
    *Most commands work well alone and you can cherry pick which you need to combine into a unique result. **Modularity**.*
 
 
+---
 ---
 
 #### Processes {#processes}
@@ -365,18 +356,19 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 
 > ## Type-along-exercise: TAB autocompletion
 >
-> - Type ``cat /proc/cpuinfo``.
-> - Type ``cat /proc/cpuinfo | grep vendor_id``.
-> - Type ``cat -n /proc/cpuinfo | grep vendor_id``.
+> - Type ``find /home -name hpc_feb13.txt``
+> - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``hpc_feb13.txt``.
 {: .challenge}
 
 
 
 ---
 ---
-# PAUSE FOR 5 min + Log in to Tegner
+# PAUSE 5 min + Log in to Tegner
 ---
 ---
+
+#### Command line editor
 
 #### Environment variables {#environment-variables}
 
@@ -397,8 +389,7 @@ export CDPATH=$HOME:/cfs/klemming/nobackup/u/username
 
 ---
 
-
----
+## EXERCISES
 
 
 
