@@ -173,7 +173,6 @@ We will now use a slightly more advanced command to create a dummy text file for
 
 
 
-
 > ## Type-along-exercise: Reading the manual
 > - Type ``printf ' %i Hej \n' {1..20} > tmp_file.txt ``
 > - Type ``ls -l`` and then check time stamp of ``tmp_file.txt``
@@ -188,7 +187,7 @@ We will now use a slightly more advanced command to create a dummy text file for
 
   *Customize the command usage with flags.*
 
-  *The manual is your friend - consult it before googling. NB: Some special commands need ``help``* 
+  *The manual is your friend - consult it before googling. NB: Some special commands require* ***``help``*** *rather than* ***man***
 
   *In the learning phase, use ``history`` regurarily.*
 
@@ -209,6 +208,25 @@ Often you wish to combine commands in different ways to tailor the effect.
 {: .challenge}
 
 
+---
+Where is that file again? Use ``find``
+
+
+| command | Explanation |
+| ------- | ----------- |
+| find -name Objname | looks for ``Objname`` recursively starting from current location | 
+| find /home -name Objname | looks for ``Objname`` starting from ``/home``  |
+
+
+> ## Type-along-exercise: Find location of hpc_feb13.txt
+>
+> - Type ``find /home -name hpc_feb13.txt``
+> - Type ``find -name hpc_feb13.txt``
+{: .challenge}
+
+
+---
+
 In many cases you quickly want to find specific information in files. Then ``grep``
 is your command to use.
 
@@ -218,8 +236,8 @@ is your command to use.
 | grep pattern file  | grabs all matches of *pattern* in *file* | 
 
 
-[TODO] Choose file that is guaranteed to exitst on all systems?
 > ## Type-along-exercise: grep
+>
 >
 > - Type ``cat /proc/cpuinfo``.
 > - Type ``cat /proc/cpuinfo | grep vendor_id``.
@@ -345,8 +363,20 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 | Ctrl-Shift-v | paste |
 | Ctrl-r | command history search in reverse order |
 
+> ## Type-along-exercise: TAB autocompletion
+>
+> - Type ``cat /proc/cpuinfo``.
+> - Type ``cat /proc/cpuinfo | grep vendor_id``.
+> - Type ``cat -n /proc/cpuinfo | grep vendor_id``.
+{: .challenge}
 
 
+
+---
+---
+# PAUSE FOR 5 min + Log in to Tegner
+---
+---
 
 #### Environment variables {#environment-variables}
 
