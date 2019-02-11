@@ -1,16 +1,19 @@
 ---
 layout: episode
-title: "Scaling tests for efficient HPC usage"
+title: "Scaling tests and profiling for efficient HPC usage"
 teaching: 10
 exercises: 10
 questions:
   - "How can I maximize the efficiency of my HPC jobs?"
+  - "Are there any tools that can help me analyze the performance of my code?"
 objectives:
   - "Learn about strong and weak scaling"
-  - "Learn how to perform scaling tests"
+  - "Learn how to perform scaling tests and profiling"
 keypoints:
   - "You should always perform parallel scaling measurements of your jobs 
   before submitting jobs requiring extensive resources"
+  - "ARM Performance Reports is a simple tool which helps you understand 
+  what your code is doing, and how you can improve its performance"
 ---
 
 
@@ -66,11 +69,15 @@ keypoints:
 >
 > 1. Copy the C code for computing &pi; from 
 > [here](https://pdc-web-01.csc.kth.se/files/support/files/scale.c)
-> and paste to a file named `scale.c`.
+> and paste to a file named `scale.c`. You can also do:
+> ```bash
+> [tegner]$ wget https://pdc-web-01.csc.kth.se/files/support/files/scale.c
+> ```
 >
 > 2. Submit a job with a script containing the following lines
 >
 >    ```
+>    module load gcc/7.2.0
 >    gcc scale.c -fopenmp -o scale
 >    
 >    echo Strong scaling test
@@ -106,3 +113,58 @@ keypoints:
 - Excellent profiling tools (e.g. **ARM Forge**) exist, use them! 
 
 
+# [ARM Performance Reports](https://www.arm.com/products/development-tools/server-and-hpc/performance-reports)
+
+ARM Performance Reports (APR, formerly known as Allinea Performance Reports) 
+is a convenient tool to characterize and understand the performance of HPC 
+application runs. It generates a clear single-page HTML report answering the 
+following questions: 
+- Is this application well-optimized for the system it is running on? 
+- Does it benefit from running at this scale? 
+- Are there I/O or networking bottlenecks affecting performance? 
+- Which hardware, software or configuration changes can we make to improve performance further?
+
+> ## Generating a performance report
+> 
+> 1. Copy an example code from the Performance Reports installation 
+>    directory:
+>    ```bash
+>    [tegner]$ cp /pdc/vol/allinea-reports/18.1.1/amd64_co7/examples/wave.c .
+>    ```
+> 2. Load modules for compiler, MPI library and ARM Perf-Reports:
+>    ```bash
+>    [tegner]$ module load gcc/7.2.0
+>    [tegner]$ module load openmpi/3.0-gcc-7.2
+>    [tegner]$ module load allinea-reports/18.1.1
+>    ```
+> 3. Compile the code:
+>    ```bash
+>    [tegner]$ mpicc  wave.c -lm -o wave.<
+>    ```
+>    The binary `wave.x` is now instrumented for ARM Performance Reports.
+> 4. Submit the following batch script:
+>    ```bash
+>    #!/bin/bash -l
+>    #SBATCH -A edu19.intropdc
+>    #SBATCH -t 0:10:00
+>    #SBATCH -N 1
+>
+>    module add gcc/7.2.0
+>    module add openmpi/3.0-gcc-7.2
+>    module add allinea-reports/18.1.1
+>
+>    perf-report mpirun -n 24 ./wave.x
+>    ```
+> 5. The job takes around 2 minutes to finish. When it's completed, open 
+>    the generated html file in a browser (you may need to copy it to your 
+>    local computer). A plaintext version of the results is found in the 
+>    .txt file.
+{: .challenge}
+
+#### Understanding the performance report
+
+After running an executable instrumented for ARM Performance Reports, 
+an html file (along with a plaintext .txt file) is generated 
+which looks something like this:
+
+<img src="../img/apr-example-summary.png" alt="scheduling" width="800" align="middle"> 
