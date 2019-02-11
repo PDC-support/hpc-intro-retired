@@ -139,7 +139,7 @@ following questions:
 >    ```
 > 3. Compile the code:
 >    ```bash
->    [tegner]$ mpicc  wave.c -lm -o wave.<
+>    [tegner]$ mpicc  wave.c -lm -o wave.x
 >    ```
 >    The binary `wave.x` is now instrumented for ARM Performance Reports.
 > 4. Submit the following batch script:
