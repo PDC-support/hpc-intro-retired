@@ -436,7 +436,7 @@ Another useful file is ``.inputrc``
 >
 > - Type ``cp /afs/pdc.kth.se/home/t/torkj/Public/.inputrc .inputrc``
 > - Type ``cat .inputrc``
-> - Type ``source .inputrc``
+> - Type ``bind -f .inputrc``
 > - Start typing any old command you typed on Tegner, then press shift+up.
 {: .challenge}
 
@@ -447,6 +447,8 @@ Another useful file is ``.inputrc``
    * You can store names in environment variables
 
    * Customize your session with configuration files
+
+   * .inputrc needs to be loaded with ``bind`` rather than ``source``. This is however not needed if the file is present at login, as it is automatically loaded by the system.
 
 ---
 
@@ -480,6 +482,7 @@ Commands used so far
 | chmod o-wx fileA   | remove **w**rite and e**x**ecution rights of fileA for **o**thers |
 | echo $HOSTNAME     | displays the string stored in environmental variable HOSTNAME
 | source .bashrc     | loads the file .bashrc that contains envinromental variables |
+| bind -f .inputrc   | binds the keys - this is different from ``source``|
 | w	 	     | list which users are logged in |
 | last -n 10	     | list the lastest 10 logins |
 
@@ -506,95 +509,7 @@ NB: we put commands in .inputrc instead for last hotkey!
 ---
 ---
 
-
-
----
----
----
-
-original contents
-
----
----
----
----
-
-
-
-### Working with processes
-
-All processes are related, a command executed in shell is a child process of
-the shell. When a child process is terminated it is reported back to parent process.
-When you log out, all shell child processes are terminated along with the
-shell.  You can see the whole family tree with ``ps af``.
-One can kill a process or make it "nicer".
-
-```bash
-pgrep -af <name>
-kill <PID>
-pkill <name>
-renice #priority <PID>
-```
-
-Making process "nicer", ``renice 19 <PID>``, means it will run only when nothing
-else in the system wants to.
-User can increase nice value from 0 (the base priority) up to 19. It is 
-useful when you backup your data in background or alike.
-
-
-
-**Hint:** For running X Window apps while you logged in from other
-Linux / MacOS make sure you use ``ssh -X ...`` to log in. For Windows users,
-you need to install [Xming](http://www.straightrunning.com/XmingNotes/).
-
-**Hint:** For immediate job-state change notifications, use ``set notify``. To automatically
-stop background processes if they try writing to the screen ``stty tostop``
-
-
-
----
-
-If you add ``&`` right after the command it will send the process to
-background. 
-- Example: ``firefox --no-remote &`` (same can be done with
-  any terminal command/function, like ``man pstree &``).  
-- The ``&`` serves the same role as ``;`` to separate commands,
-  but backgrounds the first and goes straight to the next.
-
-If you have a process already running, you can send it to background 
-with Ctrl-z and then
-``bg``. 
-- Drawback: no easy way to redirect the running task
-  output, so if it generates output it covers your screen.
-
-List the jobs running in the background with ``jobs``, get a job back
-online with  ``fg`` or ``fg <job_number>``. There can be multiple
-background jobs.
-
-
-> ## Exercise: Processes
-> 
->  - Find out with *man* how to use *top* / *pstree* / *ps* to list all the running processes that belong to you.  
->    Tip: *top* has both command line options and hotkeys.
-> 
->    - (optional) see ``man ps`` and find out how to list a processes tree with ps, both
->      all processes and only your own (but all your processes, associated with all terminals)
-> 
->  - With pgrep list all bash and then zsh sessions on Tegner.
->  - Log in to Tegner and run ``man ps``, send it to background, and ``logout``, then
->    log in again. Is it still there? Play with the ``screen``, run a session, 
->    then detach it and log out, then log in back and get 
->    your original screen session back.
->  - Run ``man htop``, send it to backround, and then kill it with ``kill``. Tip: one can
->    do it by background job number or by PID.
->  - Imagine a use case: your current ssh session got stuck and does not response. Open another
->    ssh session to the same remote host and kill the first one. Tip: ``echo $$`` gives you current
->    bash PID.
-> 
->    - (optional) get any X Window application (firefox, xterm, etc) to run on Tegner
-{: .challenge}
-
-
+# advanced file/directory/permission etc etc
 
 
 #### Files and directories
@@ -751,6 +666,47 @@ directory.  The permissions of the files themselves still matter.
 
 ---
 
+
+# default access permissions: umask in .bashrc
+
+
+
+### Modifying permissions: advanced 
+
+Access Control Lists (ACLs) are advanced access permissions.  They
+don't work everywhere, for example mostly do no work on NFS
+mounted directories.  They are otherwise supported on ext4, Lustre,
+etc. (thus work on /cfs/klemming).
+
+* In "normal" unix, files have only "owner" and "group", and permissions
+  for owner/group/others.  This can be rather limiting.
+* Access control lists (ACLS) are an extension that allows an
+  arbitrary number of users and groups to have access rights to
+  files.   
+* ACLs don't show up in normal ``ls -l`` output, but there is an extra
+  plus sign: ``-rw-rwxr--+``.  ACLs generally work well, but there are
+  some programs that won't preserve them when you copy/move files, etc.
+* POSIX (unix) ACLs are controlled with ``getfacl`` and ``setfacl``
+  - Allow read access for a user ``setfacl -m u:<user>:r <file_or_dir>``
+  - Allow read/write access for a group ``setfacl -m g:<group>:rw <file_or_dir>``
+  - Revoke granted access ``setfacl -x u:<user> <file_or_dir>``
+  - See current stage ``getfacl <file_or_dir>``
+
+**File managers**  
+On Beskow and Tegner we have installed Midnight Commander: ``mc``.
+
+**Advanced file status**   
+To get file meta info: ``stat <file_or_dir>``
+
+
+
+
+---
+---
+
+# gnu screen
+
+
 ### Exiting the shell, and the [GNU screen](https://www.gnu.org/software/screen/) utility
 
 To exit the shell, type `logout` or press Ctrl-d.
@@ -820,33 +776,183 @@ connect, and resume right where they left off.
    with some minor pros and cons, try it out to see which one you like better!
   
 ---
+---
 
-### Modifying permissions: advanced 
+# file archiving
+# customize command line prompt
+# 
 
-Access Control Lists (ACLs) are advanced access permissions.  They
-don't work everywhere, for example mostly do no work on NFS
-mounted directories.  They are otherwise supported on ext4, Lustre,
-etc. (thus work on /cfs/klemming).
 
-* In "normal" unix, files have only "owner" and "group", and permissions
-  for owner/group/others.  This can be rather limiting.
-* Access control lists (ACLS) are an extension that allows an
-  arbitrary number of users and groups to have access rights to
-  files.   
-* ACLs don't show up in normal ``ls -l`` output, but there is an extra
-  plus sign: ``-rw-rwxr--+``.  ACLs generally work well, but there are
-  some programs that won't preserve them when you copy/move files, etc.
-* POSIX (unix) ACLs are controlled with ``getfacl`` and ``setfacl``
-  - Allow read access for a user ``setfacl -m u:<user>:r <file_or_dir>``
-  - Allow read/write access for a group ``setfacl -m g:<group>:rw <file_or_dir>``
-  - Revoke granted access ``setfacl -x u:<user> <file_or_dir>``
-  - See current stage ``getfacl <file_or_dir>``
+### File archiving
 
-**File managers**  
-On Beskow and Tegner we have installed Midnight Commander: ``mc``.
 
-**Advanced file status**   
-To get file meta info: ``stat <file_or_dir>``
+``tar`` is the de-facto standard tool for saving many files or
+directories into a single archive file.  Archive files may have
+extenssions *.tar*, *.tar.gz* etc depending on compression.
+
+```bash
+# create tar archive gzipped on the way
+tar -caf arhive_name.tar.gz directory_to_be_archived/
+
+# extract files
+tar -xaf archive_name.tar.gz -C path/to/directory
+``` 
+
+- *f* is for the filename
+- *a* selects the compression method based on the archive file suffix (in
+  this example gzip, due to the .gz suffix. 
+- Without compression files/directories are simply packed as is. 
+
+Other command line options: 
+- *r* - append files to the end of an archive.
+- *t* - list archive content.
+
+
+```bash
+# xz has better compression ratio than gzip, but is very slow
+tar -caf archive_file.tar.xz dir1/ dir2/
+``` 
+
+Individual files can be compressed directly, e.g. with ``gzip``:
+
+```bash
+# file.gz is created, file is removed in the process.
+gzip file
+# Uncompress
+gunzip file.gz
+``` 
+ 
+---
+
+### Transferring files (+archiving on the fly)
+
+For PDC users the ability to transfer files to/from PDC systems is essential.
+For large transfers (big data, many files), you should use the transfer nodes:
+
+```bash
+# transferring a file from your HOME on PDC to your home worstation
+scp -r username@t04n27.pdc.kth.se:file_to_copy .  # or t04n28
+``` 
+
+(Optional) Another use case, copying to PDC, or making a directory backup with ``rsync``:
+
+```bash
+rsync -urlptDxv --chmod=Dg+s somefile username@t04n27.pdc.kth.se:/cfs/klemming/nobackup/u/username/  # copy a file to klemming
+rsync -urlptDxv --chmod=Dg+s username@t04n28.pdc.kth.se:/cfs/klemming/nobackup/u/username/dir1/  dir1/  # sync two directories
+``` 
+
+(Optional) Transferring and archiving your PDC data on the fly to some other place:
+
+```bash
+# login to Tegner
+cd $WRKDIR
+tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_file.tar.gz'
+``` 
+
+> ## Exercise: find, tar and scp/rsync
+>
+> - Find with ``find`` all the files in your $HOME that are readable or writable by everyone
+>   - (Optional) apply ``chmod o-rwx`` to all recently found files with ``find``
+> - Make a tar.gz archive of any of your directory at your HOME (or WRKDIR if on Tegner), when done
+>   list the archive content, then append another file/directory to the existing archive.
+>   
+>   - (Optional) Extract only one particular file to some subdirectory from the archive
+>   
+> - Transfer just created archive using either ``scp`` or ``rsync``.
+> 
+>   - (Optional) Try ssh+tar combo to make transfer and archive on the fly.
+{: .challenge}
+
+---
+
+
+---
+---
+---
+
+original contents
+
+---
+---
+---
+---
+
+
+
+### Working with processes
+
+All processes are related, a command executed in shell is a child process of
+the shell. When a child process is terminated it is reported back to parent process.
+When you log out, all shell child processes are terminated along with the
+shell.  You can see the whole family tree with ``ps af``.
+One can kill a process or make it "nicer".
+
+```bash
+pgrep -af <name>
+kill <PID>
+pkill <name>
+renice #priority <PID>
+```
+
+Making process "nicer", ``renice 19 <PID>``, means it will run only when nothing
+else in the system wants to.
+User can increase nice value from 0 (the base priority) up to 19. It is 
+useful when you backup your data in background or alike.
+
+
+
+**Hint:** For running X Window apps while you logged in from other
+Linux / MacOS make sure you use ``ssh -X ...`` to log in. For Windows users,
+you need to install [Xming](http://www.straightrunning.com/XmingNotes/).
+
+**Hint:** For immediate job-state change notifications, use ``set notify``. To automatically
+stop background processes if they try writing to the screen ``stty tostop``
+
+
+
+---
+
+If you add ``&`` right after the command it will send the process to
+background. 
+- Example: ``firefox --no-remote &`` (same can be done with
+  any terminal command/function, like ``man pstree &``).  
+- The ``&`` serves the same role as ``;`` to separate commands,
+  but backgrounds the first and goes straight to the next.
+
+If you have a process already running, you can send it to background 
+with Ctrl-z and then
+``bg``. 
+- Drawback: no easy way to redirect the running task
+  output, so if it generates output it covers your screen.
+
+List the jobs running in the background with ``jobs``, get a job back
+online with  ``fg`` or ``fg <job_number>``. There can be multiple
+background jobs.
+
+
+> ## Exercise: Processes
+> 
+>  - Find out with *man* how to use *top* / *pstree* / *ps* to list all the running processes that belong to you.  
+>    Tip: *top* has both command line options and hotkeys.
+> 
+>    - (optional) see ``man ps`` and find out how to list a processes tree with ps, both
+>      all processes and only your own (but all your processes, associated with all terminals)
+> 
+>  - With pgrep list all bash and then zsh sessions on Tegner.
+>  - Log in to Tegner and run ``man ps``, send it to background, and ``logout``, then
+>    log in again. Is it still there? Play with the ``screen``, run a session, 
+>    then detach it and log out, then log in back and get 
+>    your original screen session back.
+>  - Run ``man htop``, send it to backround, and then kill it with ``kill``. Tip: one can
+>    do it by background job number or by PID.
+>  - Imagine a use case: your current ssh session got stuck and does not response. Open another
+>    ssh session to the same remote host and kill the first one. Tip: ``echo $$`` gives you current
+>    bash PID.
+> 
+>    - (optional) get any X Window application (firefox, xterm, etc) to run on Tegner
+{: .challenge}
+
+
 
 
 
@@ -954,88 +1060,6 @@ workstations only.  This uses a cached database of all files, and
 just searches that database so it is much faster.
 
 **Too many arguments**  error solved with the ``find ... | xargs``
-
----
-
-### File archiving
-
-
-``tar`` is the de-facto standard tool for saving many files or
-directories into a single archive file.  Archive files may have
-extenssions *.tar*, *.tar.gz* etc depending on compression.
-
-```bash
-# create tar archive gzipped on the way
-tar -caf arhive_name.tar.gz directory_to_be_archived/
-
-# extract files
-tar -xaf archive_name.tar.gz -C path/to/directory
-``` 
-
-- *f* is for the filename
-- *a* selects the compression method based on the archive file suffix (in
-  this example gzip, due to the .gz suffix. 
-- Without compression files/directories are simply packed as is. 
-
-Other command line options: 
-- *r* - append files to the end of an archive.
-- *t* - list archive content.
-
-
-```bash
-# xz has better compression ratio than gzip, but is very slow
-tar -caf archive_file.tar.xz dir1/ dir2/
-``` 
-
-Individual files can be compressed directly, e.g. with ``gzip``:
-
-```bash
-# file.gz is created, file is removed in the process.
-gzip file
-# Uncompress
-gunzip file.gz
-``` 
- 
----
-
-### Transferring files (+archiving on the fly)
-
-For PDC users the ability to transfer files to/from PDC systems is essential.
-For large transfers (big data, many files), you should use the transfer nodes:
-
-```bash
-# transferring a file from your HOME on PDC to your home worstation
-scp -r username@t04n27.pdc.kth.se:file_to_copy .  # or t04n28
-``` 
-
-(Optional) Another use case, copying to PDC, or making a directory backup with ``rsync``:
-
-```bash
-rsync -urlptDxv --chmod=Dg+s somefile username@t04n27.pdc.kth.se:/cfs/klemming/nobackup/u/username/  # copy a file to klemming
-rsync -urlptDxv --chmod=Dg+s username@t04n28.pdc.kth.se:/cfs/klemming/nobackup/u/username/dir1/  dir1/  # sync two directories
-``` 
-
-(Optional) Transferring and archiving your PDC data on the fly to some other place:
-
-```bash
-# login to Tegner
-cd $WRKDIR
-tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_file.tar.gz'
-``` 
-
-> ## Exercise: find, tar and scp/rsync
->
-> - Find with ``find`` all the files in your $HOME that are readable or writable by everyone
->   - (Optional) apply ``chmod o-rwx`` to all recently found files with ``find``
-> - Make a tar.gz archive of any of your directory at your HOME (or WRKDIR if on Tegner), when done
->   list the archive content, then append another file/directory to the existing archive.
->   
->   - (Optional) Extract only one particular file to some subdirectory from the archive
->   
-> - Transfer just created archive using either ``scp`` or ``rsync``.
-> 
->   - (Optional) Try ssh+tar combo to make transfer and archive on the fly.
-{: .challenge}
 
 ---
 
