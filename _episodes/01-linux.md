@@ -27,7 +27,7 @@ This material consists of the following parts:
  - [Processes and files](#processes-files)
  - [File permissions](#file-permissions)
  - [Hotkeys](#hotkeys)
- - [Environtmental variables and configuration](#env-config)
+ - [Environmental variables and configuration](#env-config)
  - [Exercises](#interactive-usage)
 
 Exercises marked "optional" are for advanced users who would like further stimulation.
@@ -60,11 +60,11 @@ Exercises marked "optional" are for advanced users who would like further stimul
 ---
 ---
 
-## BASH BASICS {#bash-basics}
+## Bash basics {#bash-basics}
 
-#### Getting a BASH shell
+#### Getting a bash shell
 
-Set yourself up with a BASH shell. 
+Set yourself up with a bash shell. 
 
 - **Linux and Mac users:**
 
@@ -88,7 +88,7 @@ We start with two commands.
 | ls      | list contents | 
 
 
-> ## Type-along-exercise: What is this bash thing?
+> ## Type-along exercise: What is this bash thing?
 >
 > - What do you get if you type ``pwd`` in the terminal?
 > - If you are not on Tegnér, open a File Explorer.
@@ -126,7 +126,7 @@ Some typical bash commands for these purposes are:
 | mv file1 new_dir/file2 | move *file1* into *new_folder* and call that *file2* |
 
 
-> ## Type-along-exercise: Copying files and moving between folders.
+> ## Type-along exercise: Copying files and moving between folders.
 >
 > - Create a directory called *example_hpc*. Verify that it was created.
 > - Move into *example_hpc*. Obtain the name of the current location. Check contents.
@@ -138,9 +138,9 @@ Some typical bash commands for these purposes are:
 
 ---
 
-#### Relative vs. Absolute paths
+#### Relative vs. absolute paths
 
-The final task in the feather weight class of this tutorial is to understand the concept of relative and absolute paths.
+The final task in the featherweight class of this tutorial is to understand the concept of relative and absolute paths.
 
 | Relative | Absolute |
 | ------- | ----------- |
@@ -171,7 +171,7 @@ The final task in the feather weight class of this tutorial is to understand the
 
 ``ls -l`` is an example of using a command with a *flag*. These are usually options to customize the command. Use *man \<command\>* to learn about options for commands you use.
 
-> ## Type-along-exercise: Reading the manual
+> ## Type-along exercise: Reading the manual
 > - Type ``history``
 > - Type ``history > tmp_file.txt``. 
 > - Type ``ls -l`` and then check time stamp of ``tmp_file.txt``
@@ -187,7 +187,7 @@ The final task in the feather weight class of this tutorial is to understand the
 
   *The manual is your friend - consult it before googling. NB: Some special commands require* ***``help``*** *rather than* ***man***
 
-  *In the learning phase, use ``history`` regurarily.*
+  *In the learning phase, use ``history`` regularly.*
 
 
 
@@ -198,7 +198,7 @@ The final task in the feather weight class of this tutorial is to understand the
 Often you wish to combine commands in different ways to tailor the effect.
 
 
-> ## Type-along-exercise: Practice
+> ## Type-along exercise: Pipelines
 >
 > - Type ``history > hpc_feb13.txt`` . Useful documentation!
 > - Type ``cd`` . Where are you now? Quick way to "go home".
@@ -215,7 +215,7 @@ Where is that file again? Use ``find``
 | find /home -name Objname | looks for ``Objname`` starting from ``/home``  |
 
 
-> ## Type-along-exercise: Find location of hpc_feb13.txt
+> ## Type-along exercise: Find location of a file
 >
 > - Type ``find /home -name hpc_feb13.txt``
 > - Type ``find -name hpc_feb13.txt``
@@ -231,7 +231,7 @@ is your command to use.
 | grep pattern file  | grabs all matches of *pattern* in *file* | 
 
 
-> ## Type-along-exercise: grep
+> ## Type-along exercise: Searching for patterns with grep
 >
 > - Type ``grep mkdir paste_dirname_here/hpc_feb13.txt``.
 {: .challenge}
@@ -256,7 +256,7 @@ Uptil now we have only focused on how to handle files and folders.
 
 But we typically also want to **run programs.**
 
-- All running programs are *processes*
+- All running programs (and commands) are *processes*
 - Processes have:
 
   - Process ID (integer)
@@ -272,11 +272,12 @@ But we typically also want to **run programs.**
 
 As an example, do the following:
 
-> #### Exercise: Watch processes
+> ## Exercise: Watching processes
 >
 > - type ``top`` in your terminal
-> - open a new terminal and type ``firefox``.
-> - find the *pid* of firefox
+> - open a new terminal and type ``nano``.
+> - find the *pid* of nano
+{: .challenge}
 
 ---
 
@@ -292,7 +293,7 @@ To kill a foreground process: Ctrl-c
 
 **background**
 
-On the contrary, a *background* process does not have any input connected. You can have as many of these as your resources permit. Normally, you need an & after the comman to put the process in the background.
+On the contrary, a *background* process does not have any input connected. You can have as many of these as your resources permit. Normally, you need an & after the command to put the process in the background.
 
 To kill a background process: ``kill`` or ``pkill``, possible also from within ``top``.
 
@@ -356,7 +357,7 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 | Ctrl-Shift-v | paste |
 | Ctrl-r | command history search in reverse order |
 
-> ## Type-along-exercise: TAB autocompletion
+> ## Type-along exercise: TAB autocompletion
 >
 > - Type ``find /home -name hpc_feb13.txt``
 > - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``hpc_feb13.txt``.
@@ -375,13 +376,13 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 ---
 ---
 
-> #### Exercise: Have a quick look-around on the login-node
+> ## Exercise: Looking around on the login node
 >
 > - Obtain the current location
 > - Type ``top`` to view processes and info on the server
 > - Type ``w`` to see which other users are logged in
 > - Type ``last -n 15`` to get a list of the last 15 logins
-
+{: .challenge}
 
 #### Command line editor
 To work efficiently on HPC systems, it is usually good to use an editor directly in the terminal.
@@ -395,7 +396,7 @@ Some commonly used ones are
 As *nano* is the simplest one, we will use this one in this tutorial.
 
 
-> ## Type-along-exercise: getting started with nano
+> ## Type-along exercise: getting started with nano
 >
 > - Type ``nano``. Then write some text.
 > - Try to find out how to save the file.
@@ -405,10 +406,10 @@ As *nano* is the simplest one, we will use this one in this tutorial.
 ---
 
 #### Environment variables {#environment-variables}
-To save time, important names are often stored in so called environment variables. To display them we use ``echo``
+To save time, important names are often stored in so called environment variables. To display them we use ``echo``.
 
 
-> ## Type-along-exercise: echo $SOME_EXAMPLES
+> ## Type-along exercise: Exploring environment variables
 >
 > - Type ``echo $HOME``
 > - Type ``echo $HOSTNAME``
@@ -422,18 +423,19 @@ These give you further power to customize your session to fit your needs.
 #### Initialization and configuration
 Normally, the file containing many of these user defaults is ``.bashrc`` located in $HOME.
 
-> ## Type-along-exercise: edit your .bashrc
+> ## Type-along exercise: Customizing the shell environment with .bashrc
 >
-> - Type ``more .bashrc`` and examine the contents.
-> - Type ``HISTTIMEFORMAT="%d/%m/%y %T "`` , save and close
+> - Type ``nano .bashrc`` and examine the contents.
+> - Add a line ``HISTTIMEFORMAT="%d/%m/%y %T "``, save and close
 > - Type ``source .bashrc`` to reload the information there. (you could also log off and then log in)
 {: .challenge}
 
 Another useful file is ``.inputrc``
 
-> ## Type-along-exercise: copy my .inputrc
+> ## Type-along exercise: Custom bindings with .inputrc
 >
 > - Type ``cp /afs/pdc.kth.se/home/t/torkj/Public/.inputrc .inputrc``
+> - Type ``cat .inputrc``
 > - Type ``source .inputrc``
 > - Start typing any old command you typed on Tegner, then press shift+up.
 {: .challenge}
@@ -620,7 +622,7 @@ ls -A ~/directory1
 ls -lA ../../directory2
 ```
 
-Special notations and expansions in BASH, can be used with any command:
+Special notations and expansions in bash, can be used with any command:
 
 ```bash
 ./, ../, ~, *, ?, [], [!], {abc,xyz}, {1..10}
@@ -634,7 +636,7 @@ For the quotation:
 
 Quotation matters; try typing both ``echo "$USER"`` and ``echo '$USER'``.
 
-BASH first expands the expansions and substitute the wildcards, and then
+Bash first expands the expansions and substitute the wildcards, and then
 executes the command. Could be as complex as:
 
 ```bash
