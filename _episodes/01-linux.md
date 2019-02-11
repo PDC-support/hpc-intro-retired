@@ -19,7 +19,10 @@ keypoints:
 
 
 > This material is based on several excellent resources available online, 
-> in particular [this course material developed at Aalto, Finland](https://scicomp.aalto.fi/training/linux-shell-tutorial.html), and [these documentation pages at the University of Oslo](https://www.mn.uio.no/geo/english/services/it/help/using-linux).
+> including:
+> - [The Software Carpentry Unix Shell lesson](https://swcarpentry.github.io/shell-novice/)
+> - [Course material developed at Aalto, Finland](https://scicomp.aalto.fi/training/linux-shell-tutorial.html)
+> - [Documentation pages at the University of Oslo](https://www.mn.uio.no/geo/english/services/it/help/using-linux).
 
 This material consists of the following parts: 
  - [What is a shell?](#what-is-shell)
