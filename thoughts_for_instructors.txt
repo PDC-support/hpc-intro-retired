@@ -78,8 +78,20 @@ initialization/configuration files
 General exercises: easy to advanced
 
 
+* List dot files			(ls -a)
 
+* Special characters			(./ ../ ~, *, ?, [], [!], {abc,xyz}, {1..10})
 
+* Quotation marks			("", '')    
 
+* Symbolic links			(ln -s)
 
+* Creating files			(touch)
 
+* File permissions			(chgrp, ACL)
+
+* Gnu screen
+
+* Prompt customization
+
+* 

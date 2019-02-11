@@ -24,7 +24,7 @@ keypoints:
 This material consists of the following parts: 
  - [What is a shell?](#what-is-shell)
  - [Bash basics](#bash-basics)
- - [Processes and files](#processes-files)
+ - [Processes and files](#processes-files	)
  - [File permissions](#file-permissions)
  - [Hotkeys](#hotkeys)
  - [Environmental variables and configuration](#env-config)
@@ -98,14 +98,12 @@ We start with two commands.
 > - Type ``ls`` in the terminal. Compare with the items you see in the File Explorer.
 {: .challenge}
 
-**Take home messages:**
-
+**Take home messages:**  
   *bash shell is a text based tool to interact with the computer.*
-
+  
   *you are always in the directory (folder) given by ``pwd``.*
 
-**Main advantage:**
-
+**Main advantage:**  
   *can be made highly efficient*.
 
 ---
@@ -136,6 +134,10 @@ Some typical bash commands for these purposes are:
 > - Use the terminal to copy this file to a new file named *file2.txt*. Check result.
 {: .challenge}
 
+**Take home message:**    
+  *Do not use space as separators in names - use underscore instead.*
+
+
 ---
 
 #### Relative vs. absolute paths
@@ -148,8 +150,8 @@ The final task in the featherweight class of this tutorial is to understand the 
 | cd ..      | cd /home/tkl/ |
 | cd ../..   | cd /home/ |
 
-**Take home message:**
-  
+
+**Take home message:**  
   *Absolute paths always work but relative paths are more convenient.*
 
 ---
@@ -181,14 +183,12 @@ The final task in the featherweight class of this tutorial is to understand the 
 {: .challenge}
 
 
-**Take home messages:**
-
+**Take home messages:**  
   *Customize the command usage with flags.*
-
+  
   *The manual is your friend - consult it before googling. NB: Some special commands require* ***``help``*** *rather than* ***man***
-
+  
   *In the learning phase, use ``history`` regularly.*
-
 
 
 ---
@@ -238,12 +238,11 @@ is your command to use.
 
 
 
-**Take home message:**
-
+**Take home message:**  
    *``commandA > fileA`` redirects output from commandA to text fileA*
-
+   
    *``commandA | commandB`` means that you* ***pipe*** *the output from commandA to commandB.*
-
+   
    *Most commands work well alone and you can cherry pick which you need to combine into a unique result. **Modularity**.*
 
 
@@ -440,15 +439,14 @@ Another useful file is ``.inputrc``
 > - Start typing any old command you typed on Tegner, then press shift+up.
 {: .challenge}
 
-
-
 **Take home message:**
 
    * You can store names in environment variables
 
    * Customize your session with configuration files
 
-   * .inputrc needs to be loaded with ``bind`` rather than ``source``. This is however not needed if the file is present at login, as it is automatically loaded by the system.
+   * .inputrc needs to be loaded with ``bind`` rather than ``source``.  
+This is however not needed if the file is present at login, as it is automatically loaded by the system.
 
 ---
 
@@ -502,40 +500,29 @@ Commands used so far
 NB: we put commands in .inputrc instead for last hotkey!
 
 
-## EXERCISES
-
-
-
 ---
 ---
 
-# advanced file/directory/permission etc etc
+# EXERCISES
+This section now contains more advanced exercises. If you come to think about something you want to have, by all means please try to build it!
+
+Perhaps you have files or directories on your own computer you want to manipulate?
+Just use them in the execises instead.
 
 
-#### Files and directories
+> ## Exercise: List dot files (files starting with . )
+>
+> - Try to find a way to list all files, including those with ``.`` as their first chracter.
+
+## Advanced file and directory handling
 
 Files contain data.  They have a name, permissions, owner
 (user+group), contents, and some other metadata.
 
-Filenames may contain any character except '/', which is reseved as a separator between
-directory and filenames. The special characters require quotation while dealing
-with such filenames, so it makes sense to avoid them.
+Filenames may contain any character except '/', which is reserved as a separator between
+directory and filenames.  
+The special characters require quotation while dealing with such filenames, so it makes sense to avoid them.
 
-Path can be absolute (starting with '/') or relative (related to the current directory).
-
-``ls`` is the standard way of getting information about files. By default it lists 
-your current directory (i.e. *pwd*), but there are many options:
-
-```bash
-# list directory content
-ls /scratch/work
-
-# list directory files including dot files (i.e. hidden ones)
-ls -A ~/directory1
- 
-# list all files and directories using long format (permissions, timestamps, etc)
-ls -lA ../../directory2
-```
 
 Special notations and expansions in bash, can be used with any command:
 
@@ -543,86 +530,44 @@ Special notations and expansions in bash, can be used with any command:
 ./, ../, ~, *, ?, [], [!], {abc,xyz}, {1..10}
 ``` 
 
+
 For the quotation:
 
 ```bash
 '', "", \
 ```
 
-Quotation matters; try typing both ``echo "$USER"`` and ``echo '$USER'``.
 
-Bash first expands the expansions and substitute the wildcards, and then
-executes the command. Could be as complex as:
+> ## Exercise: Quotation matters;
+>
+> - Try typing both ``echo "$USER"`` and ``echo '$USER'``.
+>
 
-```bash
-ls -l ~/[!abc]???/dir{123,456}/filename*.{1..9}.txt
-```
 
-There are a variety of commands to manipulate files/directories:
+> ## Exercise: Multiple files at the same time
+>
+> - Copy the directory ``/afs/pdc.kth.se/home/t/torkj/Public/tutorial`` to your home.
+> - Type ``ls prop*`` inside ``tutorial``
+> - Try other commans such as ``head, tail, cat`` in the same way
+> - Copy all data files into a single file in one command. Do not get anything else besidesdata.
+> - As above, but also get the directory names.
+> - *Optional:* As above, but get the data sorted along first column.
+>
 
-```bash
-cd, mkdir, cp, cp -r, rm, rm -r, mv, ln, touch
-```
- 
-For file/directory meta information or content type:
+> ## Exercise: Symbolic links
+>
+> Often you want quick acces to files without actually copying them. A typical scenario is heavy data files or files that should be shared by many people.
+> - Go to your home
+> - Type ``ln -s tutorial/prop_E096-99/Bound_population.dat E096-99_data.dat``
+> - What happens if you remove the symbolic link?
 
-```bash
-ls, stat, file
-``` 
 
-Note that ``cd`` is a shell builtin which changes the shell's own
-working directory.  This is the base from which all other commands
-work:
- - ``ls`` by default tells you the current directory.  
- - ``.`` is the current directory. 
- - ``..`` is the parent directory. 
- - ``~`` is your HOME.  
-
-This is inherited to other commands you run. 
-
-``cd`` with no options drops you to your $HOME.
-
-```bash
-# create several directories at once
-mkdir dir1 dir2 dir3
-# -or-
-mkdir dir{1,2,3}
-
-# copy a directory recursively
-cp -r dir1 dir2/
-
-# copy a directory preserving all the metadata to two levels up
-cp -a dir1/ ../../
-
-# move all files with the names like filename1.txt, filename_abc.txt etc to dir2/
-mv filename*.txt dir2/
-
-# remove a directories/files in the current dir without asking for the confirmation
-rm -rf dir2/ dir1/ filename*
-
-# create an empty file if doesn't exist or update its access/modification time
-touch filename
-
-# make a link to a target file (hard link by default, -s for symlinks)
-ln target_file ../link_name
-```
-
-**Discover other ls features** ``ls -lX``, ``ls -ltr``, ``ls -Q``
-
-You may also find the ``rename`` utility useful.
-
----
-
-### File/directory permissions
-
-- Permissions are one of the types of file metadata.
-- They tell you if you can *read* a file, *write* a file, and
-  *execute a file/list directory*.
-- Each of these apply to *user*, *group*, and *others*.
-- Here is a typical permission bits for a file: ``-rw-r--r--``.
-- In general, it is ``rwxrwxrwx`` -- read, write, execute/search for
-  user, group, others respectively.
-- ``ls -l`` gives you details on files.
+> ## Exercise: ``touch``
+>
+> - What does ``touch hej.txt`` do?
+> - What does ``touch hej.txt`` do if the file already exists?
+> - Can you think of ways to use this?
+>
 
 ---
 
@@ -666,11 +611,6 @@ directory.  The permissions of the files themselves still matter.
 
 ---
 
-
-# default access permissions: umask in .bashrc
-
-
-
 ### Modifying permissions: advanced 
 
 Access Control Lists (ACLs) are advanced access permissions.  They
@@ -704,7 +644,7 @@ To get file meta info: ``stat <file_or_dir>``
 ---
 ---
 
-# gnu screen
+# gnu screen   [TODO - clean]
 
 
 ### Exiting the shell, and the [GNU screen](https://www.gnu.org/software/screen/) utility
@@ -779,10 +719,10 @@ connect, and resume right where they left off.
 ---
 
 # customize command line prompt
-# 
 
 
-### Initialization files and configuration
+
+### Initialization files and configuration   [TODO - clean]
 
 - When the shell first starts (when you login), it reads some files.
   These are normal shell files, and it evaluates normal shell commands
@@ -812,7 +752,7 @@ permanent, should be added to *.bashrc* like ``export PS1``.
 
 ---
 
-### Creating/editing/viewing file
+### Creating/editing/viewing file  [TODO - clean]
 
 * A *text editor* edits files as ASCII.  These are your best friend.
   In fact, text files are your best friend: rawest, most efficient,
@@ -860,7 +800,7 @@ Try: add above mentioned ``export PS1`` to *.bashrc*. Remember ``source .bashrc`
 ---
 ---
 
-# utilities - building blocks
+# utilities - building blocks [TODO - clean up]
 
 ### Utilities: the building blocks of shell
 
@@ -1078,7 +1018,7 @@ becomes a default instead of built-in *echo*.
 ---
 ---
 
-# file archiving
+# file archiving [TODO-clean]
 
 
 ``tar`` is the de-facto standard tool for saving many files or
@@ -1161,20 +1101,9 @@ tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_fil
 ---
 
 
----
----
----
-
-original contents
-
----
----
----
----
 
 
-
-### Working with processes
+### Working with processes [TODO-clean]
 
 All processes are related, a command executed in shell is a child process of
 the shell. When a child process is terminated it is reported back to parent process.
@@ -1286,7 +1215,7 @@ background jobs.
 
 ---
 
-## Interactive usage {#interactive-usage}
+## Interactive usage [TODO-clean] {#interactive-usage} 
 
 ### find
 
