@@ -166,6 +166,7 @@ The final task in the feather weight class of this tutorial is to understand the
 | cat file  | prints all contents of file to stdout.            |
 | head file | prints first lines of file to stdout.             |
 | tail file | prints last lines of file to stdout.              |
+| echo something | prints from command line to stdout. |
 
 
 ``ls -l`` is an example of using a command with a *flag*. These are usually options to customize the command. Use *man \<command\>* to learn about options for commands you use.
