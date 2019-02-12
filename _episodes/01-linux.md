@@ -649,6 +649,23 @@ On Beskow and Tegner we have installed Midnight Commander: ``mc``.
 To get file meta info: ``stat <file_or_dir>``
 
 
+> ## Exercise: Permissions
+>
+> - Create a directory, use ``chmod`` to allow user and any group members
+>   full access and no access for others
+> - (Optional) Change that directory group ownership with ``chown`` or 
+>   ``chgrp`` (any group that you belong to is fine), set s-bit for the 
+>   group and apply t-bit to a directory, check that the upper directory 
+>   has *o+x* bit set: now you should have a private working space for 
+>   your group. Tip: see groups that you are a member of using ``id -Gn``
+> - (Optional) Create a directory and a subdirectory in it and set their 
+>   permissions to 700 with one command.
+> - Create a directory (in /cfs/klemming/nobackup/u/user on Tegner or somewhere on your own system)
+> - use ``setfacl`` to set its permissions so that only you and some
+>   user/group of your choice would have access to it.
+{: .challenge}
+
+
 ---
 ---
 
@@ -866,12 +883,12 @@ grep "<[Hh][12]>" file.html
 ---
 ---
 
-# file archiving [TODO-clean]
+## File archiving 
 
 
 ``tar`` is the de-facto standard tool for saving many files or
-directories into a single archive file.  Archive files may have
-extenssions *.tar*, *.tar.gz* etc depending on compression.
+directories into a single archive file.  
+Archive files may have extenssions *.tar*, *.tar.gz* etc depending on compression.
 
 ```bash
 # create tar archive gzipped on the way
@@ -924,13 +941,6 @@ rsync -urlptDxv --chmod=Dg+s somefile username@t04n27.pdc.kth.se:/cfs/klemming/n
 rsync -urlptDxv --chmod=Dg+s username@t04n28.pdc.kth.se:/cfs/klemming/nobackup/u/username/dir1/  dir1/  # sync two directories
 ``` 
 
-(Optional) Transferring and archiving your PDC data on the fly to some other place:
-
-```bash
-# login to Tegner
-cd $WRKDIR
-tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_file.tar.gz'
-``` 
 
 > ## Exercise: find, tar and scp/rsync
 >
@@ -951,7 +961,7 @@ tar czf - path/to/dir | ssh kosh.aalto.fi 'cat > path/to/archive/dir/archive_fil
 
 
 
-### Working with processes [TODO-clean]
+### (Optional) Working with processes
 
 All processes are related, a command executed in shell is a child process of
 the shell. When a child process is terminated it is reported back to parent process.
@@ -981,8 +991,6 @@ you need to install [Xming](http://www.straightrunning.com/XmingNotes/).
 stop background processes if they try writing to the screen ``stty tostop``
 
 
-
----
 
 If you add ``&`` right after the command it will send the process to
 background. 
@@ -1025,47 +1033,10 @@ background jobs.
 {: .challenge}
 
 
-
-
-
-> ## Exercise: Files and directories
->
-> - What does ``touch`` do? Read the first paragraph in the manpage.
-> - Create a directory in your ``$HOME``, cd there and ``touch`` a file.
->   Rename it. Make a copy and then remove the original. 
-> - List all files in /usr/bin that start with letter x.
-> - (Optional) List all files in /usr/bin and /usr/sbin that start with 
->   non-letter characters, using only one ``ls`` command.
-> - (Optional) list with ``ls`` dot files/directories only (by default it
->   lists all files/directories but not those that begin with ``.``).
->   "dotfiles" are a convention where filenames that begin with ``.``
->   such as ``.bashrc`` are considered "hidden".
-> - Explore ``stat file`` output. What metadata do you find?  Try
->   to stat files of different types (regular file, directory, link,
->   special device in /dev, named pipe)
-{: .challenge}
-
-> ## Exercise: Permissions
->
-> - Create a directory, use ``chmod`` to allow user and any group members
->   full access and no access for others
-> - (Optional) Change that directory group ownership with ``chown`` or 
->   ``chgrp`` (any group that you belong to is fine), set s-bit for the 
->   group and apply t-bit to a directory, check that the upper directory 
->   has *o+x* bit set: now you should have a private working space for 
->   your group. Tip: see groups that you are a member of using ``id -Gn``
-> - (Optional) Create a directory and a subdirectory in it and set their 
->   permissions to 700 with one command.
-> - Create a directory (in /cfs/klemming/nobackup if on Tegner and in /tmp if on any other server),
->   use ``setfacl`` to set its permissions so that only you and some
->   user/group of your choice would have access to it.
-{: .challenge}
-
+---
 ---
 
-## Interactive usage [TODO-clean] {#interactive-usage} 
-
-### find
+## Interactive usage - find {#interactive-usage} 
 
 * ``find`` is a very unixy program: it finds files, but in the most
   flexible way possible.
@@ -1135,26 +1106,12 @@ just searches that database so it is much faster.
 
 ---
 
-### How to make things faster: hotkeys
+### How to make things faster: hotkeys and other tips
 
-- Is it annoying to have to type everything in the shell?  No, because
-  we have hotkeys!  In fact, it can become much more efficient and
-  powerful to use the shell.
-- Most important key: **TAB**: autocomplete.  You should never be
-  typing full filenames or command names.  TAB can complete almost anything
-
-Common hotkeys:
+Previously not listed commands
 
 | Hotkey | Effect |
 | ------ | ------ |
-| TAB | autocompletion |
-| Home ``or`` Ctrl-a | start of the command line |
-| End ``or`` Ctrl-e | end |
-| Ctrl-left/right arrows ``or`` Alt-b/Alt-f  | moving by one word there and back |
-| up/down arrows | command history |
-| Ctrl-l | clear the screen |
-| Ctrl-Shift-c | copy |
-| Ctrl-Shift-v | paste |
 | Ctrl-Shift- -  | undo the last changes on cli |
 | Alt-r | undo all changes made to this line |
 | Ctrl-r | command history search: backward (hit Ctrl-r, then start typing the search word, hit Ctrl-r again to go through commands that have the search word in it) |
@@ -1162,9 +1119,6 @@ Common hotkeys:
 | Ctrl-u  | remove beginning of the line, from cursor |
 | Ctrl-k | remove end of the line, from cursor |
 | Ctrl-w | remove previous word |
-
-**inputrc:**  
-Check */etc/inpurc* for some default key bindings, more can be defined *~/.inputrc* (left as a home exercise)
 
 **CDPATH:**  
 Helps changing directories faster. When you type ``cd dirname``, the shell tries to go
