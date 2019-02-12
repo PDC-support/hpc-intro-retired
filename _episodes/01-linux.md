@@ -42,20 +42,16 @@ Exercises marked "optional" are for advanced users who would like further stimul
 
 ### About the Linux Shell
 
-- **A *shell* is what you get when your terminal window is open.**
-
+- **A *shell* is what you get when your terminal window is open.**  
   It is a command-line interface (CLI).
   
-- **It is a "layer" around the operating system.**
-
+- **It is a "layer" around the operating system.**  
   It connects and binds all programs together.
   
-- **Provides efficiency**
-
+- **Provides efficiency**  
   Often required to use HPC systems (i.e. at PDC).
   
-- **There are multiple shells.**
-
+- **There are multiple shells.**  
   This session is about [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
   
 - **Concepts are also relevant for Mac and Windows** 
@@ -429,7 +425,8 @@ Normally, the file containing many of these user defaults is ``.bashrc`` located
 >
 > - Type ``nano .bashrc`` and examine the contents.
 > - Add a line ``HISTTIMEFORMAT="%d/%m/%y %T "``, save and close
-> - Type ``source .bashrc`` to reload the information there. (you could also log off and then log in)
+> - Type ``source .bashrc`` to reload the information there.
+> - Type ``nano .profile`` and save the text ``source .bashrc`` . Now this will be loaded everytime you log in.
 {: .challenge}
 
 Another useful file is ``.inputrc``
@@ -440,6 +437,7 @@ Another useful file is ``.inputrc``
 > - Type ``cat .inputrc``
 > - Type ``bind -f .inputrc``
 > - Start typing any old command you typed on Tegner, then press shift+up.
+> - From the next time you log in, this will be loaded automatically.
 {: .challenge}
 
 **Take home message:**
@@ -516,6 +514,7 @@ Just use them in the execises instead.
 > ## Exercise: List dot files (files starting with . )
 >
 > - Try to find a way to list all files, including those with ``.`` as their first chracter.
+{: .challenge}
 
 ## Advanced file and directory handling
 
@@ -545,7 +544,7 @@ For the quotation:
 >
 > - Try typing both ``echo "$USER"`` and ``echo '$USER'``.
 >
-
+{: .challenge}
 
 > ## Exercise: Multiple files at the same time
 >
@@ -556,6 +555,7 @@ For the quotation:
 > - As above, but also get the directory names.
 > - *Optional:* As above, but get the data sorted along first column.
 >
+{: .challenge}
 
 > ## Exercise: Symbolic links
 >
@@ -563,7 +563,7 @@ For the quotation:
 > - Go to your home
 > - Type ``ln -s tutorial/prop_E096-99/Bound_population.dat E096-99_data.dat``
 > - What happens if you remove the symbolic link?
-
+{: .challenge}
 
 > ## Exercise: ``touch``
 >
@@ -571,7 +571,7 @@ For the quotation:
 > - What does ``touch hej.txt`` do if the file already exists?
 > - Can you think of ways to use this?
 >
-
+{: .challenge}
 ---
 
 ### Modifying permissions: the easy part
@@ -590,34 +590,41 @@ chmod -R <perm> <directory>
 chgrp group_name <file or directory>
 ```
 
-Extra permission bits:
+> ## Exercise: Folder and file permission
+>
+> This is part of the output from Tor's home. 
+> ```bash
+> -rw-r--r-- 1 torkj      30 262470 Dec 28 16:15 ompi_info.txt
+> -rw-r--r-- 1 torkj      30      5 Jan 25 13:55 tmp.txt
+> drwxr-xr-x 3 torkj nogroup   2048 Feb 11 15:30 Public
+> ```
+>
+> Try to read tmp.txt - explain the outcome
+>
+> **Hint:**  
+> Even though a file has read access, the top directory must be
+> searchable before external user or group will be able to access
+> it. Sometimes people do  
+>   ``chmod -R o-rwx $SOME_DIR``  
+>   ``chmod o+x $SOME_DIR``  
+> Execute (``x``) without read (``r``) means that you can
+> access files inside if you know the exact name, but not list the
+> directory.  The permissions of the files themselves still matter.
+{: .challenge}
 
-- s-bit:  setuid/setgid bit, preserves user and/or group IDs.
-- t-bit: sticky bit, for directories it prevents from removing file by
-  another user (example */tmp*)
-
-Setting default access permissions: add to *.bashrc* ``umask 027``
-[(see here)](https://www.computerhope.com/unix/uumask.htm).  
-The ``umask`` number respresents what permissions are *removed* from any newly
-created file by default.  So ``umask 027`` means "by default,
-g-w,o-rwx any newly created files".  It doesn't change any
-permissions, just sets the default that the operating system will create 
-files with.
-
-**Hint:**  
-Even though a file has read access, the top directory must be
-searchable before external user or group will be able to access
-it. Sometimes people do ``chmod -R o-rwx $WRKDIR; chmod o+x
-$WRKDIR``.  Execute (``x``) without read (``r``) means that you can
-access files inside if you know the exact name, but not list the
-directory.  The permissions of the files themselves still matter.
+> ## Exercise: Some more in-depth things
+>
+> What are the extra permission bits: ``s-bit`` and ``t-bit``?  
+> Read up on ``umask`` [(see here)](https://www.computerhope.com/unix/uumask.htm).  
+>
+{: .challenge}
 
 ---
 
-### Modifying permissions: advanced 
+### Modifying permissions: advanced  [TODO - Keep or Remove?]
 
 Access Control Lists (ACLs) are advanced access permissions.  They
-don't work everywhere, for example mostly do no work on NFS
+don't work everywhere, for example mostly do not work on NFS
 mounted directories.  They are otherwise supported on ext4, Lustre,
 etc. (thus work on /cfs/klemming).
 
@@ -642,12 +649,10 @@ On Beskow and Tegner we have installed Midnight Commander: ``mc``.
 To get file meta info: ``stat <file_or_dir>``
 
 
-
-
 ---
 ---
 
-# gnu screen   [TODO - clean]
+# gnu screen   
 
 
 ### Exiting the shell, and the [GNU screen](https://www.gnu.org/software/screen/) utility
@@ -656,15 +661,10 @@ To exit the shell, type `logout` or press Ctrl-d.
 
 However, quitting your shell can be annoying if you have customized 
 your environment and would need to start over when reopening the shell.
-Luckily there are programs so that you don't have to start over.
-`screen` is a full-screen window manager that multiplexes a physical 
-terminal between several processes, typically interactive shells
-When `screen` is called, it creates a single window with a shell in it 
-and then gets out of your way so that you can use the program as you 
-normally would.  
+Luckily there are programs to preserve your session, such as `screen`
+
 With `screen`, you can:
- - Manage persistent terminal sessions, which survive if connection crashes 
-   or if you need to abrubtly abandon your work.
+ - Manage persistent terminal sessions, which survive if connection is abruptly cut.
  - Save screen processes when logging out and resume where you left off, 
  - Have multiple windows connected to the same terminal session.
  - Copy and paste (including block-copy) between different 
@@ -692,7 +692,7 @@ escape key, by default `Ctrl-a` (`C-a`):
 | C-a <number> | change to window by number |
 | C-a " | see window list (and select) |
 
-> ## Trying out screen
+> ## Exercise: Trying out screen
 >
 > The `screen` window manager can be really useful to preserve the state
 > of a terminal session. Try the following steps:
@@ -721,184 +721,51 @@ connect, and resume right where they left off.
 ---
 ---
 
-# customize command line prompt
+# Customize your shell
 
-
-
-### Initialization files and configuration   [TODO - clean]
-
-- When the shell first starts (when you login), it reads some files.
-  These are normal shell files, and it evaluates normal shell commands
-  to set configuration.
-- You can always test things in your own shell and see if it works
-  before putting it in the config files.  Highly recommended!
-- Customizing your environment means setting or expanding aliases,
-  variables, functions, etc.
-- The config files are:
-  - ``.bashrc`` (when SSH) and
-  - ``.bash_profile`` (interactive login to a workstation)
-  - they are often a symlink from one to another
-  
-- To get inspiration for things to put in your .bashrc file, 
-  take a look at this [(very elaborate) sample file](<https://www.tldp.org/LDP/abs/html/sample-bashrc.html>).
-
-
-One of the things to play with: command line prompt defined in 
-[PS1](https://www.ibm.com/developerworks/linux/library/l-tip-prompt/).
-
-```bash
-PS1="[\d \t \u@\h:\w ] $ "
-```
-
-For special characters see PROMPTING at ``man bash``. To make it
-permanent, should be added to *.bashrc* like ``export PS1``.
-
----
-
-### Creating/editing/viewing file  [TODO - clean]
-
-* A *text editor* edits files as ASCII.  These are your best friend.
-  In fact, text files are your best friend: rawest, most efficient,
-  longest-lasting way of storing data.
-* "pager" is a generic term for things that view files or data.
-
-Linux command line *text editors* like:
-
-- *nano* - simplest
-- *vim* - minimal.  To save&quit, ``ESC :wq``
-- *emacs* - or the simplest one *nano*.  To save&quit: ``Ctrl-x
-  Ctrl-c``
-
-To view contents of a file in a scrollable fashion: ``less``
-
-Quick look at the text file ``cat filename.txt`` (dumps everything to
-screen- beware of non-text binary files or large files!)
-
-Other quick ways to add something to a file (no need for an editor)
-
-``echo 'Some sentence, or whatever else 1234567!-+>$#' > filename.txt``
-
-``cat > filename2.txt`` to finish typing and write written to the file, press enter, then Ctrl-d.
-
-**The best text viewer ever** ``less -S``  (to open a file in your EDITOR, hit *v*, to search through type */search_word*)
-
-**Watching files while they grow** ``tail -n 0 -f <file>``
-
-Try: add above mentioned ``export PS1`` to *.bashrc*. Remember ``source .bashrc`` to enable changes
-
-
-> ## Exercise: Shell configuration files
+> ### Exercise: customize your .bashrc
+> - To get inspiration take a look at this [(very elaborate) sample file](<https://www.tldp.org/LDP/abs/html/sample-bashrc.html>).
 >
-> - link *.bash_profile* to *.bashrc*. Tip: see ``ln`` command from the previous session.
-> - open *~/.bashrc* for eiditng and add there CDPATH example from above, customize
->   it for your needs and test. Tip: remember ``source ~/.bashrc``.
-> - add ``umask 027`` to *.bashrc*, try creating files. Tip: ``umask -S`` prints your current setting.
-> - customize a prompt ``$PS1`` and add it to your *.bashrc*, make sure is has
->   a current directory name and the hostname in it in the format *hostname:/path/to/current/dir*.
->   Hint: save the original PS1 like ``oldPS1=$PS1`` to be able to recover it any time.
-> - (Optional) Set some default options for the ``less`` program in your bashrc.
->   Examples: case-insensitive searching, long prompt, wrapping lines.
+
+> ## Exercise: customize your command line prompt
+> Command line prompt defined in 
+> [PS1](https://www.ibm.com/developerworks/linux/library/l-tip-prompt/).
+> ```bash
+> PS1="[\d \t \u@\h:\w ] $ "
+> ```
+> You might find some inspiration [here](https://www.maketecheasier.com/8-useful-and-interesting-bash-prompts/)
+>
+> For special characters see PROMPTING at ``man bash``.  
+> If you want to save something permanently, add to *.bashrc* like ``export PS1``. But save the old ``PS1`` so that you can recover it if necessary!
+>
 {: .challenge}
 
 ---
 ---
 
-# utilities - building blocks [TODO - clean up]
+## utilities - building blocks 
 
 ### Utilities: the building blocks of shell
-
 
  - wide range of all kind of utilities available in Linux
  - shell is a glue to bind them all together
  - commandline is often a long list of those utilities joint into pipe
    that pass output of each other further
-
-```bash
-cat; sort; tr; cut; head; date; tail; wc; grep; uniq; paste; find  # and many others
-``` 
- 
-We catch many of them on the way.
-
----
-
-### Input and output: redirect and pipes
-
-* Programs can display something: ``echo this is some output`` or ``cat``
-* Programs can take some input: e.g. ``less`` by default displays
-  input if no filename given.
-
-- ``cat /etc/bashrc`` dumps that file to *stardard output* (stdout)
-- ``cat /etc/bashrc | less`` gives it to ``less`` on *standard input*
-  (stdin)
-
-Pipe: output of the first command as an input for the second one ``command_a | command_b``:
-
-```bash
- # send man page to a default printer
-man -t ls | lpr
-
-# see what files/directories use the most space, including hidden ones
-du -hs * .[!.]* | sort -h
-
-# count a number of logged in users
-w -h | wc -l
-
-# to remove all carriage returns and Ctrl-z characters from a Windows file
-cat win.txt | tr -d '\15\32' > unix.txt
-
-# to list all matching commands
-history | grep -w 'command name'
-
-# print all non-printable characters as well
-ls -lA | cat -A
-
-# print the name of the newest file in the directory (non-dot)
-ls -1tF | grep -v -E '*/|@' | head -1
-``` 
-
-Redirects:
- - Like pipes, but send data to/from files instead of other processes.
- - Replace a file: ``command > file.txt``
- - Append to a file: ``command >> file.txt`` (be careful you do not mix them up!)
- - Redirect file as STDIN: ``command < file``  (in case program accepts STDIN only)
-
-```bash
-echo Hello World > hello.txt
-
-ls -lH >> current_dir_ls.txt
-
-# join two files into one
-cat file1 file2 > file3
-
-# extract user names and store them to a file
-getent passwd | cut -d: -f1,5 > users
-
-# join file1 and 2 lines one by one using : as a delimiter
-paste -s -d : file1 file2 > file3
-
-# go through file1 and replace spaces with a new line mark, then output to file2
-tr -s ' ' '\n' < file1 > file2
-# -or- in more readable format
-cat file1 | tr -s ' ' '\n' > file2
-``` 
-
-**This is the unix philosophy** and the true power of the shell.  The
-**unix philosophy** is a lot of small, specialized, good programs
-which can be easily connected together. The beauty of the cli are elegant one-liners
-i.e. list of commands executed in one line.
-
-To dump output of all commands at once: group them.
-
-```bash
-{ command1; command2; } > filename  # commands run in the current shell  as a group
-( command1; command2; ) > filename  # commands run in external shell as a group
-```
  
 **Coreutils by GNU** You may find many other useful commands at
 https://www.gnu.org/software/coreutils/manual/coreutils.html
 
----
+> ## Exercise: Identify your needs and implement a tool for it
+> Think about something you want to be able to do. For instance:
+>
+> - Combine columns from different files into a single file
+> - Sort text/data  
+{: .challenge}
 
+
+
+---
+---
 ### Pipelines: ;, &&, and ||
 
 - You can put several commands on the same line using different
@@ -930,6 +797,7 @@ Try: ``cd /nonexistent_dir && ls /nonexistent_dir`` compare with ``cd /nonexiste
 
 Try: ``ping -c 1 8.8.8.8 > /dev/null && echo online || echo offline``
 
+---
 
 ### grep
 
@@ -977,11 +845,11 @@ ps auxw | grep firefox
 grep "<[Hh][12]>" file.html
 ``` 
 
-> ## Exercise: grep and pipelines
+> ## Exercise: grep and pipelines 
 >
 > - make a pipe that counts number of files/directories (including dot files) in your directory
 > - grep directories out of ``ls -l``
-> - grep all but blank lines in triton:/etc/bashrc
+> - grep all but blank lines in Tegner's file /etc/bashrc
 >
 >   - expand the previous one to filter out commented lines also (line starts with #). Note that
 >     lines may have spaces before # mark.
@@ -994,29 +862,6 @@ grep "<[Hh][12]>" file.html
 > - (Optional) Using pipes and commands echo/tr/uniq, find doubled words out of 'My
 >   Do Do list: Find a a Doubled Word'. Any easier way to do it?
 {: .challenge}
-
----
-
-
-
-### Built-in and external commands
-
-There are two types of commands:
-
-- shell built-in: ``cd``, ``pwd``, ``echo``, ``test``, etc.
-- external: ``ls``, ``date``, ``less``, ``lpr``, ``cat``, etc.
-- some can be both: e.g. ``test``.  Options not always the same!
-- For the most part, these behave similarly, which is a good thing!
-  You don't have to tell which is which.
-
-**Hint:** type ``type -a`` to find what is behind the name.
-
-- ``echo something to print out``: prints whatever you put after.
-
-**Disable built-in command:** ``enable -n echo``, after this */usr/bin/echo*
-becomes a default instead of built-in *echo*.
-
----
 
 ---
 ---
