@@ -69,7 +69,7 @@ Set yourself up with a bash shell.
 
   just open a terminal window.
 
-- **Windows users:**  [TODO] Log these in on Tegner right away?
+- **Windows users:** 
 
    [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html), follow the configuration instructions and then log in to Tegner.
 
@@ -621,7 +621,7 @@ chgrp group_name <file or directory>
 
 ---
 
-### Modifying permissions: advanced  [TODO - Keep or Remove?]
+### Modifying permissions: advanced
 
 Access Control Lists (ACLs) are advanced access permissions.  They
 don't work everywhere, for example mostly do not work on NFS
