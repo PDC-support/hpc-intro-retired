@@ -65,13 +65,15 @@ Exercises marked "optional" are for advanced users who would like further stimul
 
 Set yourself up with a bash shell. 
 
-- **Linux and Mac users:**
+- **Linux and Mac users:**  
+  Just open a terminal window.
 
-  just open a terminal window.
+- **Windows users:**  
+  You will be working on Tegnér right away.
 
-- **Windows users:** 
-
-   [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html), follow the configuration instructions and then log in to Tegner.
+  For Windows10 users we recommend you try the new [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10). 
+  
+  For other Windows systems, or if you want to go the traditional way follow these instructions [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html)
 
 ---
 
@@ -90,8 +92,7 @@ We start with two commands.
 > ## Type-along exercise: What is this bash thing?
 >
 > - What do you get if you type ``pwd`` in the terminal?
-> - If you are not on Tegnér, open a File Explorer.
->
+> - If you are not on Tegnér, open a File Explorer.  
 >   Find out the location you are viewing. Compare with output from ``pwd``.
 >
 > - Type ``ls`` in the terminal. Compare with the items you see in the File Explorer.
@@ -140,8 +141,7 @@ Some typical bash commands for these purposes are:
 ---
 
 #### Relative vs. absolute paths
-
-The final task in the featherweight class of this tutorial is to understand the concept of relative and absolute paths.
+You can specify a location by its *relative* (to current location) or *absolute* path.
 
 | Relative | Absolute |
 | ------- | ----------- |
@@ -237,7 +237,7 @@ is your command to use.
 
 
 
-**Take home message:**  
+**Take home messages:**  
    *``commandA > fileA`` redirects output from commandA to text fileA*
    
    *``commandA | commandB`` means that you* ***pipe*** *the output from commandA to commandB.*
@@ -589,6 +589,14 @@ chmod -R <perm> <directory>
 # changing group ownership (you must be a group member)
 chgrp group_name <file or directory>
 ```
+
+> ## Exercise: File permission
+>
+>  - Create a textfile with some random word in your Public folder.
+>  - Remove all access for *groups* and *others*, and ask a friend to read it.
+>  - Add read permission so that your friend can read the file.
+>
+{: .challenge}
 
 > ## Exercise: Folder and file permission
 >
