@@ -429,7 +429,7 @@ Normally, the file containing many of these user defaults is ``.bashrc`` located
 > - Type ``nano .profile`` and save the text ``source .bashrc`` . Now this will be loaded everytime you log in.
 {: .challenge}
 
-Another useful file is ``.inputrc``
+Another useful file is ``.inputrc`` *NB: your terminal must support key-binding. PuTTY does not seem to do this by default*
 
 > ## Type-along exercise: Custom bindings with .inputrc
 >
