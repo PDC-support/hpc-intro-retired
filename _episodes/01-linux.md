@@ -9,8 +9,6 @@ questions:
 objectives:
   - "Learn the basics of Linux shell"
   - "Prepare for work on Tegnér"
-keypoints:
-  - "kp1"
 ---
 
 # Linux shell tutorial
