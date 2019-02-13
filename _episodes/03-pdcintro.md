@@ -55,7 +55,7 @@ SNIC is a national research infrastructure which:
 
 <img src="../img/Beskow.png" alt="Beskow" width="450" align="middle"> 
 
-Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tetralith takes over).
+Was for a long time the fastest machine in Scandinavia (until late 2018 when Tetralith took over).
 
  - Lifetime: Q4 2020
  - 11 racks, 2060 nodes
@@ -120,7 +120,7 @@ Beskow is currently the fastest machine in Scandinavia (until late 2018 when Tet
 - [Software Carpentry workshops](https://software-carpentry.org/)
 - [CodeRefinery workshops](https://coderefinery.org/)
 
-**PDC Pub and Open House**
+[**PDC Pub and Open House**](https://www.pdc.kth.se/about/calendar/prace-deep-learning-workshop-1.869408)
 - Held in spring every year
 - Users are invited to PDC to chat with the staff and see the clusters over drinks and snacks
 
@@ -163,7 +163,7 @@ computational research efficiently.
 - Do not report new problems by replying to old/unrelated tickets. 
   Split unrelated problems into separate email requests.
 - Use a descriptive subject in your email.
-- Give your PDC user name.
+- Give your PDC username.
 - Be as specific as possible.
 - For problems with scripts/jobs, give an example. 
   Either send the example or make it accessible to PDC support.
