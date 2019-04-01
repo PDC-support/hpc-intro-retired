@@ -10,6 +10,10 @@ layouts_dir: ./jekyll-common/layouts
 includes_dir: ./jekyll-common/includes
 data_dir: ./_data
 
+# what cluster will we be using?
+Cluster: Beskow
+cluster: beskow
+
 # handling reading
 safe: false
 include: [".htaccess"]

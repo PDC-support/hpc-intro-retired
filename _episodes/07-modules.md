@@ -36,12 +36,12 @@ Environment modules are the solution to these problems. A module is a self-conta
 We will be using the `module` command. To see all available subcommands 
 of `module`, type:
 ```bash
-[tegner]$ module help
+[{{ site.cluster }}]$ module help
 ```
 
 To see available software modules, use `module avail`:
 ```bash
-[tegner]$ module avail
+[{{ site.cluster }}]$ module avail
 ------------ /pdc/modules/system/base ------------
 abaqus/6.12
 abaqus/6.13
@@ -77,7 +77,7 @@ using the `which` command. `which` looks for programs the same way that bash doe
 so we can use it to tell us where a particular piece of software is stored.
 
 ```bash
-[tegner]$ which jupyter-notebook
+[{{ site.cluster }}]$ which jupyter-notebook
 
 which: no jupyter-notebook in (/usr/local/bin:/usr/bin)
 ```
@@ -86,8 +86,8 @@ We can get access to the `jupyter-notebook` command by loading the
 module for the Anaconda Python distribution:
 
 ```bash
-[tegner]$ module load anaconda
-[tegner]$ which jupyter-notebook
+[{{ site.cluster }}]$ module load anaconda
+[{{ site.cluster }}]$ which jupyter-notebook
 
 /pdc/vol/anaconda/co7/5.0.1/py36/bin/jupyter-notebook
 ```
@@ -103,7 +103,7 @@ which controls where a UNIX system looks for software.
 
 We can inspect `$PATH` using `echo`.
 ```bash
-[tegner]$ echo $PATH
+[{{ site.cluster }}]$ echo $PATH
 
 /pdc/vol/anaconda/co7/5.0.1/py36/bin:/pdc/vol/latex/20150811/bin:/pdc/vol/openmpi/3.0/gcc/7.2.0/bin:/pdc/vol/gcc/7.2.0/bin:/usr/local/bin:/usr/bin
 ```
@@ -116,7 +116,7 @@ loads required software dependencies. To see this,
 let's use `module list` which shows all loaded software modules.
 
 ```bash
-[tegner]$ module list
+[{{ site.cluster }}]$ module list
 
 Currently Loaded Modulefiles:
  1) gcc/7.2.0           3) latex/20150811
@@ -125,8 +125,8 @@ Currently Loaded Modulefiles:
 Clearly, the module system added the required dependencies automatically.  
 What if we unload the Anaconda module?
 ```bash
-[tegner]$ module unload anaconda
-[tegner]$ module list
+[{{ site.cluster }}]$ module unload anaconda
+[{{ site.cluster }}]$ module list
 
 Currently Loaded Modulefiles:
 ```
@@ -140,7 +140,7 @@ To unload all modules at once, we could also run `module purge`.
 
 To inspect a particular module, use `module show`:
 ```bash
-[tegner]$ module show anaconda/py36/5.0.1
+[{{ site.cluster }}]$ module show anaconda/py36/5.0.1
 
 -------------------------------------------------------------------
 /pdc/modules/system/base/anaconda/py36/5.0.1:
@@ -172,7 +172,7 @@ We saw above that `module avail` lists multiple versions of some software packag
 It's possible to list all versions of a particular package, for example Anaconda:
 
 ```bash
-[tegner]$ module avail anaconda
+[{{ site.cluster }}]$ module avail anaconda
 
 ------------ /pdc/modules/system/base ------------
 anaconda/py27/2.1          anaconda/py27/5.0.1
@@ -182,7 +182,7 @@ anaconda/py27/4.2.0
 ```
 
 We can see that multiple versions of the Anaconda distribution are 
-installed on Tegner, but when we did `module load anaconda` one particular (default)
+installed on {{ site.Cluster }}, but when we did `module load anaconda` one particular (default)
 version was selected.
 
 > ## Switching between software versions
@@ -190,8 +190,8 @@ version was selected.
 > One can change versions of software packages using the `module swap` command.  
 > First load the default Anaconda module again and check its Python version:
 > ```bash
-> [tegner]$ module add anaconda
-> [tegner]$ python --version
+> [{{ site.cluster }}]$ module add anaconda
+> [{{ site.cluster }}]$ python --version
 > Python 3.6.3 :: Anaconda custom (64-bit)
 > ```
 > - **Now swap the loaded Anaconda module for the Python 2.7 version, and check 
@@ -204,7 +204,7 @@ version was selected.
 > which modules we have loaded. Let's try to figure it out by using the `printenv` 
 > command which prints all the current environment (i.e. all environment variables):
 > ```bash
-> [tegner]$ printenv
+> [{{ site.cluster }}]$ printenv
 > ```
 > - **Can you see which environment variable stores the information about the 
 > loaded modules?**
@@ -219,9 +219,9 @@ version was selected.
 To facilitate portability of batch scripts and user workflows between different 
 supercomputers in Sweden, PDC along with the other SNIC centers have defined 
 a few common environment variables. On Beskow these variables are loaded 
-by default after login, while on Tegner you need to load a module:
+by default after login, while on {{ site.Cluster }} you need to load a module:
 ```bash
-[tegner]$ module load snic-env
+[{{ site.cluster }}]$ module load snic-env
 ```
 
 The following table shows which environment variables are defined and what they 

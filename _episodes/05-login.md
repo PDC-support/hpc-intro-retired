@@ -94,21 +94,21 @@ which copies files between hosts over a network.
 |Tegner	  | Transfer 1	| t04n27.pdc.kth.se                              |
 |Tegner	  | Transfer 2	| t04n28.pdc.kth.se                              |
 
-> ## Generate a Kerberos ticket and log in to Tegner
+> ## Generate a Kerberos ticket and log in to {{ site.Cluster }}
 > 
 > Use the `kinit` command to generate a Kerberos ticket with a 3-day lifetime.
 > The ticket has to be forwardable (`-f` flag), and lifetime of 3 days can be set 
 > with the flag `-l 3d`. Then list the ticket.  
 > If you have configured SSH correctly on your computer, you should now be able to 
-> log in to Tegner using `ssh`:
+> log in to {{ site.Cluster }} using `ssh`:
 > ```
-> $ ssh <username>@tegner.pdc.kth.se
+> $ ssh <username>@{{ site.cluster }}.pdc.kth.se
 > ```
 > {: .bash}
 > If you haven't configured your `.ssh/config` file, you will have to 
 > explicitly add three flags for Kerberos authentication:
 > ```
-> $ ssh -o GSSAPIDelegateCredentials=yes -o GSSAPIKeyExchange=yes -o GSSAPIAuthentication=yes <username>@tegner.pdc.kth.se
+> $ ssh -o GSSAPIDelegateCredentials=yes -o GSSAPIKeyExchange=yes -o GSSAPIAuthentication=yes <username>@{{ site.cluster }}.pdc.kth.se
 > ```
 > {: .bash}
 {: .challenge}
@@ -128,32 +128,32 @@ which copies files between hosts over a network.
 {: .callout}
 
 
-> ## Exploring the Tegner login node
+> ## Exploring the {{ site.Cluster }} login node
 >
 > Let's explore the login node a bit. 
 > First, where are we? The command
 > ``` 
-> [tegner]$ hostname
+> [{{ site.cluster }}]$ hostname
 > ```
 > {: .bash}
-> tells you the name of the login node (note that you have been redirected from `tegner.pdc.kth.se`).  
+> tells you the name of the login node (note that you have been redirected from `{{ site.cluster }}.pdc.kth.se`).  
 > To find out your current directory, type
 > ```
-> [tegner]$ pwd
+> [{{ site.cluster }}]$ pwd
 > ```
 > {: .bash}
 > This is your PDC home directory on the AFS file system (more about that later).  
 > To find the number of processors, run:
 >
 > ```
-> [tegner]$ nproc --all
+> [{{ site.cluster }}]$ nproc --all
 > ```
 > {: .bash}
 >
 > or
 >
 > ```
-> [tegner]$ cat /proc/cpuinfo
+> [{{ site.cluster }}]$ cat /proc/cpuinfo
 > ```
 > {: .bash}
 >
@@ -162,14 +162,14 @@ which copies files between hosts over a network.
 > How about memory? Try running: 
 >
 > ```
-> [tegner]$ free -m
+> [{{ site.cluster }}]$ free -m
 > ```
 > {: .bash}
 >
 > or for more details: 
 >
 > ```
-> [tegner]$ cat /proc/meminfo 
+> [{{ site.cluster }}]$ cat /proc/meminfo 
 > ```
 > > *Take home message:* The login node is a shared and limited resource with many concurrent users.
 > > It should not be used for any demanding calculations!

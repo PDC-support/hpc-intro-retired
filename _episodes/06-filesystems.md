@@ -48,35 +48,35 @@ of PDC's resources.
 
 > ## Exploring your AFS directory
 >
-> If you haven't already done so, log in to Tegner:
+> If you haven't already done so, log in to {{ site.Cluster }}:
 > ```
-> $ ssh <username>@tegner.pdc.kth.se
+> $ ssh <username>@{{ site.cluster }}.pdc.kth.se
 > ```
 > {: .bash}
 > After logging in, check your current location:
 > ```
-> [tegner]$ pwd
+> [{{ site.cluster }}]$ pwd
 > ```
 > {: .bash}
 > This is your AFS home directory, which is also stored in the `HOME` 
 > environment variable:
 > ```
-> [tegner]$ echo $HOME
+> [{{ site.cluster }}]$ echo $HOME
 > /afs/pdc.kth.se/home/<initial>/<username>
 > ```
 > {: .bash}
 > You can check your disk quota and how much of it you're using
 > with the following command:
 > ```
-> [tegner]$ fs listquota
+> [{{ site.cluster }}]$ fs listquota
 > # or the shortcut: 
-> [tegner]$ fs lq
+> [{{ site.cluster }}]$ fs lq
 > ```
 > {: .bash}
 > This is an example of a `fs` subcommand. To see all 
 > available subcommands, type
 > ```
-> [tegner]$ fs help
+> [{{ site.cluster }}]$ fs help
 > ```
 > {: .bash}
 > **Which command can you use to list the access control lists (ACLs)?**
@@ -103,12 +103,12 @@ of PDC's resources.
 >
 > You can go to your directories on the Lustre file system by
 > ```
-> [tegner]$ cd /cfs/klemming/nobackup/<initial>/<username>
+> [{{ site.cluster }}]$ cd /cfs/klemming/nobackup/<initial>/<username>
 > ```
 > {: .bash}
 > and
 > ```
-> [tegner]$ cd /cfs/klemming/scratch/<initial>/<username>
+> [{{ site.cluster }}]$ cd /cfs/klemming/scratch/<initial>/<username>
 > ```
 > {: .bash}
 > One way to avoid having to type out the full path of your Lustre `nobackup` and 
@@ -123,7 +123,7 @@ of PDC's resources.
 > {: .bash}
 > Finally, to see how many files you have and how much disk space they use, type 
 > ```
-> [tegner]$ lfs quota -u $USER /cfs/klemming
+> [{{ site.cluster }}]$ lfs quota -u $USER /cfs/klemming
 > ```
 > {: .bash}
 > (note the use of the environment variable `$USER`, which is your username)  
@@ -159,7 +159,7 @@ in the first column of its output.
 The three base permissions have an equivalent representation as ACLs, 
 which can be displayed by the `getfacl` command.
 ```bash
-[tegner]$ getfacl -a dir
+[{{ site.cluster }}]$ getfacl -a dir
 # file: dir
 # owner: <my-username>
 # group: users
@@ -176,7 +176,7 @@ more general than the `chmod` command which only changes file permissions.
 > To alter the ACLs of a directory in your AFS home, use the command 
 > (where `sa` is short for `setacl`)
 > ```
-> [tegner]$ fs sa <directory> <user> <permissions> 
+> [{{ site.cluster }}]$ fs sa <directory> <user> <permissions> 
 > ```
 > {: .bash}
 > See the table above for possible AFS permissions.  
@@ -191,7 +191,7 @@ more general than the `chmod` command which only changes file permissions.
 >
 > To alter the ACLs of a directory in `/cfs/klemming` directories, use the command 
 > ```
-> [tegner]$ setfacl -m u:<username>:<permissions> -R /cfs/klemming/nobackup/<initial>/<username>/<some-directory>
+> [{{ site.cluster }}]$ setfacl -m u:<username>:<permissions> -R /cfs/klemming/nobackup/<initial>/<username>/<some-directory>
 > ```
 > {: .bash}
 > The possible file permissions are `r`, `w` and `x`. `-m` stands for *modify* and
