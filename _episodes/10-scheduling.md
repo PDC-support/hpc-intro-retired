@@ -100,10 +100,11 @@ writing general batch scripts that can work on different clusters.
 ### Interactive jobs
 
 We will now explore different ways to interact with the scheduler and see 
-how to run interactive jobs. We will be working on Tegner.   
+how to run interactive jobs. We will be working on {{ site.Cluster }}.   
 Let's first inspect SLURM nodes and partitions:
+{% if site.cluster == "tegner" %}
 ```
-[tegner]$ sinfo
+[{{ site.cluster }}]$ sinfo
 
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
 main*        up   infinite      2  down* t02n[07,33]
@@ -119,11 +120,22 @@ K80          up   infinite      7   idle t03n[01,03-07,09]
 Transfer     up   infinite      2   idle t04n[27-28]
 nbis         up   infinite      1   idle t04n03
 ```
+{% elsif site.cluster == "beskow" %}
+```
+[{{ site.cluster }}]$ sinfo
+
+PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+2d4-512   up    4-512    2-00:00:00     64 2:16:2       8 maint*     nid0[0820-0823,1072-1075]
+2d4-512   up    4-512    2-00:00:00     64 2:16:2       4 allocated$ nid000[64-67]
+2d4-512   up    4-512    2-00:00:00     64 2:16:2       3 idle*      nid0[0045,1080,1328]
+2d4-512   up    4-512    2-00:00:00     64 2:16:2       1 down*      nid00243
+...
+```
+{% endif %}
 
 The output shows:
-- Several partitions: `main`, `K80`, `1TB`, `2TB`, `Transfer` and `nbis`
-  - **What's the difference between them?**
-- How many nodes are in each partition and their names.
+- Several partitions can be seen. What's the difference between them?
+- How many nodes are in each partition and what are their names?
 - The state of all nodes: *allocated*, *idle*, being *drained*, *reserved* or *down*.
 
 > ## Which allocation should we use?
@@ -131,19 +143,28 @@ The output shows:
 > You need to belong to a time allocation in order to use PDC resources.
 > Generally, you would follow the procedure described 
 > [in the previous episode]({{ site.baseurl }}/04-gettingaccess) and apply for an allocation.
-> For this workshop, an allocation has been set up called `edu19.intropdc`.
+> For this course, an allocation has been set up called `{{ site.allocation }}`.
+> {% unless site.reservation == "NONE" %}
+> You should also use the course allocation called `{{ site.reservation }}`.
+> {% endunless %}
 {: .callout}
 
 Let us now allocate an interactive node for 10 minutes using the `salloc` command:
+{% if site.reservation == "NONE" %}
 ```bash
-[tegner]$ salloc -A edu19.intropdc -t 0:10:0 --nodes=1
+[{{ site.cluster }}]$ salloc -A {{ site.allocation }} -t 0:10:0 --nodes=1
 ```
+{% else %}
+```bash
+[{{ site.cluster }}]$ salloc -A {{ site.allocation }} --reservation {{ site.reservation }} -t 0:10:0 --nodes=1
+```
+{% endif %}
 When your allocation is granted, *a new terminal session starts*.
 - Previous command history vanishes.
 - Simply typing `exit` will stop the interactive session.
 - This can be seen in the output of the `ps` command:
   ```bash
-  [tegner]$ ps
+  [{{ site.cluster }}]$ ps
   PID TTY          TIME CMD
   12770 pts/17   00:00:00 bash
   17222 pts/17   00:00:00 salloc
@@ -193,14 +214,17 @@ module add X
 module add Y
 
 # Run the executable named myexe with 48 MPI ranks and direct output to my_output_file
+{% if site.cluster == "tegner" %}
 mpirun -n 48 ./myexe > my_output_file 2>&1
+{% elsif site.cluster == "beskow" %}
+aprun -n 48 ./myexe > my_output_file 2>&1 {% endif %}
 ```
 
 - All `#SBATCH` options need to be at the top of the script.
 - The environment for the job (e.g. modules, environment variables) needs to be specified.
-  - **What modules would you need to load on Tegner in this case?**
+  - **What modules would you need to load on {{ site.Cluster }} in this case?**
 - When the script completes (i.e. when `./myexe` finishes) an exit status is returned to SLURM and the job stops (regardless of how much time is left of the requested time)
-- Note that when running on Beskow, use `aprun -n <nproc>` instead of `mpirun -n <nproc>`.
+- Note that on Beskow you should use `aprun -n <nproc>` while on Tegner it should be `mpirun -n <nproc>`.
 
 
 > ## Submitting a batch script
@@ -208,7 +232,7 @@ mpirun -n 48 ./myexe > my_output_file 2>&1
 > nobackup directory (`$SNIC_NOBACKUP`) where you compiled the MPI Hello World 
 > code (if you haven't done this already, revisit 
   [the previous episode](../07-compiling)). Modify it as follows:
-> - Use the workshop allocation `edu19.intropdc`.
+> - Use the workshop allocation `{{ site.allocation }}`.
 > - Request only one node (24 cores) and 2 minutes.
 > - Load the modules `gcc/7.2.0` and `openmpi/3.0-gcc-7.2`
 > - Run the command `mpirun -n 24 ./hello_mpi`.
@@ -293,7 +317,7 @@ one shot in the corresponding directories.
 
 # Set the allocation to be charged for this job
 # not required if you have set a default allocation
-#SBATCH -A edu19.intropdc
+#SBATCH -A {{ site.allocation }}
 
 # The name of the script is myjob
 #SBATCH -J myjobarray
@@ -320,7 +344,8 @@ cd $CURRENT_DIR
 echo "Simulation in $CURRENT_DIR" > my_output_file
 
 # Run individual job
-mpirun -n 32 ./myexe >> my_output_file
+{% if site.cluster == "tegner" %}mpirun -n 32 ./myexe >> my_output_file
+{% elsif site.cluster == "beskow" %}aprun -n 32 ./myexe >> my_output_file {% endif %}
 ```
 
 ---

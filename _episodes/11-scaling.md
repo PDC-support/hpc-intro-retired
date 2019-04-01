@@ -145,7 +145,7 @@ following questions:
 > 4. Submit the following batch script:
 >    ```bash
 >    #!/bin/bash -l
->    #SBATCH -A edu19.intropdc
+>    #SBATCH -A {{ site.allocation }}
 >    #SBATCH -t 0:10:00
 >    #SBATCH -N 1
 >

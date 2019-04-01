@@ -40,6 +40,7 @@ of `module`, type:
 ```
 
 To see available software modules, use `module avail`:
+{% if site.cluster == "tegner" %}
 ```bash
 [{{ site.cluster }}]$ module avail
 ------------ /pdc/modules/system/base ------------
@@ -65,6 +66,32 @@ amber/16.at17
 anaconda/py27/2.1
 ...
 ```
+{% elsif site.cluster=="beskow" %}
+```bash
+[{{ site.cluster }}]$ module avail
+------------------------------- /pdc/vol/Modules -------------------------------
+abaqus/2018                   mercurial/3.2.2
+abinit/7.10.2                 midnightcommander/4.8.13
+abinit/7.10.2_v2              mono/3.12.0
+abinit/7.10.5                 multinest/3.10-gcc
+abinit/8.10.2                 namd/2.10
+aiida/epfl-0.5.0              namd/2.12
+allinea-forge/18.1.1          nano/2.3.6
+allinea-forge/7.0             nano/2.9.8
+allinea-reports/18.1.1        nco/4.4.8
+allinea-reports/7.0           nedit/5.5
+allscale_runtime/d821c7d      nest/2.12.0-py27(default)
+almost/2.1                    nest/2.2.2-py27
+almost/2.1.0                  netcdf/4.1.1-intel-15.0
+amber/12(default)             neuron/7.4-py27
+amber/14.ambertools15         neuron/7.5-py36
+amber/16.ambertools17         nwchem/6.5
+anaconda/py27/2.1             nwchem/6.6
+anaconda/py27/2.3             nwchem/6.8
+...
+```
+{% endif %}
+
 --- 
 
 ## Loading software
@@ -88,8 +115,9 @@ module for the Anaconda Python distribution:
 ```bash
 [{{ site.cluster }}]$ module load anaconda
 [{{ site.cluster }}]$ which jupyter-notebook
-
-/pdc/vol/anaconda/co7/5.0.1/py36/bin/jupyter-notebook
+{% if site.cluster == "tegner" %} /pdc/vol/anaconda/co7/5.0.1/py36/bin/jupyter-notebook
+{%elsif site.cluster == "beskow" %} 
+/pdc/vol/anaconda/5.3/py37/bin/jupyter-notebook {% endif %}
 ```
 
 So what just happened?  
@@ -104,11 +132,13 @@ which controls where a UNIX system looks for software.
 We can inspect `$PATH` using `echo`.
 ```bash
 [{{ site.cluster }}]$ echo $PATH
-
+{% if site.cluster == "tegner" %}
 /pdc/vol/anaconda/co7/5.0.1/py36/bin:/pdc/vol/latex/20150811/bin:/pdc/vol/openmpi/3.0/gcc/7.2.0/bin:/pdc/vol/gcc/7.2.0/bin:/usr/local/bin:/usr/bin
+{% elsif site.cluster == "beskow" %}
+/pdc/vol/anaconda/5.3/py37/bin:/pdc/vol/slurm/utils/0.0/bin:/opt/pdc.kth.se/heimdal/1.5.2/bin:/opt/pdc.kth.se/heimdal/1.5.2/sbin:[...]:/opt/cray/bin {% endif %}
 ```
 --- 
-
+{% if site.cluster == "tegner" %}
 ## Dependencies
 
 `module load` adds the requested software to your `$PATH`, but it also
@@ -135,10 +165,10 @@ Currently Loaded Modulefiles:
 To unload all modules at once, we could also run `module purge`.
 
 --- 
-
+{% endif %}
 ## Inspecting a module
-
 To inspect a particular module, use `module show`:
+{% if site.cluster == "tegner" %}
 ```bash
 [{{ site.cluster }}]$ module show anaconda/py36/5.0.1
 
@@ -154,11 +184,34 @@ setenv ANACONDA_HOME	/pdc/vol/anaconda/co7/5.0.1/py36
 prepend-path		PATH	/pdc/vol/anaconda/co7/5.0.1/py36/bin
 -------------------------------------------------------------------
 ```
+{% elsif site.cluster == "beskow" %}
+```bash
+[{{ site.cluster }}]$ module show gromacs/2018.3
 
+-------------------------------------------------------------------
+/pdc/vol/Modules/gromacs/2018.3:
+
+module-whatis   GROMACS molecular dynamics code 2018.3
+For advanced shell completion features source /pdc/vol/gromacs/2018.3/GMXRC
+
+module     unload PrgEnv-cray
+module     unload PrgEnv-intel
+module     load PrgEnv-gnu
+module     load cdt/17.10
+setenv     GMXBIN /pdc/vol/gromacs/2018.3/bin
+setenv     GMXLDLIB /pdc/vol/gromacs/2018.3/lib64
+setenv     GMXMAN /pdc/vol/gromacs/2018.3/share/man
+setenv     GMXDATA /pdc/vol/gromacs/2018.3/share
+prepend-path   LD_LIBRARY_PATH /pdc/vol/gromacs/2018.3/lib64
+prepend-path   PATH /pdc/vol/gromacs/2018.3/bin
+prepend-path   MANPATH /pdc/vol/gromacs/2018.3/share/man
+-------------------------------------------------------------------
+```
+{% endif %}
 The `module show` command shows us:
 
 - Where this module is installed.
-- What other modules are loaded (dependencies).
+- What other modules are loaded (**dependencies**).
 - What environment variables are set.
 - What paths are added to `$PATH`.
 
@@ -171,16 +224,23 @@ versions of the software we want?
 We saw above that `module avail` lists multiple versions of some software packages.
 It's possible to list all versions of a particular package, for example Anaconda:
 
+{% if site.cluster == "tegner" %}
 ```bash
 [{{ site.cluster }}]$ module avail anaconda
-
 ------------ /pdc/modules/system/base ------------
 anaconda/py27/2.1          anaconda/py27/5.0.1
 anaconda/py27/2.4.1        anaconda/py35/4.2.0
 anaconda/py27/4.0.0-serial anaconda/py36/5.0.1
 anaconda/py27/4.2.0
 ```
-
+{% elsif site.cluster == "beskow" %}
+```bash
+------------------------------- /pdc/vol/Modules -------------------------------
+anaconda/py27/2.1 anaconda/py27/4.3 anaconda/py27/5.3
+anaconda/py27/2.3 anaconda/py27/4.4 anaconda/py36/4.3
+anaconda/py27/2.5 anaconda/py27/5.1 anaconda/py37/5.3
+```
+{% endif %}
 We can see that multiple versions of the Anaconda distribution are 
 installed on {{ site.Cluster }}, but when we did `module load anaconda` one particular (default)
 version was selected.

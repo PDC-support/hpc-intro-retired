@@ -274,14 +274,14 @@ specify SLURM flags in a configuration file (json or yaml):
 {
     "__default__" :
     {
-        "account" : "edu19.intropdc",
+        "account" : "{{ site.allocation }}",
         "time" : "00:05:00",
         "n" : 1,
         "partition" : "main"
     },
     "zipf_test" :
     {
-        "account" : "edu19.intropdc",
+        "account" : "{{ site.allocation }}",
         "time" : "00:10:00",
         "n" : 24,
         "partition" : "main"
