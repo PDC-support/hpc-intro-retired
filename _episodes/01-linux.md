@@ -180,14 +180,14 @@ You can specify a location by its *relative* (to current location) or *absolute*
 - These are usually options to customize the command. 
 - Use *man \<command\>* to learn about options for commands you use.
 
-> ## Reading the manual
+> ## Redirects, command flags and reading the manual
 > 
 > - Type ``history``
 > - Type ``history > tmp_file.txt``. 
 > - Type ``ls -l`` and then check time stamp of ``tmp_file.txt``
 > - Use ``cat`` to print all contents of this file. 
-> - Print the last 4 lines, (read manual of ``tail``)
-> - Try to guess the meaning of ``">"``
+> - Read the manual of ``tail`` and find how you can print the last 4 lines of a file (type forward-slash **/** to search the man-page)
+> - What is the meaning of ``">"``?
 {: .task}
 
 #### Combining commands
@@ -216,8 +216,8 @@ Often you wish to combine commands in different ways to tailor the effect.
 
 > ## Find location of a file
 >
-> - Type ``find /home -name hpc_feb13.txt``
-> - Type ``find -name hpc_feb13.txt``
+> - Type ``find /home -name hpc_intro.txt``
+> - Type ``find -name hpc_intro.txt``
 {: .task}
 
 
@@ -232,7 +232,7 @@ Often you wish to combine commands in different ways to tailor the effect.
 
 > ## Searching for patterns with grep
 >
-> - Type ``grep mkdir paste_dirname_here/hpc_feb13.txt``.
+> - Type ``grep mkdir paste_dirname_here/hpc_intro.txt``.
 {: .task}
 
 
@@ -457,8 +457,8 @@ To get file meta info: ``stat <file_or_dir>``
 
 > ## TAB autocompletion
 >
-> - Type ``find /home -name hpc_feb13.txt``
-> - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``hpc_feb13.txt``.
+> - Type ``find /home -name hpc_intro.txt``
+> - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``hpc_intro.txt``.
 {: .task}
 
 
