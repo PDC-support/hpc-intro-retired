@@ -1,6 +1,6 @@
 ---
 layout: episode
-title: "Linux shell tutorial"
+title: "(Optional) Linux shell tutorial"
 teaching: 30
 exercises: 30
 questions:
@@ -8,12 +8,12 @@ questions:
   - "Why use it?"
 objectives:
   - "Learn the basics of Linux shell"
-  - "Prepare for work on Tegnér"
+  - "Prepare for work on Beskow and Tegner"
 ---
 
 # Linux shell tutorial
 
-## Course basics
+## Overview
 
 
 > This material is based on several excellent resources available online, 
@@ -25,7 +25,7 @@ objectives:
 This material consists of the following parts: 
  - [What is a shell?](#what-is-shell)
  - [Bash basics](#bash-basics)
- - [Processes and files](#processes-files	)
+ - [Processes](#processes)
  - [File permissions](#file-permissions)
  - [Hotkeys](#hotkeys)
  - [Environmental variables and configuration](#env-config)
@@ -54,7 +54,6 @@ Exercises marked "optional" are for advanced users who would like further stimul
   
 - **Concepts are also relevant for Mac and Windows** 
   
----
 ---
 
 ## Bash basics {#bash-basics}
@@ -244,9 +243,8 @@ is your command to use.
 
 
 ---
----
 
-#### Processes {#processes}
+## Processes {#processes}
 
 Uptil now we have only focused on how to handle files and folders.
 
@@ -295,9 +293,8 @@ To kill a background process: ``kill`` or ``pkill``, possible also from within `
 
 
 ---
----
 
-### File/directory permissions
+## File/directory permissions {#file-permissions}
 
 When you share resources with other people, it is important that your files have the correct access settings. 
 
@@ -331,8 +328,7 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 
 ---
 
-
-### How to make things faster: hotkeys
+## How to make things faster: hotkeys {#hotkeys}
 
 - Avoid typing every character in the shell - **use hotkeys!**
 - These are **short cuts** to find command you are looking for in the shell.
