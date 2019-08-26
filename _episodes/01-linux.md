@@ -92,7 +92,7 @@ We start with two commands.
 >   Find out the location you are viewing. Compare with output from ``pwd``.
 >
 > - Type ``ls`` in the terminal. Compare with the items you see in the File Explorer.
-{: .challenge}
+{: .task}
 
 > **Take home messages:**  
 >   - Bash shell is a text based tool to interact with the computer.
@@ -123,7 +123,7 @@ Some typical bash commands for these purposes are:
 > - Move into *example_hpc*. Obtain the name of the current location. Check contents.
 > - Start a text editor in your usual way. Create a new text file named *file1.txt* and save it inside the folder *example_hpc*.
 > - Use the terminal to copy this file to a new file named *file2.txt*. Check result.
-{: .challenge}
+{: .task}
 
 > ## File and directory names
 >
@@ -188,7 +188,7 @@ You can specify a location by its *relative* (to current location) or *absolute*
 > - Use ``cat`` to print all contents of this file. 
 > - Print the last 4 lines, (read manual of ``tail``)
 > - Try to guess the meaning of ``">"``
-{: .challenge}
+{: .task}
 
 #### Combining commands
 
@@ -218,7 +218,7 @@ Often you wish to combine commands in different ways to tailor the effect.
 >
 > - Type ``find /home -name hpc_feb13.txt``
 > - Type ``find -name hpc_feb13.txt``
-{: .challenge}
+{: .task}
 
 
 - In many cases you quickly want to find specific information in files. 
@@ -233,7 +233,7 @@ Often you wish to combine commands in different ways to tailor the effect.
 > ## Searching for patterns with grep
 >
 > - Type ``grep mkdir paste_dirname_here/hpc_feb13.txt``.
-{: .challenge}
+{: .task}
 
 
 > **Take home messages:**  
@@ -274,7 +274,7 @@ As an example, do the following:
 > - type ``top`` in your terminal
 > - open a new terminal and type ``nano``.
 > - find the *pid* of nano
-{: .challenge}
+{: .task}
 
 ---
 
@@ -359,7 +359,7 @@ chown -R greys <file or directory>
 >  - Remove all access for *groups* and *others*, and ask a friend to read it.
 >  - Add read permission so that your friend can read the file.
 >
-{: .challenge}
+{: .task}
 
 > ## Exercise: Folder and file permission
 >
@@ -381,14 +381,14 @@ chown -R greys <file or directory>
 > Execute (``x``) without read (``r``) means that you can
 > access files inside if you know the exact name, but not list the
 > directory.  The permissions of the files themselves still matter.
-{: .challenge}
+{: .task}
 
 > ## Exercise: Some more in-depth things
 >
 > What are the extra permission bits: ``s-bit`` and ``t-bit``?  
 > Read up on ``umask`` [(see here)](https://www.computerhope.com/unix/uumask.htm).  
 >
-{: .challenge}
+{: .task}
 
 ### Modifying permissions: advanced
 
@@ -429,7 +429,7 @@ To get file meta info: ``stat <file_or_dir>``
 > - Create a directory (in /cfs/klemming/nobackup/u/user on Tegner or somewhere on your own system)
 > - use ``setfacl`` to set its permissions so that only you and some
 >   user/group of your choice would have access to it.
-{: .challenge}
+{: .task}
 
 
 ---
@@ -459,7 +459,7 @@ To get file meta info: ``stat <file_or_dir>``
 >
 > - Type ``find /home -name hpc_feb13.txt``
 > - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``hpc_feb13.txt``.
-{: .challenge}
+{: .task}
 
 
 
@@ -479,7 +479,7 @@ To get file meta info: ``stat <file_or_dir>``
 > - Type ``top`` to view processes and info on the server
 > - Type ``w`` to see which other users are logged in
 > - Type ``last -n 15`` to get a list of the last 15 logins
-{: .challenge}
+{: .task}
 
 #### Command line editor
 To work efficiently on HPC systems, it is usually good to use an editor directly in the terminal.
@@ -498,7 +498,7 @@ As *nano* is the simplest one, we will use this one in this tutorial.
 > - Type ``nano``. Then write some text.
 > - Try to find out how to save the file.
 > - Exit the editor
-{: .challenge}
+{: .task}
 
 ---
 
@@ -512,7 +512,7 @@ To save time, important names are often stored in so called environment variable
 > - Type ``echo $HOSTNAME``
 > - Type ``echo $PATH``
 > - Type ``echo $`` and then press TAB to see what happens
-{: .challenge}
+{: .task}
 
 These give you further power to customize your session to fit your needs.
 
@@ -526,7 +526,7 @@ Normally, the file containing many of these user defaults is ``.bashrc`` located
 > - Add a line ``HISTTIMEFORMAT="%d/%m/%y %T "``, save and close
 > - Type ``source .bashrc`` to reload the information there.
 > - Type ``nano .profile`` and save the text ``source .bashrc`` . Now this will be loaded everytime you log in.
-{: .challenge}
+{: .task}
 
 Another useful file is ``.inputrc`` *NB: your terminal must support key-binding. PuTTY does not seem to do this by default*
 
@@ -537,7 +537,7 @@ Another useful file is ``.inputrc`` *NB: your terminal must support key-binding.
 > - Type ``bind -f .inputrc``
 > - Start typing any old command you typed on Tegner, then press shift+up.
 > - From the next time you log in, this will be loaded automatically.
-{: .challenge}
+{: .task}
 
 > **Take home message:**
 > 
@@ -612,7 +612,7 @@ Just use them in the execises instead.
 > ## Exercise: List dot files (files starting with . )
 >
 > - Try to find a way to list all files, including those with ``.`` as their first chracter.
-{: .challenge}
+{: .task}
 
 ## Advanced file and directory handling
 
@@ -642,7 +642,7 @@ For the quotation:
 >
 > - Try typing both ``echo "$USER"`` and ``echo '$USER'``.
 >
-{: .challenge}
+{: .task}
 
 > ## Exercise: Multiple files at the same time
 >
@@ -653,7 +653,7 @@ For the quotation:
 > - As above, but also get the directory names.
 > - *Optional:* As above, but get the data sorted along first column.
 >
-{: .challenge}
+{: .task}
 
 > ## Exercise: Symbolic links
 >
@@ -661,7 +661,7 @@ For the quotation:
 > - Go to your home
 > - Type ``ln -s tutorial/prop_E096-99/Bound_population.dat E096-99_data.dat``
 > - What happens if you remove the symbolic link?
-{: .challenge}
+{: .task}
 
 > ## Exercise: ``touch``
 >
@@ -669,7 +669,7 @@ For the quotation:
 > - What does ``touch hej.txt`` do if the file already exists?
 > - Can you think of ways to use this?
 >
-{: .challenge}
+{: .task}
 ---
 
 
@@ -732,7 +732,7 @@ escape key, by default `Ctrl-a` (`C-a`):
 >   using the commands listed above or by finding inspiration from 
 >   [online](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/)
 >   [tutorials](https://kb.iu.edu/d/acuy).
-{: .challenge}
+{: .task}
 
 Some people have their ``screen`` open forever, which just keeps
 running and never gets closed.  Wherever they are, they ssh in,
@@ -762,7 +762,7 @@ connect, and resume right where they left off.
 > For special characters see PROMPTING at ``man bash``.  
 > If you want to save something permanently, add to *.bashrc* like ``export PS1``. But save the old ``PS1`` so that you can recover it if necessary!
 >
-{: .challenge}
+{: .task}
 
 ---
 ---
@@ -784,7 +784,7 @@ https://www.gnu.org/software/coreutils/manual/coreutils.html
 >
 > - Combine columns from different files into a single file
 > - Sort text/data  
-{: .challenge}
+{: .task}
 
 
 
@@ -885,7 +885,7 @@ grep "<[Hh][12]>" file.html
 >   a regular expression that will grab exactly what you need.
 > - (Optional) Using pipes and commands echo/tr/uniq, find doubled words out of 'My
 >   Do Do list: Find a a Doubled Word'. Any easier way to do it?
-{: .challenge}
+{: .task}
 
 ---
 ---
@@ -961,7 +961,7 @@ rsync -urlptDxv --chmod=Dg+s username@t04n28.pdc.kth.se:/cfs/klemming/nobackup/u
 > - Transfer just created archive using either ``scp`` or ``rsync``.
 > 
 >   - (Optional) Try ssh+tar combo to make transfer and archive on the fly.
-{: .challenge}
+{: .task}
 
 ---
 
@@ -1037,7 +1037,7 @@ background jobs.
 >    bash PID.
 > 
 >    - (optional) get any X Window application (firefox, xterm, etc) to run on Tegner
-{: .challenge}
+{: .task}
 
 
 ---
