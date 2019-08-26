@@ -95,10 +95,9 @@ We start with two commands.
 > - Type ``ls`` in the terminal. Compare with the items you see in the File Explorer.
 {: .challenge}
 
-**Take home messages:**  
-  *bash shell is a text based tool to interact with the computer.*
-  
-  *you are always in the directory (folder) given by ``pwd``.*
+> **Take home messages:**  
+>   - bash shell is a text based tool to interact with the computer.
+>   - you are always in the directory (folder) given by ``pwd``.
 
 **Main advantage:**  
   *can be made highly efficient*.
@@ -131,8 +130,8 @@ Some typical bash commands for these purposes are:
 > - Use the terminal to copy this file to a new file named *file2.txt*. Check result.
 {: .challenge}
 
-**Take home message:**    
-  *Do not use space as separators in names - use underscore instead.*
+> **Take home message:**    
+>  - Do not use space as separators in names - use underscore instead.
 
 
 ---
@@ -147,8 +146,20 @@ You can specify a location by its *relative* (to current location) or *absolute*
 | cd ../..   | cd /home/ |
 
 
-**Take home message:**  
-  *Absolute paths always work but relative paths are more convenient.*
+> **Take home message:**  
+>   - Absolute paths always work but relative paths are more convenient.
+
+> ## File managers
+> 
+> On Beskow and Tegner we have installed GNU Midnight Commander 
+> which is a free cross-platform orthodox file manager. To use it, do:
+> ```bash
+> $ module load midnightcommander
+> $ mc
+> ```
+{: .callout}
+
+
 
 ---
 
@@ -179,12 +190,10 @@ You can specify a location by its *relative* (to current location) or *absolute*
 {: .challenge}
 
 
-**Take home messages:**  
-  *Customize the command usage with flags.*
-  
-  *The manual is your friend - consult it before googling. NB: Some special commands require* ***``help``*** *rather than* ***man***
-  
-  *In the learning phase, use ``history`` regularly.*
+> **Take home messages:**  
+>   - Customize the command usage with flags.
+>   - The manual is your friend - consult it before googling. NB: Some special commands require ***``help``*** rather than ***man*** 
+>   - In the learning phase, use ``history`` regularly.
 
 
 ---
@@ -234,12 +243,10 @@ is your command to use.
 
 
 
-**Take home messages:**  
-   *``commandA > fileA`` redirects output from commandA to text fileA*
-   
-   *``commandA | commandB`` means that you* ***pipe*** *the output from commandA to commandB.*
-   
-   *Most commands work well alone and you can cherry pick which you need to combine into a unique result. **Modularity**.*
+> **Take home messages:**  
+>   - ``commandA > fileA`` redirects output from commandA to text fileA
+>   - ``commandA | commandB`` means that you* ***pipe*** *the output from commandA to commandB.
+>   - Most commands work well alone and you can cherry pick which you need to combine into a unique result. **Modularity**.
 
 
 ---
@@ -305,6 +312,8 @@ When you share resources with other people, it is important that your files have
 Let's see an example, produced by ls -l
 
 ```bash
+$ ls -l
+
 -rw-r--r-- 1 tkl tkl  120 feb  3 19:51 file1.txt
 -rwx------ 1 tkl tkl 9865 feb  2 08:51 my_secret_code.ex
 drwx------ 2 tkl tkl 4096 feb  1 13:53 private_folder
@@ -322,8 +331,109 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 | chmod o+r  fileA   | add **r**ead permission of fileA to **o**thers |
 | chmod o-wx fileA   | remove **w**rite and e**x**ecution rights of fileA for **o**thers | 
 
+You may also have seen commands using numbers, e.g. ``chmod 644 fileA``.
+The logic behind this is: r=4, w=2, x=1. Thus, 
+```bash
+chmod 700 <files>   # r=4, w=2, x=1
+```
+is equivalent to:
+```bash
+chmod u+rwx,g-rwx,o-rwx <files>   # u=user, g=group, o=others, a=all 
+```
 
-**Exercises on this will be available at the end of the session.**
+To change permissions for all the subdirectories and files at once,
+use the recursive flag:
+```bash
+chmod -R <perm> <directory>
+```
+
+To change group ownership (you must be a group member):
+```bash
+chgrp group_name <file or directory>
+```
+
+To change owner of file/directory:
+```bash
+chown -R greys <file or directory>
+```
+
+> ## Exercise: File permission
+>
+>  - Create a textfile with some random word in your Public folder.
+>  - Remove all access for *groups* and *others*, and ask a friend to read it.
+>  - Add read permission so that your friend can read the file.
+>
+{: .challenge}
+
+> ## Exercise: Folder and file permission
+>
+> This is part of the output from torkj's home. 
+> ```bash
+> -rw-r--r-- 1 torkj      30 262470 Dec 28 16:15 ompi_info.txt
+> -rw-r--r-- 1 torkj      30      5 Jan 25 13:55 tmp.txt
+> drwxr-xr-x 3 torkj nogroup   2048 Feb 11 15:30 Public
+> ```
+>
+> Try to read tmp.txt - explain the outcome
+>
+> **Hint:**  
+> Even though a file has read access, the top directory must be
+> searchable before external user or group will be able to access
+> it. Sometimes people do  
+>   ``chmod -R o-rwx $SOME_DIR``  
+>   ``chmod o+x $SOME_DIR``  
+> Execute (``x``) without read (``r``) means that you can
+> access files inside if you know the exact name, but not list the
+> directory.  The permissions of the files themselves still matter.
+{: .challenge}
+
+> ## Exercise: Some more in-depth things
+>
+> What are the extra permission bits: ``s-bit`` and ``t-bit``?  
+> Read up on ``umask`` [(see here)](https://www.computerhope.com/unix/uumask.htm).  
+>
+{: .challenge}
+
+### Modifying permissions: advanced
+
+Access Control Lists (ACLs) are advanced access permissions.  They
+don't work everywhere, for example mostly do not work on NFS
+mounted directories.  They are otherwise supported on ext4, Lustre,
+etc. (thus work on /cfs/klemming).
+
+* In "normal" unix, files have only "owner" and "group", and permissions
+  for owner/group/others.  This can be rather limiting.
+* Access control lists (ACLS) are an extension that allows an
+  arbitrary number of users and groups to have access rights to
+  files.   
+* ACLs don't show up in normal ``ls -l`` output, but there is an extra
+  plus sign: ``-rw-rwxr--+``.  ACLs generally work well, but there are
+  some programs that won't preserve them when you copy/move files, etc.
+* POSIX (unix) ACLs are controlled with ``getfacl`` and ``setfacl``
+  - Allow read access for a user ``setfacl -m u:<user>:r <file_or_dir>``
+  - Allow read/write access for a group ``setfacl -m g:<group>:rw <file_or_dir>``
+  - Revoke granted access ``setfacl -x u:<user> <file_or_dir>``
+  - See current stage ``getfacl <file_or_dir>``
+
+**Advanced file status**   
+To get file meta info: ``stat <file_or_dir>``
+
+
+> ## Exercise: Permissions
+>
+> - Create a directory, use ``chmod`` to allow user and any group members
+>   full access and no access for others
+> - (Optional) Change that directory group ownership with ``chown`` or 
+>   ``chgrp`` (any group that you belong to is fine), set s-bit for the 
+>   group and apply t-bit to a directory, check that the upper directory 
+>   has *o+x* bit set: now you should have a private working space for 
+>   your group. Tip: see groups that you are a member of using ``id -Gn``
+> - (Optional) Create a directory and a subdirectory in it and set their 
+>   permissions to 700 with one command.
+> - Create a directory (in /cfs/klemming/nobackup/u/user on Tegner or somewhere on your own system)
+> - use ``setfacl`` to set its permissions so that only you and some
+>   user/group of your choice would have access to it.
+{: .challenge}
 
 
 ---
@@ -357,9 +467,8 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 
 
 
-**Take home message:**
-
-   * Always use TAB
+> **Take home message:**
+>    - Always use TAB
 
 
 ---
@@ -434,14 +543,13 @@ Another useful file is ``.inputrc`` *NB: your terminal must support key-binding.
 > - From the next time you log in, this will be loaded automatically.
 {: .challenge}
 
-**Take home message:**
-
-   * You can store names in environment variables
-
-   * Customize your session with configuration files
-
-   * .inputrc needs to be loaded with ``bind`` rather than ``source``.  
-This is however not needed if the file is present at login, as it is automatically loaded by the system.
+> **Take home message:**
+> 
+>    - You can store names in environment variables
+>    - Customize your session with configuration files
+>    - .inputrc needs to be loaded with ``bind`` rather than ``source``.  
+> 
+> This is however not needed if the file is present at login, as it is automatically loaded by the system.
 
 ---
 
@@ -567,105 +675,6 @@ For the quotation:
 >
 {: .challenge}
 ---
-
-### Modifying permissions: the easy part
-
-chmod/chown is what will work on all filesystems:
-
-```bash
-chmod u+rwx,g-rwx,o-rwx <files>   # u=user, g=group, o=others, a=all
-# -or-
-chmod 700 <files>   # r=4, w=2, x=1
- 
-# recursive, changing all the subdirectories and files at once
-chmod -R <perm> <directory>
-
-# changing group ownership (you must be a group member)
-chgrp group_name <file or directory>
-```
-
-> ## Exercise: File permission
->
->  - Create a textfile with some random word in your Public folder.
->  - Remove all access for *groups* and *others*, and ask a friend to read it.
->  - Add read permission so that your friend can read the file.
->
-{: .challenge}
-
-> ## Exercise: Folder and file permission
->
-> This is part of the output from Tor's home. 
-> ```bash
-> -rw-r--r-- 1 torkj      30 262470 Dec 28 16:15 ompi_info.txt
-> -rw-r--r-- 1 torkj      30      5 Jan 25 13:55 tmp.txt
-> drwxr-xr-x 3 torkj nogroup   2048 Feb 11 15:30 Public
-> ```
->
-> Try to read tmp.txt - explain the outcome
->
-> **Hint:**  
-> Even though a file has read access, the top directory must be
-> searchable before external user or group will be able to access
-> it. Sometimes people do  
->   ``chmod -R o-rwx $SOME_DIR``  
->   ``chmod o+x $SOME_DIR``  
-> Execute (``x``) without read (``r``) means that you can
-> access files inside if you know the exact name, but not list the
-> directory.  The permissions of the files themselves still matter.
-{: .challenge}
-
-> ## Exercise: Some more in-depth things
->
-> What are the extra permission bits: ``s-bit`` and ``t-bit``?  
-> Read up on ``umask`` [(see here)](https://www.computerhope.com/unix/uumask.htm).  
->
-{: .challenge}
-
----
-
-### Modifying permissions: advanced
-
-Access Control Lists (ACLs) are advanced access permissions.  They
-don't work everywhere, for example mostly do not work on NFS
-mounted directories.  They are otherwise supported on ext4, Lustre,
-etc. (thus work on /cfs/klemming).
-
-* In "normal" unix, files have only "owner" and "group", and permissions
-  for owner/group/others.  This can be rather limiting.
-* Access control lists (ACLS) are an extension that allows an
-  arbitrary number of users and groups to have access rights to
-  files.   
-* ACLs don't show up in normal ``ls -l`` output, but there is an extra
-  plus sign: ``-rw-rwxr--+``.  ACLs generally work well, but there are
-  some programs that won't preserve them when you copy/move files, etc.
-* POSIX (unix) ACLs are controlled with ``getfacl`` and ``setfacl``
-  - Allow read access for a user ``setfacl -m u:<user>:r <file_or_dir>``
-  - Allow read/write access for a group ``setfacl -m g:<group>:rw <file_or_dir>``
-  - Revoke granted access ``setfacl -x u:<user> <file_or_dir>``
-  - See current stage ``getfacl <file_or_dir>``
-
-**File managers**  
-On Beskow and Tegner we have installed Midnight Commander: ``mc``.
-
-**Advanced file status**   
-To get file meta info: ``stat <file_or_dir>``
-
-
-> ## Exercise: Permissions
->
-> - Create a directory, use ``chmod`` to allow user and any group members
->   full access and no access for others
-> - (Optional) Change that directory group ownership with ``chown`` or 
->   ``chgrp`` (any group that you belong to is fine), set s-bit for the 
->   group and apply t-bit to a directory, check that the upper directory 
->   has *o+x* bit set: now you should have a private working space for 
->   your group. Tip: see groups that you are a member of using ``id -Gn``
-> - (Optional) Create a directory and a subdirectory in it and set their 
->   permissions to 700 with one command.
-> - Create a directory (in /cfs/klemming/nobackup/u/user on Tegner or somewhere on your own system)
-> - use ``setfacl`` to set its permissions so that only you and some
->   user/group of your choice would have access to it.
-{: .challenge}
 
 
 ---
