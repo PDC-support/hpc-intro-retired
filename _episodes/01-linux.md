@@ -23,13 +23,13 @@ objectives:
 > - [Documentation pages at the University of Oslo](https://www.mn.uio.no/geo/english/services/it/help/using-linux).
 
 This material consists of the following parts: 
- - [What is a shell?](#what-is-shell)
- - [Bash basics](#bash-basics)
- - [Processes](#processes)
- - [File permissions](#file-permissions)
- - [Hotkeys](#hotkeys)
- - [Environmental variables and configuration](#env-config)
- - [Exercises](#interactive-usage)
+ 1. [What is a shell?](#what-is-shell)
+ 2. [Bash basics](#bash-basics)
+ 3. [Processes](#processes)
+ 4. [File permissions](#file-permissions)
+ 5. [Hotkeys](#hotkeys)
+ 6. [Environmental variables and configuration](#env-config)
+ 7. [Exercises](#interactive-usage)
 
 Exercises marked "optional" are for advanced users who would like further stimulation.
 
@@ -66,18 +66,17 @@ Set yourself up with a bash shell.
   Just open a terminal window.
 
 - **Windows users:**  
-  You will be working on Tegnér right away.
+  You will be working on Tegner right away.
 
   For Windows10 users we recommend you try the new [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10). 
   
-  For other Windows systems, or if you want to go the traditional way follow these instructions [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html)
+  For other Windows systems, or if you want to go the traditional way follow these instructions to [install PuTTY](https://www.pdc.kth.se/support/documents/login/windows_login.html)
 
 ---
 
 #### Your very first bash commands 
 
-We are now going to get familiar with the bash shell in a very low pace mode.
-
+We are now going to get familiar with the bash shell.  
 We start with two commands.
 
 | command | Explanation |
@@ -86,21 +85,19 @@ We start with two commands.
 | ls      | list contents | 
 
 
-> ## Type-along exercise: What is this bash thing?
+> ## Getting started
 >
 > - What do you get if you type ``pwd`` in the terminal?
-> - If you are not on Tegnér, open a File Explorer.  
+> - If you are not on Tegner, open a File Explorer.  
 >   Find out the location you are viewing. Compare with output from ``pwd``.
 >
 > - Type ``ls`` in the terminal. Compare with the items you see in the File Explorer.
 {: .challenge}
 
 > **Take home messages:**  
->   - bash shell is a text based tool to interact with the computer.
->   - you are always in the directory (folder) given by ``pwd``.
-
-**Main advantage:**  
-  *can be made highly efficient*.
+>   - Bash shell is a text based tool to interact with the computer.
+>   - You are always in the directory (folder) given by ``pwd``.
+>   - Working in the shell can be highly efficient.
 
 ---
 
@@ -120,18 +117,19 @@ Some typical bash commands for these purposes are:
 | mv file1 new_dir/file2 | move *file1* into *new_folder* and call that *file2* |
 
 
-> ## Type-along exercise: Copying files and moving between folders.
+> ## Copying files and moving between folders
 >
 > - Create a directory called *example_hpc*. Verify that it was created.
 > - Move into *example_hpc*. Obtain the name of the current location. Check contents.
-> - Execute ``cd ..`` and then check location. What happened? Then move back into *example_hpc*.
-> - Execute ``cd example_hpc`` in the terminal. Do you understand the output?
 > - Start a text editor in your usual way. Create a new text file named *file1.txt* and save it inside the folder *example_hpc*.
 > - Use the terminal to copy this file to a new file named *file2.txt*. Check result.
 {: .challenge}
 
-> **Take home message:**    
->  - Do not use space as separators in names - use underscore instead.
+> ## File and directory names
+>
+>  - Do not use space as separators in names - use underscore instead!
+>  - What happens if you use spaces in file/directory names?
+{: .callout}
 
 
 ---
@@ -178,9 +176,12 @@ You can specify a location by its *relative* (to current location) or *absolute*
 | echo something | prints from command line to stdout. |
 
 
-``ls -l`` is an example of using a command with a *flag*. These are usually options to customize the command. Use *man \<command\>* to learn about options for commands you use.
+- ``ls -l`` is an example of using a command with a *flag*. 
+- These are usually options to customize the command. 
+- Use *man \<command\>* to learn about options for commands you use.
 
-> ## Type-along exercise: Reading the manual
+> ## Reading the manual
+> 
 > - Type ``history``
 > - Type ``history > tmp_file.txt``. 
 > - Type ``ls -l`` and then check time stamp of ``tmp_file.txt``
@@ -189,46 +190,39 @@ You can specify a location by its *relative* (to current location) or *absolute*
 > - Try to guess the meaning of ``">"``
 {: .challenge}
 
-
-> **Take home messages:**  
->   - Customize the command usage with flags.
->   - The manual is your friend - consult it before googling. NB: Some special commands require ***``help``*** rather than ***man*** 
->   - In the learning phase, use ``history`` regularly.
-
-
----
-#### Some practice and sneak peek ahead
-
+#### Combining commands
 
 Often you wish to combine commands in different ways to tailor the effect.
 
-
-> ## Type-along exercise: Pipelines
+> ## Pipelines
 >
-> - Type ``history > hpc_feb13.txt`` . Useful documentation!
-> - Type ``cd`` . Where are you now? Quick way to "go home".
-> - Type ``ls -lrt | tail -n 4`` . What happened?
-{: .challenge}
+> - Type ``history > hpc_intro.txt`` 
+> - Print the last 4 lines of ``hpc_intro.txt`` using the ``tail`` command
+> - Creating an intermediate file to explore the last 4 lines of output 
+>   from a command is inefficient. We can instead construct a **pipeline**:
+>   ``history | tail -4``
+> - Pipelines can be made arbitrarily long, e.g. 
+>   ``cat fileA | tail -10 | head -5 | grep foo``
+{: .task}
 
+#### Finding things
 
-Where is that file again? Use ``find``
-
+- Where is that file again? Use ``find``
 
 | command | Explanation |
 | ------- | ----------- |
 | find -name Objname | looks for ``Objname`` recursively starting from current location | 
 | find /home -name Objname | looks for ``Objname`` starting from ``/home``  |
 
-
-> ## Type-along exercise: Find location of a file
+> ## Find location of a file
 >
 > - Type ``find /home -name hpc_feb13.txt``
 > - Type ``find -name hpc_feb13.txt``
 {: .challenge}
 
 
-In many cases you quickly want to find specific information in files. Then ``grep``
-is your command to use.
+- In many cases you quickly want to find specific information in files. 
+- Then ``grep`` is your command to use.
 
 
 | command | Explanation |
@@ -236,16 +230,18 @@ is your command to use.
 | grep pattern file  | grabs all matches of *pattern* in *file* | 
 
 
-> ## Type-along exercise: Searching for patterns with grep
+> ## Searching for patterns with grep
 >
 > - Type ``grep mkdir paste_dirname_here/hpc_feb13.txt``.
 {: .challenge}
 
 
-
 > **Take home messages:**  
+>   - Customize the command usage with flags.
+>   - The manual is your friend - consult it before googling. 
+>   - In the learning phase, use ``history`` regularly.
 >   - ``commandA > fileA`` redirects output from commandA to text fileA
->   - ``commandA | commandB`` means that you* ***pipe*** *the output from commandA to commandB.
+>   - ``commandA | commandB`` means that you* ***pipe*** the output from commandA to commandB.
 >   - Most commands work well alone and you can cherry pick which you need to combine into a unique result. **Modularity**.
 
 
@@ -459,7 +455,7 @@ To get file meta info: ``stat <file_or_dir>``
 | Ctrl-Shift-v | paste |
 | Ctrl-r | command history search in reverse order |
 
-> ## Type-along exercise: TAB autocompletion
+> ## TAB autocompletion
 >
 > - Type ``find /home -name hpc_feb13.txt``
 > - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``hpc_feb13.txt``.
@@ -497,7 +493,7 @@ Some commonly used ones are
 As *nano* is the simplest one, we will use this one in this tutorial.
 
 
-> ## Type-along exercise: getting started with nano
+> ## getting started with nano
 >
 > - Type ``nano``. Then write some text.
 > - Try to find out how to save the file.
@@ -510,7 +506,7 @@ As *nano* is the simplest one, we will use this one in this tutorial.
 To save time, important names are often stored in so called environment variables. To display them we use ``echo``.
 
 
-> ## Type-along exercise: Exploring environment variables
+> ## Exploring environment variables
 >
 > - Type ``echo $HOME``
 > - Type ``echo $HOSTNAME``
@@ -524,7 +520,7 @@ These give you further power to customize your session to fit your needs.
 #### Initialization and configuration
 Normally, the file containing many of these user defaults is ``.bashrc`` located in $HOME.
 
-> ## Type-along exercise: Customizing the shell environment with .bashrc
+> ## Customizing the shell environment with .bashrc
 >
 > - Type ``nano .bashrc`` and examine the contents.
 > - Add a line ``HISTTIMEFORMAT="%d/%m/%y %T "``, save and close
@@ -534,7 +530,7 @@ Normally, the file containing many of these user defaults is ``.bashrc`` located
 
 Another useful file is ``.inputrc`` *NB: your terminal must support key-binding. PuTTY does not seem to do this by default*
 
-> ## Type-along exercise: Custom bindings with .inputrc
+> ## Custom bindings with .inputrc
 >
 > - Type ``cp /afs/pdc.kth.se/home/t/torkj/Public/.inputrc .inputrc``
 > - Type ``cat .inputrc``
