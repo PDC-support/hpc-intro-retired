@@ -1,6 +1,6 @@
 ---
 layout: episode
-title: "Linux shell tutorial"
+title: "(Optional) Linux shell tutorial"
 teaching: 30
 exercises: 30
 questions:
@@ -8,12 +8,12 @@ questions:
   - "Why use it?"
 objectives:
   - "Learn the basics of Linux shell"
-  - "Prepare for work on Tegnér"
+  - "Prepare for work on Beskow and Tegner"
 ---
 
 # Linux shell tutorial
 
-## Course basics
+## Overview
 
 
 > This material is based on several excellent resources available online, 
@@ -23,13 +23,13 @@ objectives:
 > - [Documentation pages at the University of Oslo](https://www.mn.uio.no/geo/english/services/it/help/using-linux).
 
 This material consists of the following parts: 
- - [What is a shell?](#what-is-shell)
- - [Bash basics](#bash-basics)
- - [Processes and files](#processes-files	)
- - [File permissions](#file-permissions)
- - [Hotkeys](#hotkeys)
- - [Environmental variables and configuration](#env-config)
- - [Exercises](#interactive-usage)
+ 1. [What is a shell?](#what-is-shell)
+ 2. [Bash basics](#bash-basics)
+ 3. [Processes](#processes)
+ 4. [File permissions](#file-permissions)
+ 5. [Hotkeys](#hotkeys)
+ 6. [Environmental variables and configuration](#env-config)
+ 7. [Exercises](#interactive-usage)
 
 Exercises marked "optional" are for advanced users who would like further stimulation.
 
@@ -55,7 +55,6 @@ Exercises marked "optional" are for advanced users who would like further stimul
 - **Concepts are also relevant for Mac and Windows** 
   
 ---
----
 
 ## Bash basics {#bash-basics}
 
@@ -67,18 +66,17 @@ Set yourself up with a bash shell.
   Just open a terminal window.
 
 - **Windows users:**  
-  You will be working on Tegnér right away.
+  You will be working on Tegner right away.
 
   For Windows10 users we recommend you try the new [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10). 
   
-  For other Windows systems, or if you want to go the traditional way follow these instructions [install PuTTY](https://www.pdc.kth.se/support/login/windows_login.html)
+  For other Windows systems, or if you want to go the traditional way follow these instructions to [install PuTTY](https://www.pdc.kth.se/support/documents/login/windows_login.html)
 
 ---
 
 #### Your very first bash commands 
 
-We are now going to get familiar with the bash shell in a very low pace mode.
-
+We are now going to get familiar with the bash shell.  
 We start with two commands.
 
 | command | Explanation |
@@ -87,22 +85,19 @@ We start with two commands.
 | ls      | list contents | 
 
 
-> ## Type-along exercise: What is this bash thing?
+> ## Getting started
 >
 > - What do you get if you type ``pwd`` in the terminal?
-> - If you are not on Tegnér, open a File Explorer.  
+> - If you are not on Tegner, open a File Explorer.  
 >   Find out the location you are viewing. Compare with output from ``pwd``.
 >
 > - Type ``ls`` in the terminal. Compare with the items you see in the File Explorer.
-{: .challenge}
+{: .task}
 
-**Take home messages:**  
-  *bash shell is a text based tool to interact with the computer.*
-  
-  *you are always in the directory (folder) given by ``pwd``.*
-
-**Main advantage:**  
-  *can be made highly efficient*.
+> **Take home messages:**  
+>   - Bash shell is a text based tool to interact with the computer.
+>   - You are always in the directory (folder) given by ``pwd``.
+>   - Working in the shell can be highly efficient.
 
 ---
 
@@ -122,18 +117,19 @@ Some typical bash commands for these purposes are:
 | mv file1 new_dir/file2 | move *file1* into *new_folder* and call that *file2* |
 
 
-> ## Type-along exercise: Copying files and moving between folders.
+> ## Copying files and moving between folders
 >
 > - Create a directory called *example_hpc*. Verify that it was created.
 > - Move into *example_hpc*. Obtain the name of the current location. Check contents.
-> - Execute ``cd ..`` and then check location. What happened? Then move back into *example_hpc*.
-> - Execute ``cd example_hpc`` in the terminal. Do you understand the output?
 > - Start a text editor in your usual way. Create a new text file named *file1.txt* and save it inside the folder *example_hpc*.
 > - Use the terminal to copy this file to a new file named *file2.txt*. Check result.
-{: .challenge}
+{: .task}
 
-**Take home message:**    
-  *Do not use space as separators in names - use underscore instead.*
+> ## File and directory names
+>
+>  - Do not use space as separators in names - use underscore instead!
+>  - What happens if you use spaces in file/directory names?
+{: .callout}
 
 
 ---
@@ -148,8 +144,20 @@ You can specify a location by its *relative* (to current location) or *absolute*
 | cd ../..   | cd /home/ |
 
 
-**Take home message:**  
-  *Absolute paths always work but relative paths are more convenient.*
+> **Take home message:**  
+>   - Absolute paths always work but relative paths are more convenient.
+
+> ## File managers
+> 
+> On Beskow and Tegner we have installed GNU Midnight Commander 
+> which is a free cross-platform orthodox file manager. To use it, do:
+> ```bash
+> $ module load midnightcommander
+> $ mc
+> ```
+{: .callout}
+
+
 
 ---
 
@@ -168,59 +176,53 @@ You can specify a location by its *relative* (to current location) or *absolute*
 | echo something | prints from command line to stdout. |
 
 
-``ls -l`` is an example of using a command with a *flag*. These are usually options to customize the command. Use *man \<command\>* to learn about options for commands you use.
+- ``ls -l`` is an example of using a command with a *flag*. 
+- These are usually options to customize the command. 
+- Use *man \<command\>* to learn about options for commands you use.
 
-> ## Type-along exercise: Reading the manual
+> ## Redirects, command flags and reading the manual
+> 
 > - Type ``history``
 > - Type ``history > tmp_file.txt``. 
 > - Type ``ls -l`` and then check time stamp of ``tmp_file.txt``
 > - Use ``cat`` to print all contents of this file. 
-> - Print the last 4 lines, (read manual of ``tail``)
-> - Try to guess the meaning of ``">"``
-{: .challenge}
+> - Read the manual of ``tail`` and find how you can print the last 4 lines of a file (type forward-slash **/** to search the man-page)
+> - What is the meaning of ``">"``?
+{: .task}
 
-
-**Take home messages:**  
-  *Customize the command usage with flags.*
-  
-  *The manual is your friend - consult it before googling. NB: Some special commands require* ***``help``*** *rather than* ***man***
-  
-  *In the learning phase, use ``history`` regularly.*
-
-
----
-#### Some practice and sneak peek ahead
-
+#### Combining commands
 
 Often you wish to combine commands in different ways to tailor the effect.
 
-
-> ## Type-along exercise: Pipelines
+> ## Pipelines
 >
-> - Type ``history > hpc_feb13.txt`` . Useful documentation!
-> - Type ``cd`` . Where are you now? Quick way to "go home".
-> - Type ``ls -lrt | tail -n 4`` . What happened?
-{: .challenge}
+> - Type ``history > hpc_intro.txt`` 
+> - Print the last 4 lines of ``hpc_intro.txt`` using the ``tail`` command
+> - Creating an intermediate file to explore the last 4 lines of output 
+>   from a command is inefficient. We can instead construct a **pipeline**:
+>   ``history | tail -4``
+> - Pipelines can be made arbitrarily long, e.g. 
+>   ``cat fileA | tail -10 | head -5 | grep foo``
+{: .task}
 
+#### Finding things
 
-Where is that file again? Use ``find``
-
+- Where is that file again? Use ``find``
 
 | command | Explanation |
 | ------- | ----------- |
 | find -name Objname | looks for ``Objname`` recursively starting from current location | 
 | find /home -name Objname | looks for ``Objname`` starting from ``/home``  |
 
-
-> ## Type-along exercise: Find location of a file
+> ## Find location of a file
 >
-> - Type ``find /home -name hpc_feb13.txt``
-> - Type ``find -name hpc_feb13.txt``
-{: .challenge}
+> - Type ``find /home -name hpc_intro.txt``
+> - Type ``find -name hpc_intro.txt``
+{: .task}
 
 
-In many cases you quickly want to find specific information in files. Then ``grep``
-is your command to use.
+- In many cases you quickly want to find specific information in files. 
+- Then ``grep`` is your command to use.
 
 
 | command | Explanation |
@@ -228,25 +230,24 @@ is your command to use.
 | grep pattern file  | grabs all matches of *pattern* in *file* | 
 
 
-> ## Type-along exercise: Searching for patterns with grep
+> ## Searching for patterns with grep
 >
-> - Type ``grep mkdir paste_dirname_here/hpc_feb13.txt``.
-{: .challenge}
+> - Type ``grep mkdir paste_dirname_here/hpc_intro.txt``.
+{: .task}
 
 
-
-**Take home messages:**  
-   *``commandA > fileA`` redirects output from commandA to text fileA*
-   
-   *``commandA | commandB`` means that you* ***pipe*** *the output from commandA to commandB.*
-   
-   *Most commands work well alone and you can cherry pick which you need to combine into a unique result. **Modularity**.*
+> **Take home messages:**  
+>   - Customize the command usage with flags.
+>   - The manual is your friend - consult it before googling. 
+>   - In the learning phase, use ``history`` regularly.
+>   - ``commandA > fileA`` redirects output from commandA to text fileA
+>   - ``commandA | commandB`` means that you* ***pipe*** the output from commandA to commandB.
+>   - Most commands work well alone and you can cherry pick which you need to combine into a unique result. **Modularity**.
 
 
 ---
----
 
-#### Processes {#processes}
+## Processes {#processes}
 
 Uptil now we have only focused on how to handle files and folders.
 
@@ -273,7 +274,7 @@ As an example, do the following:
 > - type ``top`` in your terminal
 > - open a new terminal and type ``nano``.
 > - find the *pid* of nano
-{: .challenge}
+{: .task}
 
 ---
 
@@ -295,9 +296,8 @@ To kill a background process: ``kill`` or ``pkill``, possible also from within `
 
 
 ---
----
 
-### File/directory permissions
+## File/directory permissions {#file-permissions}
 
 When you share resources with other people, it is important that your files have the correct access settings. 
 
@@ -308,6 +308,8 @@ When you share resources with other people, it is important that your files have
 Let's see an example, produced by ls -l
 
 ```bash
+$ ls -l
+
 -rw-r--r-- 1 tkl tkl  120 feb  3 19:51 file1.txt
 -rwx------ 1 tkl tkl 9865 feb  2 08:51 my_secret_code.ex
 drwx------ 2 tkl tkl 4096 feb  1 13:53 private_folder
@@ -325,14 +327,114 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 | chmod o+r  fileA   | add **r**ead permission of fileA to **o**thers |
 | chmod o-wx fileA   | remove **w**rite and e**x**ecution rights of fileA for **o**thers | 
 
+You may also have seen commands using numbers, e.g. ``chmod 644 fileA``.
+The logic behind this is: r=4, w=2, x=1. Thus, 
+```bash
+chmod 700 <files>   # r=4, w=2, x=1
+```
+is equivalent to:
+```bash
+chmod u+rwx,g-rwx,o-rwx <files>   # u=user, g=group, o=others, a=all 
+```
 
-**Exercises on this will be available at the end of the session.**
+To change permissions for all the subdirectories and files at once,
+use the recursive flag:
+```bash
+chmod -R <perm> <directory>
+```
+
+To change group ownership (you must be a group member):
+```bash
+chgrp group_name <file or directory>
+```
+
+To change owner of file/directory:
+```bash
+chown -R greys <file or directory>
+```
+
+> ## Exercise: File permission
+>
+>  - Create a textfile with some random word in your Public folder.
+>  - Remove all access for *groups* and *others*, and ask a friend to read it.
+>  - Add read permission so that your friend can read the file.
+>
+{: .task}
+
+> ## Exercise: Folder and file permission
+>
+> This is part of the output from torkj's home. 
+> ```bash
+> -rw-r--r-- 1 torkj      30 262470 Dec 28 16:15 ompi_info.txt
+> -rw-r--r-- 1 torkj      30      5 Jan 25 13:55 tmp.txt
+> drwxr-xr-x 3 torkj nogroup   2048 Feb 11 15:30 Public
+> ```
+>
+> Try to read tmp.txt - explain the outcome
+>
+> **Hint:**  
+> Even though a file has read access, the top directory must be
+> searchable before external user or group will be able to access
+> it. Sometimes people do  
+>   ``chmod -R o-rwx $SOME_DIR``  
+>   ``chmod o+x $SOME_DIR``  
+> Execute (``x``) without read (``r``) means that you can
+> access files inside if you know the exact name, but not list the
+> directory.  The permissions of the files themselves still matter.
+{: .task}
+
+> ## Exercise: Some more in-depth things
+>
+> What are the extra permission bits: ``s-bit`` and ``t-bit``?  
+> Read up on ``umask`` [(see here)](https://www.computerhope.com/unix/uumask.htm).  
+>
+{: .task}
+
+### Modifying permissions: advanced
+
+Access Control Lists (ACLs) are advanced access permissions.  They
+don't work everywhere, for example mostly do not work on NFS
+mounted directories.  They are otherwise supported on ext4, Lustre,
+etc. (thus work on /cfs/klemming).
+
+* In "normal" unix, files have only "owner" and "group", and permissions
+  for owner/group/others.  This can be rather limiting.
+* Access control lists (ACLS) are an extension that allows an
+  arbitrary number of users and groups to have access rights to
+  files.   
+* ACLs don't show up in normal ``ls -l`` output, but there is an extra
+  plus sign: ``-rw-rwxr--+``.  ACLs generally work well, but there are
+  some programs that won't preserve them when you copy/move files, etc.
+* POSIX (unix) ACLs are controlled with ``getfacl`` and ``setfacl``
+  - Allow read access for a user ``setfacl -m u:<user>:r <file_or_dir>``
+  - Allow read/write access for a group ``setfacl -m g:<group>:rw <file_or_dir>``
+  - Revoke granted access ``setfacl -x u:<user> <file_or_dir>``
+  - See current stage ``getfacl <file_or_dir>``
+
+**Advanced file status**   
+To get file meta info: ``stat <file_or_dir>``
+
+
+> ## Exercise: Permissions
+>
+> - Create a directory, use ``chmod`` to allow user and any group members
+>   full access and no access for others
+> - (Optional) Change that directory group ownership with ``chown`` or 
+>   ``chgrp`` (any group that you belong to is fine), set s-bit for the 
+>   group and apply t-bit to a directory, check that the upper directory 
+>   has *o+x* bit set: now you should have a private working space for 
+>   your group. Tip: see groups that you are a member of using ``id -Gn``
+> - (Optional) Create a directory and a subdirectory in it and set their 
+>   permissions to 700 with one command.
+> - Create a directory (in /cfs/klemming/nobackup/u/user on Tegner or somewhere on your own system)
+> - use ``setfacl`` to set its permissions so that only you and some
+>   user/group of your choice would have access to it.
+{: .task}
 
 
 ---
 
-
-### How to make things faster: hotkeys
+## How to make things faster: hotkeys {#hotkeys}
 
 - Avoid typing every character in the shell - **use hotkeys!**
 - These are **short cuts** to find command you are looking for in the shell.
@@ -353,17 +455,16 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 | Ctrl-Shift-v | paste |
 | Ctrl-r | command history search in reverse order |
 
-> ## Type-along exercise: TAB autocompletion
+> ## TAB autocompletion
 >
-> - Type ``find /home -name hpc_feb13.txt``
-> - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``hpc_feb13.txt``.
-{: .challenge}
+> - Type ``find /home -name hpc_intro.txt``
+> - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``hpc_intro.txt``.
+{: .task}
 
 
 
-**Take home message:**
-
-   * Always use TAB
+> **Take home message:**
+>    - Always use TAB
 
 
 ---
@@ -378,7 +479,7 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 > - Type ``top`` to view processes and info on the server
 > - Type ``w`` to see which other users are logged in
 > - Type ``last -n 15`` to get a list of the last 15 logins
-{: .challenge}
+{: .task}
 
 #### Command line editor
 To work efficiently on HPC systems, it is usually good to use an editor directly in the terminal.
@@ -392,12 +493,12 @@ Some commonly used ones are
 As *nano* is the simplest one, we will use this one in this tutorial.
 
 
-> ## Type-along exercise: getting started with nano
+> ## getting started with nano
 >
 > - Type ``nano``. Then write some text.
 > - Try to find out how to save the file.
 > - Exit the editor
-{: .challenge}
+{: .task}
 
 ---
 
@@ -405,13 +506,13 @@ As *nano* is the simplest one, we will use this one in this tutorial.
 To save time, important names are often stored in so called environment variables. To display them we use ``echo``.
 
 
-> ## Type-along exercise: Exploring environment variables
+> ## Exploring environment variables
 >
 > - Type ``echo $HOME``
 > - Type ``echo $HOSTNAME``
 > - Type ``echo $PATH``
 > - Type ``echo $`` and then press TAB to see what happens
-{: .challenge}
+{: .task}
 
 These give you further power to customize your session to fit your needs.
 
@@ -419,33 +520,32 @@ These give you further power to customize your session to fit your needs.
 #### Initialization and configuration
 Normally, the file containing many of these user defaults is ``.bashrc`` located in $HOME.
 
-> ## Type-along exercise: Customizing the shell environment with .bashrc
+> ## Customizing the shell environment with .bashrc
 >
 > - Type ``nano .bashrc`` and examine the contents.
 > - Add a line ``HISTTIMEFORMAT="%d/%m/%y %T "``, save and close
 > - Type ``source .bashrc`` to reload the information there.
 > - Type ``nano .profile`` and save the text ``source .bashrc`` . Now this will be loaded everytime you log in.
-{: .challenge}
+{: .task}
 
 Another useful file is ``.inputrc`` *NB: your terminal must support key-binding. PuTTY does not seem to do this by default*
 
-> ## Type-along exercise: Custom bindings with .inputrc
+> ## Custom bindings with .inputrc
 >
 > - Type ``cp /afs/pdc.kth.se/home/t/torkj/Public/.inputrc .inputrc``
 > - Type ``cat .inputrc``
 > - Type ``bind -f .inputrc``
 > - Start typing any old command you typed on Tegner, then press shift+up.
 > - From the next time you log in, this will be loaded automatically.
-{: .challenge}
+{: .task}
 
-**Take home message:**
-
-   * You can store names in environment variables
-
-   * Customize your session with configuration files
-
-   * .inputrc needs to be loaded with ``bind`` rather than ``source``.  
-This is however not needed if the file is present at login, as it is automatically loaded by the system.
+> **Take home message:**
+> 
+>    - You can store names in environment variables
+>    - Customize your session with configuration files
+>    - .inputrc needs to be loaded with ``bind`` rather than ``source``.  
+> 
+> This is however not needed if the file is present at login, as it is automatically loaded by the system.
 
 ---
 
@@ -512,7 +612,7 @@ Just use them in the execises instead.
 > ## Exercise: List dot files (files starting with . )
 >
 > - Try to find a way to list all files, including those with ``.`` as their first chracter.
-{: .challenge}
+{: .task}
 
 ## Advanced file and directory handling
 
@@ -542,7 +642,7 @@ For the quotation:
 >
 > - Try typing both ``echo "$USER"`` and ``echo '$USER'``.
 >
-{: .challenge}
+{: .task}
 
 > ## Exercise: Multiple files at the same time
 >
@@ -553,7 +653,7 @@ For the quotation:
 > - As above, but also get the directory names.
 > - *Optional:* As above, but get the data sorted along first column.
 >
-{: .challenge}
+{: .task}
 
 > ## Exercise: Symbolic links
 >
@@ -561,7 +661,7 @@ For the quotation:
 > - Go to your home
 > - Type ``ln -s tutorial/prop_E096-99/Bound_population.dat E096-99_data.dat``
 > - What happens if you remove the symbolic link?
-{: .challenge}
+{: .task}
 
 > ## Exercise: ``touch``
 >
@@ -569,107 +669,8 @@ For the quotation:
 > - What does ``touch hej.txt`` do if the file already exists?
 > - Can you think of ways to use this?
 >
-{: .challenge}
+{: .task}
 ---
-
-### Modifying permissions: the easy part
-
-chmod/chown is what will work on all filesystems:
-
-```bash
-chmod u+rwx,g-rwx,o-rwx <files>   # u=user, g=group, o=others, a=all
-# -or-
-chmod 700 <files>   # r=4, w=2, x=1
- 
-# recursive, changing all the subdirectories and files at once
-chmod -R <perm> <directory>
-
-# changing group ownership (you must be a group member)
-chgrp group_name <file or directory>
-```
-
-> ## Exercise: File permission
->
->  - Create a textfile with some random word in your Public folder.
->  - Remove all access for *groups* and *others*, and ask a friend to read it.
->  - Add read permission so that your friend can read the file.
->
-{: .challenge}
-
-> ## Exercise: Folder and file permission
->
-> This is part of the output from Tor's home. 
-> ```bash
-> -rw-r--r-- 1 torkj      30 262470 Dec 28 16:15 ompi_info.txt
-> -rw-r--r-- 1 torkj      30      5 Jan 25 13:55 tmp.txt
-> drwxr-xr-x 3 torkj nogroup   2048 Feb 11 15:30 Public
-> ```
->
-> Try to read tmp.txt - explain the outcome
->
-> **Hint:**  
-> Even though a file has read access, the top directory must be
-> searchable before external user or group will be able to access
-> it. Sometimes people do  
->   ``chmod -R o-rwx $SOME_DIR``  
->   ``chmod o+x $SOME_DIR``  
-> Execute (``x``) without read (``r``) means that you can
-> access files inside if you know the exact name, but not list the
-> directory.  The permissions of the files themselves still matter.
-{: .challenge}
-
-> ## Exercise: Some more in-depth things
->
-> What are the extra permission bits: ``s-bit`` and ``t-bit``?  
-> Read up on ``umask`` [(see here)](https://www.computerhope.com/unix/uumask.htm).  
->
-{: .challenge}
-
----
-
-### Modifying permissions: advanced
-
-Access Control Lists (ACLs) are advanced access permissions.  They
-don't work everywhere, for example mostly do not work on NFS
-mounted directories.  They are otherwise supported on ext4, Lustre,
-etc. (thus work on /cfs/klemming).
-
-* In "normal" unix, files have only "owner" and "group", and permissions
-  for owner/group/others.  This can be rather limiting.
-* Access control lists (ACLS) are an extension that allows an
-  arbitrary number of users and groups to have access rights to
-  files.   
-* ACLs don't show up in normal ``ls -l`` output, but there is an extra
-  plus sign: ``-rw-rwxr--+``.  ACLs generally work well, but there are
-  some programs that won't preserve them when you copy/move files, etc.
-* POSIX (unix) ACLs are controlled with ``getfacl`` and ``setfacl``
-  - Allow read access for a user ``setfacl -m u:<user>:r <file_or_dir>``
-  - Allow read/write access for a group ``setfacl -m g:<group>:rw <file_or_dir>``
-  - Revoke granted access ``setfacl -x u:<user> <file_or_dir>``
-  - See current stage ``getfacl <file_or_dir>``
-
-**File managers**  
-On Beskow and Tegner we have installed Midnight Commander: ``mc``.
-
-**Advanced file status**   
-To get file meta info: ``stat <file_or_dir>``
-
-
-> ## Exercise: Permissions
->
-> - Create a directory, use ``chmod`` to allow user and any group members
->   full access and no access for others
-> - (Optional) Change that directory group ownership with ``chown`` or 
->   ``chgrp`` (any group that you belong to is fine), set s-bit for the 
->   group and apply t-bit to a directory, check that the upper directory 
->   has *o+x* bit set: now you should have a private working space for 
->   your group. Tip: see groups that you are a member of using ``id -Gn``
-> - (Optional) Create a directory and a subdirectory in it and set their 
->   permissions to 700 with one command.
-> - Create a directory (in /cfs/klemming/nobackup/u/user on Tegner or somewhere on your own system)
-> - use ``setfacl`` to set its permissions so that only you and some
->   user/group of your choice would have access to it.
-{: .challenge}
 
 
 ---
@@ -731,7 +732,7 @@ escape key, by default `Ctrl-a` (`C-a`):
 >   using the commands listed above or by finding inspiration from 
 >   [online](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/)
 >   [tutorials](https://kb.iu.edu/d/acuy).
-{: .challenge}
+{: .task}
 
 Some people have their ``screen`` open forever, which just keeps
 running and never gets closed.  Wherever they are, they ssh in,
@@ -761,7 +762,7 @@ connect, and resume right where they left off.
 > For special characters see PROMPTING at ``man bash``.  
 > If you want to save something permanently, add to *.bashrc* like ``export PS1``. But save the old ``PS1`` so that you can recover it if necessary!
 >
-{: .challenge}
+{: .task}
 
 ---
 ---
@@ -783,7 +784,7 @@ https://www.gnu.org/software/coreutils/manual/coreutils.html
 >
 > - Combine columns from different files into a single file
 > - Sort text/data  
-{: .challenge}
+{: .task}
 
 
 
@@ -884,7 +885,7 @@ grep "<[Hh][12]>" file.html
 >   a regular expression that will grab exactly what you need.
 > - (Optional) Using pipes and commands echo/tr/uniq, find doubled words out of 'My
 >   Do Do list: Find a a Doubled Word'. Any easier way to do it?
-{: .challenge}
+{: .task}
 
 ---
 ---
@@ -960,7 +961,7 @@ rsync -urlptDxv --chmod=Dg+s username@t04n28.pdc.kth.se:/cfs/klemming/nobackup/u
 > - Transfer just created archive using either ``scp`` or ``rsync``.
 > 
 >   - (Optional) Try ssh+tar combo to make transfer and archive on the fly.
-{: .challenge}
+{: .task}
 
 ---
 
@@ -1036,7 +1037,7 @@ background jobs.
 >    bash PID.
 > 
 >    - (optional) get any X Window application (firefox, xterm, etc) to run on Tegner
-{: .challenge}
+{: .task}
 
 
 ---
