@@ -14,8 +14,8 @@ data_dir: ./_data
 # if there is no reservation, set it to NONE
 Cluster: Beskow
 cluster: beskow
-allocation: edu19.DD2365
-reservation: DD2365-2019-04-02
+allocation: edu19.dd2443
+reservation: NONE
 
 # handling reading
 safe: false
