@@ -35,6 +35,7 @@ module names and compiler commands.
 |OpenMPI  | $ module load openmpi       | `mpicc`, `mpicxx`, `mpif90`     |
 |Intel-MPI| $ module load intelmpi      | `mpiicc`, `mpiicpc`, `mpiifort` |
 |CUDA     | $ module load cuda          | `nvcc`                          | 
+|Java     | $ module load jdk           | `javac`                         | 
 
 Before proceeding, let's clean our module environment:
 ```bash
