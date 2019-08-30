@@ -125,6 +125,25 @@ Some typical bash commands for these purposes are:
 > - Use the terminal to copy this file to a new file named *file2.txt*. Check result.
 {: .task}
 
+> ## Text editors
+>
+> There are text editors with a graphical user interface and text editors 
+> that allow you to edit text in the terminal. Some allow both modes of 
+> operation. Choosing the right editor is a matter of taste and preferences. 
+> Since we often spend significant portions of our days editing text and 
+> source code, it can be valuable to invest time into learning your 
+> favourite editor really well.  
+> Here is a list of common editors:
+> - `nano` - easiest to use but with minimal functionality
+> - `vi/vim` - takes some effort to get started, but has more functionality than Nano
+> - `emacs` - takes some effort and learning to get started and offers almost unlimited functionality  
+> 
+> Other alternatives, particularly for Windows:
+> - Visual Studio Code
+> - Atom
+> - Notepad++
+{: .callout}
+
 > ## File and directory names
 >
 >  - Do not use space as separators in names - use underscore instead!
