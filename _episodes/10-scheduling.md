@@ -217,7 +217,7 @@ module add Y
 {% if site.cluster == "tegner" %}
 mpirun -n 48 ./myexe > my_output_file 2>&1
 {% elsif site.cluster == "beskow" %}
-aprun -n 48 ./myexe > my_output_file 2>&1 {% endif %}
+srun -n 32 ./myexe > my_output_file 2>&1 {% endif %}
 ```
 
 - All `#SBATCH` options need to be at the top of the script.
@@ -231,7 +231,7 @@ aprun -n 48 ./myexe > my_output_file 2>&1 {% endif %}
 > Copy-paste the example script above into a file in your Lustre 
 > nobackup directory (`$SNIC_NOBACKUP`) where you compiled the MPI Hello World 
 > code (if you haven't done this already, revisit 
-  [the previous episode](../07-compiling)). Modify it as follows:
+  [the previous episode](../08-compiling)). Modify it as follows:
 > - Use the workshop allocation `{{ site.allocation }}`.
 > - Request only one node (24 cores) and 2 minutes.
 > - Load the modules `gcc/7.2.0` and `openmpi/3.0-gcc-7.2`
