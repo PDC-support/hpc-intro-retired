@@ -1,6 +1,6 @@
 ---
 layout: episode
-title: "Scaling tests and profiling for efficient HPC usage"
+title: "(Optional) Scaling tests and profiling for efficient HPC usage"
 teaching: 10
 exercises: 10
 questions:
