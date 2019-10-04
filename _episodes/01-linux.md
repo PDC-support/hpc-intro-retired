@@ -66,11 +66,11 @@ Set yourself up with a bash shell.
   Just open a terminal window.
 
 - **Windows users:**  
-  You will be working on Tegner right away.
-
-  For Windows10 users we recommend you try the new [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10). 
+  For Windows10 users we recommend you try the new [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10), and [set it up to log in to PDC](https://www.pdc.kth.se/support/documents/login/windows_login.html#wsl-approach). You can use the WSL terminal to follow 
+  this tutorial.
   
-  For other Windows systems, or if you want to go the traditional way follow these instructions to [install PuTTY](https://www.pdc.kth.se/support/documents/login/windows_login.html)
+  For other Windows systems, or if you want to go the traditional way, follow these instructions to [install PuTTY](https://www.pdc.kth.se/support/documents/login/windows_login.html).
+  You will be working on Tegner right away.
 
 ---
 
