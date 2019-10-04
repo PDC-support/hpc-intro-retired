@@ -28,8 +28,8 @@ This material consists of the following parts:
  3. [Processes](#processes)
  4. [File permissions](#file-permissions)
  5. [Hotkeys](#hotkeys)
- 6. [Environmental variables and configuration](#env-config)
- 7. [Exercises](#interactive-usage)
+ 6. [Environmental variables](#envvars)
+ 7. [Configuration](#config)
 
 Exercises marked "optional" are for advanced users who would like further stimulation.
 
@@ -214,8 +214,8 @@ Often you wish to combine commands in different ways to tailor the effect.
 
 > ## Pipelines
 >
-> - Type ``history > hpc_intro.txt`` 
-> - Print the last 4 lines of ``hpc_intro.txt`` using the ``tail`` command
+> - Type ``history > history.txt`` 
+> - Print the last 4 lines of ``history.txt`` using the ``tail`` command
 > - Creating an intermediate file to explore the last 4 lines of output 
 >   from a command is inefficient. We can instead construct a **pipeline**:
 >   ``history | tail -4``
@@ -223,34 +223,160 @@ Often you wish to combine commands in different ways to tailor the effect.
 >   ``cat fileA | tail -10 | head -5 | grep foo``
 {: .task}
 
+---
+
 ### Finding things
+
+#### find
 
 - Where is that file again? Use ``find``
 
-| command | Explanation |
-| ------- | ----------- |
-| `find -name Objname` | looks for ``Objname`` recursively starting from current location | 
-| `find /some/path -name Objname` | looks for ``Objname`` starting from ``/some/path``  |
+With no options, just recursively lists all files starting in current directory:
 
+```bash
+find
+``` 
+
+The first option gives a starting directory:
+
+```bash
+find /etc/
+``` 
+
+Other search options: by modification/accessing time, by ownership, by access
+type, joint conditions, case-insensitive, that do not match, etc. 
+(see [here](https://alvinalexander.com/unix/edu/examples/find.shtml) 
+and [here](http://www.softpanorama.org/Tools/Find/index.shtml)):
+
+```bash
+# search for file.txt in home directory
+find ~ -name file.txt
+# one can search more than one dir at once
+find ~ /cfs/klemming/nobackup/u/username -name file.txt  
+``` 
+
+> ## find on Lustre
+> In your klemming directories it's usually more efficient to use ``lfs find``.  
+> This uses a raw lustre connection to make it more efficient than 
+> accessing every file. It has somewhat limited abilities as comparing
+> to GNU find. For details ``man lfs`` on Tegner.
+{: .callout}
+
+> ## Fast find -- locate
+> Another utility that you may find useful ``locate <pattern>``, but on
+> workstations only.  This uses a cached database of all files, and
+> just searches that database so it is much faster.
+{: .callout}
+
+> ## Advanced `find`
+> Find syntax is actually an entire boolean logic language given on the
+> command line: it is a single expression evaluated left to right with
+> certain precedence.  There are match expressions and action
+> expressions.  Thus, you can get amazingly complex if you want to.
+> Take a look at the 'EXAMPLES' section in `man find` for the comprehensive list
+> of examples and explanations.
+> 
+> **Too many arguments**  error solved with the ``find ... | xargs``
+> 
+> More examples:
+> ```bash
+> # look for jpeg files in the current dir only
+> find . -maxdepth 1 -name '*.jpg' -type f
+> 
+> # find all files of size more than 10M and less than 100M
+> find . -type -f -size +10M -size -100M
+> 
+> # find everything that does not belong to you
+> find ~ ! -user $USER | xargs ls -ld
+> 
+> # open all directories to group members
+> # tip: chmod applies x-bit to directories automatically
+> find . -type d -exec chmod g+rw {} \;
+> 
+> # find all s-bitted executable binaries
+> find /usr/{bin,sbin} -type f -perm -u+x,u+s
+> 
+> # find and remove all files older than 7 days
+> find path/dir -type f -mtime +7 -exec rm -f {} \;
+> ``` 
+{: .challenge}
+
+#### grep
 - In many cases you quickly want to find specific information in files. 
 - Then ``grep`` is your command to use.
 
+```bash
+grep <pattern> <filename>  # grep lines that match <pattern>
+ -or- 
+command | grep <pattern>  # grep lines from stdin
+``` 
 
-| command | Explanation |
-| ------- | ----------- |
-| `grep pattern file`  | grabs all matches of *pattern* in `file` | 
+> ## Advanced `grep`
+> ```bash
+> # search all the files in the dir/ and its subdirs, to match the word 'is', case insensitive
+> grep -R -iw 'is' dir/
+>  
+> # grep all lines from *command* output, except those that have 'comment' in it
+> *command* | grep -v comment
+>  
+> # displaying 2 extra lines before and after the match (-A just after, -B just before)
+> grep -C 2 'search word' file
+>  
+> # counts the number of matches
+> grep -c <pattern> file(s)
+>  
+> # shows only the matched part of the string (by default grep shows whole line)
+> grep -o <pattern> file(s)
+>  
+> # accepts way more advanced regular expressions as a search pattern
+> grep -E <extended_regexpr> file(s)
+> ``` 
+> 
+> For details on what <pattern> could be, look for REGULAR EXPRESSIONS
+> at ``man grep``.  Some examples:
+> 
+> ```bash
+> # grep emails to a list
+> grep -Eio "\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}\b" file.txt
+>  
+> # grep currently running firefox processes
+> ps auxw | grep firefox
+>  
+> # grep H1 and H2 header lines out of HTML file
+> grep "<[Hh][12]>" file.html
+> ``` 
+{: .challenge}
 
 
 > ## Searching for patterns with grep
 >
-> - Type ``grep mkdir paste_dirname_here/hpc_intro.txt``.
+> - Type ``grep mkdir <path>/history.txt``   
+>   (replacing \<path\> as needed)
 {: .task}
 
 > ## Find location of a file
 >
-> - Type ``find . -name hpc_intro.txt``
-> - Type ``find -name hpc_intro.txt``
+> - Type ``find . -name history.txt``
 {: .task}
+
+> ## Exercise: grep and pipelines 
+>
+> - make a pipe that counts number of files/directories (including dot files) in your directory
+> - grep directories out of ``ls -l``
+> - grep all but blank lines in Tegner's file /etc/bashrc
+>
+>   - expand the previous one to filter out commented lines also (line starts with #). Note that
+>     lines may have spaces before # mark.
+>
+> - count unique logged in users on triton. Tip: ``w`` or ``users`` gives you
+>   a list of all currently login users, many of them have several sessions open.
+> - (Optional) Play with the commands grep, cut: find at least two ways to
+>   extract IP addresses only out of /etc/hosts. Tip: `grep` has `-o` option, thus one can build
+>   a regular expression that will grab exactly what you need.
+> - (Optional) Using pipes and commands echo/tr/uniq, find doubled words out of 'My
+>   Do Do list: Find a a Doubled Word'. Any easier way to do it?
+{: .task}
+
 
 > **Take home messages:**  
 >   - Customize the command usage with flags.
@@ -480,8 +606,8 @@ To get file meta info: ``stat <file_or_dir>``
 
 > ## TAB autocompletion
 >
-> - Type ``find /home -name hpc_intro.txt``
-> - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``hpc_intro.txt``.
+> - Type ``find /home -name history.txt``
+> - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``history.txt``.
 {: .task}
 
 
@@ -503,7 +629,7 @@ To get file meta info: ``stat <file_or_dir>``
 
 ---
 
-### Environment variables {#env-config}
+### Environment variables {#envvars}
 To save time, important names are often stored in so called environment variables. To display them we use ``echo``.
 
 
@@ -518,7 +644,8 @@ To save time, important names are often stored in so called environment variable
 These give you further power to customize your session to fit your needs.
 
 
-### Initialization and configuration
+### Initialization and configuration {#config}
+
 Normally, the file containing many of these user defaults is ``.bashrc`` located in $HOME.
 
 > ## Customizing the shell environment with .bashrc
@@ -813,69 +940,9 @@ Try: ``ping -c 1 8.8.8.8 > /dev/null && echo online || echo offline``
 
 ---
 
-### grep
 
-Later on you'll find out that ``grep`` is one of the most useful
-commands you ever discover on Linux (except for all the *other* most
-useful commands ever)
 
-```bash
-grep <pattern> <filename>  # grep lines that match <pattern>
- -or- 
-command | grep <pattern>  # grep lines from stdin
-``` 
 
-```bash
-# search all the files in the dir/ and its subdirs, to match the word 'is', case insensitive
-grep -R -iw 'is' dir/
- 
-# grep all lines from *command* output, except those that have 'comment' in it
-*command* | grep -v comment
- 
-# displaying 2 extra lines before and after the match (-A just after, -B just before)
-grep -C 2 'search word' file
- 
-# counts the number of matches
-grep -c <pattern> file(s)
- 
-# shows only the matched part of the string (by default grep shows whole line)
-grep -o <pattern> file(s)
- 
-# accepts way more advanced regular expressions as a search pattern
-grep -E <extended_regexpr> file(s)
-``` 
-
-For details on what <pattern> could be, look for REGULAR EXPRESSIONS
-at ``man grep``.  Some examples:
-
-```bash
-# grep emails to a list
-grep -Eio "\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}\b" file.txt
- 
-# grep currently running firefox processes
-ps auxw | grep firefox
- 
-# grep H1 and H2 header lines out of HTML file
-grep "<[Hh][12]>" file.html
-``` 
-
-> ## Exercise: grep and pipelines 
->
-> - make a pipe that counts number of files/directories (including dot files) in your directory
-> - grep directories out of ``ls -l``
-> - grep all but blank lines in Tegner's file /etc/bashrc
->
->   - expand the previous one to filter out commented lines also (line starts with #). Note that
->     lines may have spaces before # mark.
->
-> - count unique logged in users on triton. Tip: ``w`` or ``users`` gives you
->   a list of all currently login users, many of them have several sessions open.
-> - (Optional) Play with the commands grep, cut: find at least two ways to
->   extract IP addresses only out of /etc/hosts. Tip: `grep` has `-o` option, thus one can build
->   a regular expression that will grab exactly what you need.
-> - (Optional) Using pipes and commands echo/tr/uniq, find doubled words out of 'My
->   Do Do list: Find a a Doubled Word'. Any easier way to do it?
-{: .task}
 
 ---
 ---
@@ -1029,77 +1096,6 @@ background jobs.
 >    - (optional) get any X Window application (firefox, xterm, etc) to run on Tegner
 {: .task}
 
-
----
----
-
-## Interactive usage - find {#interactive-usage} 
-
-* ``find`` is a very unixy program: it finds files, but in the most
-  flexible way possible.
-* It is a amazingly complicated program.
-* It is number one in searching files in shell.
-
-With no options, just recursively lists all files starting in current directory:
-
-```bash
-find
-``` 
-
-The first option gives a starting directory:
-
-```bash
-find /etc/
-``` 
-
-Other search options: by modification/accessing time, by ownership, by access
-type, joint conditions, case-insensitive, that do not match, etc. 
-(see [here](https://alvinalexander.com/unix/edu/examples/find.shtml) 
-and [here](http://www.softpanorama.org/Tools/Find/index.shtml)):
-
-```bash
-# -or-  'find ~ /cfs/klemming/nobackup/u/username -name file.txt' one can search more than one dir at once
-find ~ -name file.txt
- 
-# look for jpeg files in the current dir only
-find . -maxdepth 1 -name '*.jpg' -type f
-
-# find all files of size more than 10M and less than 100M
-find . -type -f -size +10M -size -100M
-
-# find everything that does not belong to you
-find ~ ! -user $USER | xargs ls -ld
-
-# open all directories to group members
-# tip: chmod applies x-bit to directories automatically
-find . -type d -exec chmod g+rw {} \;
-
-# find all s-bitted executable binaries
-find /usr/{bin,sbin} -type f -perm -u+x,u+s
-
-# find and remove all files older than 7 days
-find path/dir -type f -mtime +7 -exec rm -f {} \;
-``` 
-
-Find syntax is actually an entire boolean logic language given on the
-command line: it is a single expression evaluated left to right with
-certain precedence.  There are match expressions and action
-expressions.  Thus, you can get amazingly complex if you want to.
-Take a look at the 'EXAMPLES' section in `man find` for the comprehensive list
-of examples and explanations.
-
-**find on Lustre:**   
-In your klemming directories it's usually more efficient to use ``lfs find``.  
-This uses a raw lustre connection to make it more efficient than 
-accessing every file. It has somewhat limited abilities as comparing
-to GNU find. For details ``man lfs`` on Tegner.
-
-**Fast find -- locate:**   
-Another utility that you may find useful ``locate <pattern>``, but on
-workstations only.  This uses a cached database of all files, and
-just searches that database so it is much faster.
-
-**Too many arguments**  error solved with the ``find ... | xargs``
 
 ---
 
