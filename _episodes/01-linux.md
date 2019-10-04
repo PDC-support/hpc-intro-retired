@@ -58,7 +58,7 @@ Exercises marked "optional" are for advanced users who would like further stimul
 
 ## Bash basics {#bash-basics}
 
-#### Getting a bash shell
+### Getting a bash shell
 
 Set yourself up with a bash shell. 
 
@@ -74,7 +74,7 @@ Set yourself up with a bash shell.
 
 ---
 
-#### Your very first bash commands 
+### Your very first bash commands 
 
 We are now going to get familiar with the bash shell.  
 We start with two commands.
@@ -98,7 +98,7 @@ We start with two commands.
 
 ---
 
-#### Files and folders
+### Files and folders
 
 When you work you typically want to
 - manipulate files (ascii text, images, raw data etc)
@@ -152,7 +152,7 @@ Some typical bash commands for these purposes are:
 
 ---
 
-#### Relative vs. absolute paths
+### Relative vs. absolute paths
 You can specify a location by its *relative* (to current location) or *absolute* path.
 
 | Relative | Absolute |
@@ -179,7 +179,7 @@ You can specify a location by its *relative* (to current location) or *absolute*
 
 ---
 
-#### Learning some more commands
+### Learning some more commands
 
 
 | command | Explanation |
@@ -208,7 +208,7 @@ You can specify a location by its *relative* (to current location) or *absolute*
 > - What is the meaning of ``">"``?
 {: .task}
 
-#### Combining commands
+### Combining commands
 
 Often you wish to combine commands in different ways to tailor the effect.
 
@@ -223,7 +223,7 @@ Often you wish to combine commands in different ways to tailor the effect.
 >   ``cat fileA | tail -10 | head -5 | grep foo``
 {: .task}
 
-#### Finding things
+### Finding things
 
 - Where is that file again? Use ``find``
 
@@ -296,7 +296,7 @@ As an example, do the following:
 
 ---
 
-#### Foreground and background processes
+### Foreground and background processes
 
 The shell has a concept of *foreground* and *background* processes:
 
@@ -460,7 +460,7 @@ To get file meta info: ``stat <file_or_dir>``
 
 **You should never be  typing full filenames or command names. TAB can complete almost anything**
 
-#### Common hotkeys:
+### Common hotkeys:
 
 | Hotkey | Effect |
 | ------ | ------ |
@@ -505,7 +505,7 @@ To get file meta info: ``stat <file_or_dir>``
 
 ---
 
-#### Environment variables {#environment-variables}
+### Environment variables {#environment-variables}
 To save time, important names are often stored in so called environment variables. To display them we use ``echo``.
 
 
@@ -520,7 +520,7 @@ To save time, important names are often stored in so called environment variable
 These give you further power to customize your session to fit your needs.
 
 
-#### Initialization and configuration
+### Initialization and configuration
 Normally, the file containing many of these user defaults is ``.bashrc`` located in $HOME.
 
 > ## Customizing the shell environment with .bashrc
