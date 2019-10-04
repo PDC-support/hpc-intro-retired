@@ -713,21 +713,6 @@ Commands used so far
 
 ---
 
-| Hotkey | Effect |
-| ------ | ------ |
-| TAB | autocompletion |
-| Home ``or`` Ctrl-a | start of the command line |
-| End ``or`` Ctrl-e | end |
-| up/down arrows | traverse command history |
-| Ctrl-l | clear the screen |
-| Ctrl-Shift-c | copy |
-| Ctrl-Shift-v | paste |
-| Ctrl-r | command history search in reverse order |
-
-NB: we put commands in .inputrc instead for last hotkey!
-
-
----
 ---
 
 # EXERCISES
