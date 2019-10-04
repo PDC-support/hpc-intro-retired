@@ -139,6 +139,8 @@ Some typical bash commands for these purposes are:
 > - Visual Studio Code
 > - Atom
 > - Notepad / Notepad++
+> 
+> As `nano` is the simplest one, it will be used in this tutorial.
 {: .callout}
 
 > ## File and directory names
@@ -194,7 +196,7 @@ You can specify a location by its *relative* (to current location) or *absolute*
 
 - ``ls -l`` is an example of using a command with a *flag*. 
 - These are usually options to customize the command. 
-- Use `man \<command\>` to learn about options for commands you use.
+- Use `man <command>` to learn about options for commands you use.
 
 > ## Redirects, command flags and reading the manual
 > 
@@ -484,10 +486,6 @@ To get file meta info: ``stat <file_or_dir>``
 
 
 ---
----
-# PAUSE 5 min + Log in to Tegner
----
----
 
 > ## Exercise: Looking around on the login node
 >
@@ -496,17 +494,6 @@ To get file meta info: ``stat <file_or_dir>``
 > - Type ``w`` to see which other users are logged in
 > - Type ``last -n 15`` to get a list of the last 15 logins
 {: .task}
-
-#### Command line editor
-To work efficiently on HPC systems, it is usually good to use an editor directly in the terminal.
-
-Some commonly used ones are
-
-- `nano`
-- `vim`
-- `emacs`
-
-As `nano` is the simplest one, we will use this one in this tutorial.
 
 
 > ## getting started with nano
