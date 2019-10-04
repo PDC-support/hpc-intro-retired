@@ -81,23 +81,20 @@ We start with two commands.
 
 | command | Explanation |
 | ------- | ----------- |
-| pwd     | present work directory | 
+| pwd     | print work directory | 
 | ls      | list contents | 
 
 
 > ## Getting started
 >
 > - What do you get if you type ``pwd`` in the terminal?
-> - If you are not on Tegner, open a File Explorer.  
->   Find out the location you are viewing. Compare with output from ``pwd``.
->
-> - Type ``ls`` in the terminal. Compare with the items you see in the File Explorer.
+> - What do you get if you type ``ls`` in the terminal?
 {: .task}
 
+
 > **Take home messages:**  
->   - Bash shell is a text based tool to interact with the computer.
+>   - Bash shell is a text command based tool to interact with the computer.
 >   - You are always in the directory (folder) given by ``pwd``.
->   - Working in the shell can be highly efficient.
 
 ---
 
