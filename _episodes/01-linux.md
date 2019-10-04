@@ -469,9 +469,16 @@ To get file meta info: ``stat <file_or_dir>``
 | End ``or`` Ctrl-e | end |
 | up/down arrows | traverse command history |
 | Ctrl-l | clear the screen |
+| Ctrl-Shift- -  | undo the last changes on cli |
 | Ctrl-Shift-c | copy |
 | Ctrl-Shift-v | paste |
-| Ctrl-r | command history search in reverse order |
+| Alt-r | undo all changes made to this line |
+| Ctrl-r | command history search: backward (hit Ctrl-r, then start typing the search word, hit Ctrl-r again to go through commands that have the search word in it) |
+| Ctrl-s  | search command history furtherword (for this to work one needs to disable default suspend keys ``stty -ixon``) |
+| Ctrl-u  | remove beginning of the line, from cursor |
+| Ctrl-k | remove end of the line, from cursor |
+| Ctrl-w | remove previous word |
+
 
 > ## TAB autocompletion
 >
@@ -661,7 +668,7 @@ For the quotation:
 
 ---
 
-# gnu screen   
+# GNU Screen   
 
 
 ### Exiting the shell, and the [GNU screen](https://www.gnu.org/software/screen/) utility
@@ -1097,20 +1104,6 @@ just searches that database so it is much faster.
 **Too many arguments**  error solved with the ``find ... | xargs``
 
 ---
-
-### How to make things faster: hotkeys and other tips
-
-Previously not listed commands
-
-| Hotkey | Effect |
-| ------ | ------ |
-| Ctrl-Shift- -  | undo the last changes on cli |
-| Alt-r | undo all changes made to this line |
-| Ctrl-r | command history search: backward (hit Ctrl-r, then start typing the search word, hit Ctrl-r again to go through commands that have the search word in it) |
-| Ctrl-s  | search command history furtherword (for this to work one needs to disable default suspend keys ``stty -ixon``) |
-| Ctrl-u  | remove beginning of the line, from cursor |
-| Ctrl-k | remove end of the line, from cursor |
-| Ctrl-w | remove previous word |
 
 **CDPATH:**  
 Helps changing directories faster. When you type ``cd dirname``, the shell tries to go
