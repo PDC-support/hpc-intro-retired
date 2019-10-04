@@ -230,14 +230,7 @@ Often you wish to combine commands in different ways to tailor the effect.
 | command | Explanation |
 | ------- | ----------- |
 | find -name Objname | looks for ``Objname`` recursively starting from current location | 
-| find /home -name Objname | looks for ``Objname`` starting from ``/home``  |
-
-> ## Find location of a file
->
-> - Type ``find /home -name hpc_intro.txt``
-> - Type ``find -name hpc_intro.txt``
-{: .task}
-
+| find /some/path -name Objname | looks for ``Objname`` starting from ``/some/path``  |
 
 - In many cases you quickly want to find specific information in files. 
 - Then ``grep`` is your command to use.
@@ -253,6 +246,11 @@ Often you wish to combine commands in different ways to tailor the effect.
 > - Type ``grep mkdir paste_dirname_here/hpc_intro.txt``.
 {: .task}
 
+> ## Find location of a file
+>
+> - Type ``find . -name hpc_intro.txt``
+> - Type ``find -name hpc_intro.txt``
+{: .task}
 
 > **Take home messages:**  
 >   - Customize the command usage with flags.
@@ -505,7 +503,7 @@ To get file meta info: ``stat <file_or_dir>``
 
 ---
 
-### Environment variables {#environment-variables}
+### Environment variables {#env-config}
 To save time, important names are often stored in so called environment variables. To display them we use ``echo``.
 
 
