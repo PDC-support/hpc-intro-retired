@@ -108,18 +108,18 @@ Some typical bash commands for these purposes are:
 
 | command | Explanation |
 | ------- | ----------- |
-| cd myproject | change directory to *myproject* |
-| mkdir newdir  | create a new directory called *newdir* |
-| cp file1.dat file2.dat | make a copy of *file1.dat* called *file2.dat* |
-| mv file1.dat newdir/file2.dat | move *file1.dat* into *newdir* and rename it *file2.dat* |
+| `cd myproject` | change directory to `myproject` |
+| `mkdir newdir`  | create a new directory called `newdir` |
+| `cp file1.dat file2.dat` | make a copy of `file1.dat` called `file2.dat` |
+| `mv file1.dat newdir/file2.dat` | move `file1.dat` into `newdir` and rename it `file2.dat` |
 
 
 > ## Copying files and moving between folders
 >
-> - Create a directory called *example_hpc*. Verify that it was created.
-> - Move into *example_hpc*. Obtain the name of the current location. Check contents.
-> - Start a text editor in your usual way. Create a new text file named *file1.txt* and save it inside the folder *example_hpc*.
-> - Use the terminal to copy this file to a new file named *file2.txt*. Check result.
+> - Create a directory called `example_hpc`. Verify that it was created.
+> - Move into `example_hpc`. Obtain the name of the current location. Check contents.
+> - Start a text editor in your usual way. Create a new text file named `file1.txt` and save it inside the folder `example_hpc`.
+> - Use the terminal to copy this file to a new file named `file2.txt`. Check result.
 {: .task}
 
 > ## Text editors
@@ -194,7 +194,7 @@ You can specify a location by its *relative* (to current location) or *absolute*
 
 - ``ls -l`` is an example of using a command with a *flag*. 
 - These are usually options to customize the command. 
-- Use *man \<command\>* to learn about options for commands you use.
+- Use `man \<command\>` to learn about options for commands you use.
 
 > ## Redirects, command flags and reading the manual
 > 
@@ -243,7 +243,7 @@ Often you wish to combine commands in different ways to tailor the effect.
 
 | command | Explanation |
 | ------- | ----------- |
-| grep pattern file  | grabs all matches of *pattern* in *file* | 
+| grep pattern file  | grabs all matches of *pattern* in `file` | 
 
 
 > ## Searching for patterns with grep
@@ -332,9 +332,9 @@ drwx------ 2 tkl tkl 4096 feb  1 13:53 private_folder
 drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 ```
 
-- First character is specific for type of object. *d* is for directory.
+- First character is specific for type of object. `d` is for directory.
 
-- Next we have three triplets:  *user*, *group*, and *others*.
+- Next we have three triplets:  `user`, `group`, and `others`.
 
 
 | command | Explanation |
@@ -372,7 +372,7 @@ chown -R greys <file or directory>
 > ## Exercise: File permission
 >
 >  - Create a textfile with some random word in your Public folder.
->  - Remove all access for *groups* and *others*, and ask a friend to read it.
+>  - Remove all access for `groups` and `others`, and ask a friend to read it.
 >  - Add read permission so that your friend can read the file.
 >
 {: .task}
@@ -438,7 +438,7 @@ To get file meta info: ``stat <file_or_dir>``
 > - (Optional) Change that directory group ownership with ``chown`` or 
 >   ``chgrp`` (any group that you belong to is fine), set s-bit for the 
 >   group and apply t-bit to a directory, check that the upper directory 
->   has *o+x* bit set: now you should have a private working space for 
+>   has `o+x` bit set: now you should have a private working space for 
 >   your group. Tip: see groups that you are a member of using ``id -Gn``
 > - (Optional) Create a directory and a subdirectory in it and set their 
 >   permissions to 700 with one command.
@@ -502,11 +502,11 @@ To work efficiently on HPC systems, it is usually good to use an editor directly
 
 Some commonly used ones are
 
-- *nano*
-- *vim*
-- *emacs*
+- `nano`
+- `vim`
+- `emacs`
 
-As *nano* is the simplest one, we will use this one in this tutorial.
+As `nano` is the simplest one, we will use this one in this tutorial.
 
 
 > ## getting started with nano
@@ -573,10 +573,10 @@ Commands used so far
 | ------- | ----------- |
 | pwd     | present work directory | 
 | ls      | list contents |
-| cd example_hpc | change directory to *example_hpc* |
-| mkdir new_dir  | create a new directory called *new_dir* |
-| cp file1 file2 | make a copy of *file1* called *file2* |
-| mv file1 new_dir/file2 | move *file1* into *new_folder* and call that *file2* |
+| cd example_hpc | change directory to `example_hpc` |
+| mkdir new_dir  | create a new directory called `new_dir` |
+| cp file1 file2 | make a copy of `file1` called `file2` |
+| mv file1 new_dir/file2 | move `file1` into `new_folder` and call that `file2` |
 | cd example_hpc | cd /home/tkl/example_hpc |
 | cd ..      | cd /home/tkl/ |
 | cd ../..   | cd /home/ |
@@ -589,7 +589,7 @@ Commands used so far
 | tail file | prints last lines of file to stdout.              |
 | find -name Objname | looks for ``Objname`` recursively starting from current location | 
 | find /home -name Objname | looks for ``Objname`` starting from ``/home``  |
-| grep pattern file  | grabs all matches of *pattern* in *file* |
+| grep pattern file  | grabs all matches of `pattern` in `file` |
 | chmod u+rwx fileA  | add **r**ead, **w**rite and e**x**ecution rights of fileA to **u**ser |
 | chmod o+r  fileA   | add **r**ead permission of fileA to **o**thers |
 | chmod o-wx fileA   | remove **w**rite and e**x**ecution rights of fileA for **o**thers |
@@ -776,7 +776,7 @@ connect, and resume right where they left off.
 > You might find some inspiration [here](https://www.maketecheasier.com/8-useful-and-interesting-bash-prompts/)
 >
 > For special characters see PROMPTING at ``man bash``.  
-> If you want to save something permanently, add to *.bashrc* like ``export PS1``. But save the old ``PS1`` so that you can recover it if necessary!
+> If you want to save something permanently, add to `.bashrc` like ``export PS1``. But save the old ``PS1`` so that you can recover it if necessary!
 >
 {: .task}
 
@@ -897,7 +897,7 @@ grep "<[Hh][12]>" file.html
 > - count unique logged in users on triton. Tip: ``w`` or ``users`` gives you
 >   a list of all currently login users, many of them have several sessions open.
 > - (Optional) Play with the commands grep, cut: find at least two ways to
->   extract IP addresses only out of /etc/hosts. Tip: *grep* has *-o* option, thus one can build
+>   extract IP addresses only out of /etc/hosts. Tip: `grep` has `-o` option, thus one can build
 >   a regular expression that will grab exactly what you need.
 > - (Optional) Using pipes and commands echo/tr/uniq, find doubled words out of 'My
 >   Do Do list: Find a a Doubled Word'. Any easier way to do it?
@@ -911,7 +911,7 @@ grep "<[Hh][12]>" file.html
 
 ``tar`` is the de-facto standard tool for saving many files or
 directories into a single archive file.  
-Archive files may have extenssions *.tar*, *.tar.gz* etc depending on compression.
+Archive files may have extenssions `.tar`, `.tar.gz` etc depending on compression.
 
 ```bash
 # create tar archive gzipped on the way
@@ -921,14 +921,14 @@ tar -caf arhive_name.tar.gz directory_to_be_archived/
 tar -xaf archive_name.tar.gz -C path/to/directory
 ``` 
 
-- *f* is for the filename
-- *a* selects the compression method based on the archive file suffix (in
+- `f` is for the filename
+- `a` selects the compression method based on the archive file suffix (in
   this example gzip, due to the .gz suffix. 
 - Without compression files/directories are simply packed as is. 
 
 Other command line options: 
-- *r* - append files to the end of an archive.
-- *t* - list archive content.
+- `r` - append files to the end of an archive.
+- `t` - list archive content.
 
 
 ```bash
@@ -1035,8 +1035,8 @@ background jobs.
 
 > ## Exercise: Processes
 > 
->  - Find out with *man* how to use *top* / *pstree* / *ps* to list all the running processes that belong to you.  
->    Tip: *top* has both command line options and hotkeys.
+>  - Find out with `man` how to use `top` / `pstree` / `ps` to list all the running processes that belong to you.  
+>    Tip: `top` has both command line options and hotkeys.
 > 
 >    - (optional) see ``man ps`` and find out how to list a processes tree with ps, both
 >      all processes and only your own (but all your processes, associated with all terminals)
@@ -1111,7 +1111,7 @@ Find syntax is actually an entire boolean logic language given on the
 command line: it is a single expression evaluated left to right with
 certain precedence.  There are match expressions and action
 expressions.  Thus, you can get amazingly complex if you want to.
-Take a look at the 'EXAMPLES' section in *man find* for the comprehensive list
+Take a look at the 'EXAMPLES' section in `man find` for the comprehensive list
 of examples and explanations.
 
 **find on Lustre:**   
