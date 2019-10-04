@@ -108,10 +108,10 @@ Some typical bash commands for these purposes are:
 
 | command | Explanation |
 | ------- | ----------- |
-| cd example_hpc | change directory to *example_hpc* |
-| mkdir new_dir  | create a new directory called *new_dir* |
-| cp file1 file2 | make a copy of *file1* called *file2* |
-| mv file1 new_dir/file2 | move *file1* into *new_folder* and call that *file2* |
+| cd myproject | change directory to *myproject* |
+| mkdir newdir  | create a new directory called *newdir* |
+| cp file1.dat file2.dat | make a copy of *file1.dat* called *file2.dat* |
+| mv file1.dat newdir/file2.dat | move *file1.dat* into *newdir* and rename it *file2.dat* |
 
 
 > ## Copying files and moving between folders
@@ -138,7 +138,7 @@ Some typical bash commands for these purposes are:
 > Other alternatives, particularly for Windows:
 > - Visual Studio Code
 > - Atom
-> - Notepad++
+> - Notepad / Notepad++
 {: .callout}
 
 > ## File and directory names
