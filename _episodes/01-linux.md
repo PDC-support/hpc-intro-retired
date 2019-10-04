@@ -81,8 +81,8 @@ We start with two commands.
 
 | command | Explanation |
 | ------- | ----------- |
-| pwd     | print work directory | 
-| ls      | list contents | 
+| `pwd`     | print work directory | 
+| `ls`      | list contents | 
 
 
 > ## Getting started
@@ -184,14 +184,14 @@ You can specify a location by its *relative* (to current location) or *absolute*
 
 | command | Explanation |
 | ------- | ----------- |
-| man ls    | prints manual on the command ls (just an example) | 
-| rm file1  | remove file1 (careful! no return in general)      |
-| ls -l     | list files in long format                         |
-| history   | prints the command line history in order.         |
-| cat file  | prints all contents of file to stdout.            |
-| head file | prints first lines of file to stdout.             |
-| tail file | prints last lines of file to stdout.              |
-| echo something | prints from command line to stdout. |
+| `man ls`    | prints manual on the command ls (just an example) | 
+| `rm file1`  | remove file1 (careful! no return in general)      |
+| `ls -l`     | list files in long format                         |
+| `history`   | prints the command line history in order.         |
+| `cat file`  | prints all contents of file to stdout.            |
+| `head file` | prints first lines of file to stdout.             |
+| `tail file` | prints last lines of file to stdout.              |
+| `echo something` | prints from command line to stdout. |
 
 
 - ``ls -l`` is an example of using a command with a *flag*. 
@@ -229,8 +229,8 @@ Often you wish to combine commands in different ways to tailor the effect.
 
 | command | Explanation |
 | ------- | ----------- |
-| find -name Objname | looks for ``Objname`` recursively starting from current location | 
-| find /some/path -name Objname | looks for ``Objname`` starting from ``/some/path``  |
+| `find -name Objname` | looks for ``Objname`` recursively starting from current location | 
+| `find /some/path -name Objname` | looks for ``Objname`` starting from ``/some/path``  |
 
 - In many cases you quickly want to find specific information in files. 
 - Then ``grep`` is your command to use.
@@ -238,7 +238,7 @@ Often you wish to combine commands in different ways to tailor the effect.
 
 | command | Explanation |
 | ------- | ----------- |
-| grep pattern file  | grabs all matches of *pattern* in `file` | 
+| `grep pattern file`  | grabs all matches of *pattern* in `file` | 
 
 
 > ## Searching for patterns with grep
@@ -339,9 +339,9 @@ drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
 
 | command | Explanation |
 | ------- | ----------- |
-| chmod u+rwx fileA  | add **r**ead, **w**rite and e**x**ecution rights of fileA to **u**ser |
-| chmod o+r  fileA   | add **r**ead permission of fileA to **o**thers |
-| chmod o-wx fileA   | remove **w**rite and e**x**ecution rights of fileA for **o**thers | 
+| `chmod u+rwx fileA`  | add **r**ead, **w**rite and e**x**ecution rights of fileA to **u**ser |
+| `chmod o+r  fileA`   | add **r**ead permission of fileA to **o**thers |
+| `chmod o-wx fileA`   | remove **w**rite and e**x**ecution rights of fileA for **o**thers | 
 
 You may also have seen commands using numbers, e.g. ``chmod 644 fileA``.
 The logic behind this is: r=4, w=2, x=1. Thus, 
@@ -556,33 +556,33 @@ Commands used so far
 
 | command | Explanation |
 | ------- | ----------- |
-| pwd     | present work directory | 
-| ls      | list contents |
-| cd example_hpc | change directory to `example_hpc` |
-| mkdir new_dir  | create a new directory called `new_dir` |
-| cp file1 file2 | make a copy of `file1` called `file2` |
-| mv file1 new_dir/file2 | move `file1` into `new_folder` and call that `file2` |
-| cd example_hpc | cd /home/tkl/example_hpc |
-| cd ..      | cd /home/tkl/ |
-| cd ../..   | cd /home/ |
-| man ls    | prints manual on the command ls (just an example) | 
-| rm file1  | remove file1 (careful! no return in general)      |
-| ls -l     | list files in long format                         |
-| history   | prints the command line history in order.         |
-| cat file  | prints all contents of file to stdout.            |
-| head file | prints first lines of file to stdout.             |
-| tail file | prints last lines of file to stdout.              |
-| find -name Objname | looks for ``Objname`` recursively starting from current location | 
-| find /home -name Objname | looks for ``Objname`` starting from ``/home``  |
-| grep pattern file  | grabs all matches of `pattern` in `file` |
-| chmod u+rwx fileA  | add **r**ead, **w**rite and e**x**ecution rights of fileA to **u**ser |
-| chmod o+r  fileA   | add **r**ead permission of fileA to **o**thers |
-| chmod o-wx fileA   | remove **w**rite and e**x**ecution rights of fileA for **o**thers |
-| echo $HOSTNAME     | displays the string stored in environmental variable HOSTNAME
-| source .bashrc     | loads the file .bashrc that contains envinromental variables |
-| bind -f .inputrc   | binds the keys - this is different from ``source``|
-| w	 	     | list which users are logged in |
-| last -n 10	     | list the lastest 10 logins |
+| `pwd`     | present work directory | 
+| `ls`      | list contents |
+| `cd example_hpc` | change directory to `example_hpc` |
+| `mkdir new_dir`  | create a new directory called `new_dir` |
+| `cp file1 file2` | make a copy of `file1` called `file2` |
+| `mv file1 new_dir/file2` | move `file1` into `new_folder` and call that `file2` |
+| `cd example_hpc` | cd /home/tkl/example_hpc |
+| `cd ..`      | cd /home/tkl/ |
+| `cd ../..`   | cd /home/ |
+| `man ls`    | prints manual on the command ls (just an example) | 
+| `rm file1`  | remove file1 (careful! no return in general)      |
+| `ls -l`     | list files in long format                         |
+| `history`   | prints the command line history in order.         |
+| `cat file`  | prints all contents of file to stdout.            |
+| `head file` | prints first lines of file to stdout.             |
+| `tail file` | prints last lines of file to stdout.              |
+| `find -name Objname` | looks for ``Objname`` recursively starting from current location | 
+| `find /home -name Objname` | looks for ``Objname`` starting from ``/home``  |
+| `grep pattern file`  | grabs all matches of `pattern` in `file` |
+| `chmod u+rwx fileA`  | add **r**ead, **w**rite and e**x**ecution rights of fileA to **u**ser |
+| `chmod o+r  fileA`   | add **r**ead permission of fileA to **o**thers |
+| `chmod o-wx fileA`   | remove **w**rite and e**x**ecution rights of fileA for **o**thers |
+| `echo $HOSTNAME`     | displays the string stored in environmental variable HOSTNAME
+| `source .bashrc`     | loads the file .bashrc that contains envinromental variables |
+| `bind -f .inputrc`   | binds the keys - this is different from ``source``|
+| `w`	 	     | list which users are logged in |
+| `last -n 10`	     | list the lastest 10 logins |
 
 ---
 
@@ -688,23 +688,23 @@ With `screen`, you can:
 
 | command | Explanation |
 | ------- | ----------- |
-| screen | start a session | 
-| screen -S [name] | start a named session |
-| screen -ls | list running sessions |
-| screen -x | attach to a running session |
-| screen -r [name] | attach to session with [name] |
+| `screen` | start a session | 
+| `screen -S [name]` | start a named session |
+| `screen -ls` | list running sessions |
+| `screen -x` | attach to a running session |
+| `screen -r [name]` | attach to session with [name] |
 
 The `screen` commands inside a screen session are prefixed by an 
 escape key, by default `Ctrl-a` (`C-a`): 
 
 | `screen` command | Explanation |
 | ---------------- | ----------- |
-| C-a d | detach from session |
-| exit (C-d) | kill the window/session |
-| C-a c | create new window |
-| C-a C-a | change to last-visited window |
-| C-a <number> | change to window by number |
-| C-a " | see window list (and select) |
+| `C-a d` | detach from session |
+| `exit (C-d)` | kill the window/session |
+| `C-a c` | create new window |
+| `C-a C-a` | change to last-visited window |
+| `C-a <number>` | change to window by number |
+| `C-a "` | see window list (and select) |
 
 > ## Exercise: Trying out screen
 >
