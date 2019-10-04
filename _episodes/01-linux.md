@@ -496,13 +496,6 @@ To get file meta info: ``stat <file_or_dir>``
 {: .task}
 
 
-> ## getting started with nano
->
-> - Type ``nano``. Then write some text.
-> - Try to find out how to save the file.
-> - Exit the editor
-{: .task}
-
 ---
 
 #### Environment variables {#environment-variables}
