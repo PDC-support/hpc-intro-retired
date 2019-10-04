@@ -659,17 +659,6 @@ For the quotation:
 > - What happens if you remove the symbolic link?
 {: .task}
 
-> ## Exercise: ``touch``
->
-> - What does ``touch hej.txt`` do?
-> - What does ``touch hej.txt`` do if the file already exists?
-> - Can you think of ways to use this?
->
-{: .task}
----
-
-
----
 ---
 
 # gnu screen   
