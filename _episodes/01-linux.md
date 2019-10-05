@@ -839,27 +839,6 @@ Commands used so far
 
 ---
 
-> ## Exercise: Multiple files at the same time
->
-> - Copy the directory ``/afs/pdc.kth.se/home/t/torkj/Public/tutorial`` to your home.
-> - Type ``ls prop*`` inside ``tutorial``
-> - Try other commans such as ``head, tail, cat`` in the same way
-> - Copy all data files into a single file in one command. Do not get anything else besidesdata.
-> - As above, but also get the directory names.
-> - *Optional:* As above, but get the data sorted along first column.
->
-{: .task}
-
-> ## Exercise: Symbolic links
->
-> Often you want quick acces to files without actually copying them. A typical scenario is heavy data files or files that should be shared by many people.
-> - Go to your home
-> - Type ``ln -s tutorial/prop_E096-99/Bound_population.dat E096-99_data.dat``
-> - What happens if you remove the symbolic link?
-{: .task}
-
----
-
 # GNU Screen   
 
 
