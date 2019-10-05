@@ -839,74 +839,6 @@ Commands used so far
 
 ---
 
-# GNU Screen   
-
-
-### Exiting the shell, and the [GNU screen](https://www.gnu.org/software/screen/) utility
-
-To exit the shell, type `logout` or press Ctrl-d.
-
-However, quitting your shell can be annoying if you have customized 
-your environment and would need to start over when reopening the shell.
-Luckily there are programs to preserve your session, such as `screen`
-
-With `screen`, you can:
- - Manage persistent terminal sessions, which survive if connection is abruptly cut.
- - Save screen processes when logging out and resume where you left off, 
- - Have multiple windows connected to the same terminal session.
- - Copy and paste (including block-copy) between different 
-   screens without mouse.
-
-**Screen commands short list**
-
-| command | Explanation |
-| ------- | ----------- |
-| `screen` | start a session | 
-| `screen -S [name]` | start a named session |
-| `screen -ls` | list running sessions |
-| `screen -x` | attach to a running session |
-| `screen -r [name]` | attach to session with [name] |
-
-The `screen` commands inside a screen session are prefixed by an 
-escape key, by default `Ctrl-a` (`C-a`): 
-
-| `screen` command | Explanation |
-| ---------------- | ----------- |
-| `C-a d` | detach from session |
-| `exit (C-d)` | kill the window/session |
-| `C-a c` | create new window |
-| `C-a C-a` | change to last-visited window |
-| `C-a <number>` | change to window by number |
-| `C-a "` | see window list (and select) |
-
-> ## Exercise: Trying out screen
->
-> The `screen` window manager can be really useful to preserve the state
-> of a terminal session. Try the following steps:
-> - Log in to Tegner, load a couple of random modules and export some 
->   random environment variables (e.g., `export foo=bar`).
-> - Imagine that you need to catch the bus, but that you don't want to lose 
->   your environment. Start a screen session with `screen`.
-> - Detach from your screen session with `Ctrl-a d`, and log out from Tegner.
-> - Imagine that a day has passed, and log back in to Tegner.
-> - List all screen sessions. Reattach to "yesterday's" screen session, 
->   and check that the environment is the same as when you left it.
-> - If you have time, try playing around with screen some more, 
->   using the commands listed above or by finding inspiration from 
->   [online](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/)
->   [tutorials](https://kb.iu.edu/d/acuy).
-{: .task}
-
-Some people have their ``screen`` open forever, which just keeps
-running and never gets closed.  Wherever they are, they ssh in,
-connect, and resume right where they left off.
-
-#### [tmux](https://github.com/tmux/tmux/wiki) 
-- [tmux](https://github.com/tmux/tmux/wiki) is similar to screen 
-   with some minor pros and cons, try it out to see which one you like better!
-  
----
-
 ## File archiving 
 
 
@@ -981,6 +913,75 @@ rsync -urlptDxv --chmod=Dg+s username@t04n28.pdc.kth.se:/cfs/klemming/nobackup/u
 {: .task}
 
 ---
+
+# GNU Screen   
+
+
+### Exiting the shell, and the [GNU screen](https://www.gnu.org/software/screen/) utility
+
+To exit the shell, type `logout` or press Ctrl-d.
+
+However, quitting your shell can be annoying if you have customized 
+your environment and would need to start over when reopening the shell.
+Luckily there are programs to preserve your session, such as `screen`
+
+With `screen`, you can:
+ - Manage persistent terminal sessions, which survive if connection is abruptly cut.
+ - Save screen processes when logging out and resume where you left off, 
+ - Have multiple windows connected to the same terminal session.
+ - Copy and paste (including block-copy) between different 
+   screens without mouse.
+
+**Screen commands short list**
+
+| command | Explanation |
+| ------- | ----------- |
+| `screen` | start a session | 
+| `screen -S [name]` | start a named session |
+| `screen -ls` | list running sessions |
+| `screen -x` | attach to a running session |
+| `screen -r [name]` | attach to session with [name] |
+
+The `screen` commands inside a screen session are prefixed by an 
+escape key, by default `Ctrl-a` (`C-a`): 
+
+| `screen` command | Explanation |
+| ---------------- | ----------- |
+| `C-a d` | detach from session |
+| `exit (C-d)` | kill the window/session |
+| `C-a c` | create new window |
+| `C-a C-a` | change to last-visited window |
+| `C-a <number>` | change to window by number |
+| `C-a "` | see window list (and select) |
+
+> ## Exercise: Trying out screen
+>
+> The `screen` window manager can be really useful to preserve the state
+> of a terminal session. Try the following steps:
+> - Log in to Tegner, load a couple of random modules and export some 
+>   random environment variables (e.g., `export foo=bar`).
+> - Imagine that you need to catch the bus, but that you don't want to lose 
+>   your environment. Start a screen session with `screen`.
+> - Detach from your screen session with `Ctrl-a d`, and log out from Tegner.
+> - Imagine that a day has passed, and log back in to Tegner.
+> - List all screen sessions. Reattach to "yesterday's" screen session, 
+>   and check that the environment is the same as when you left it.
+> - If you have time, try playing around with screen some more, 
+>   using the commands listed above or by finding inspiration from 
+>   [online](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/)
+>   [tutorials](https://kb.iu.edu/d/acuy).
+{: .task}
+
+Some people have their ``screen`` open forever, which just keeps
+running and never gets closed.  Wherever they are, they ssh in,
+connect, and resume right where they left off.
+
+#### [tmux](https://github.com/tmux/tmux/wiki) 
+- [tmux](https://github.com/tmux/tmux/wiki) is similar to screen 
+   with some minor pros and cons, try it out to see which one you like better!
+  
+---
+
 
 
 
