@@ -508,10 +508,43 @@ To kill a foreground process: Ctrl-c
 
 **background**
 
-On the contrary, a *background* process does not have any input connected. You can have as many of these as your resources permit. Normally, you need an & after the command to put the process in the background.
+On the contrary, a *background* process does not have any input connected. You can have as many of these as your resources permit. 
+
+If you add ``&`` right after the command it will send the process to background. 
 
 To kill a background process: ``kill`` or ``pkill``, possible also from within ``top``.
 
+If you have a process already running, you can send it to background 
+with Ctrl-z and then
+``bg``. 
+- Drawback: no easy way to redirect the running task
+  output, so if it generates output it covers your screen.
+
+List the jobs running in the background with ``jobs``, get a job back
+online with  ``fg`` or ``fg <job_number>``. There can be multiple
+background jobs.
+
+> ## Exercise: Processes
+> 
+>  - Find out with `man` how to use `top` / `pstree` / `ps` to list all the running processes that belong to you.  
+>    Tip: `top` has both command line options and hotkeys.
+> 
+>    - (optional) see ``man ps`` and find out how to list a processes tree with ps, both
+>      all processes and only your own (but all your processes, associated with all terminals)
+> 
+>  - With pgrep list all bash and then zsh sessions on Tegner.
+>  - Log in to Tegner and run ``man ps``, send it to background, and ``logout``, then
+>    log in again. Is it still there? Play with the ``screen``, run a session, 
+>    then detach it and log out, then log in back and get 
+>    your original screen session back.
+>  - Run ``man htop``, send it to backround, and then kill it with ``kill``. Tip: one can
+>    do it by background job number or by PID.
+>  - Imagine a use case: your current ssh session got stuck and does not response. Open another
+>    ssh session to the same remote host and kill the first one. Tip: ``echo $$`` gives you current
+>    bash PID.
+> 
+>    - (optional) get any X Window application (firefox, xterm, etc) to run on Tegner
+{: .task}
 
 ---
 
@@ -1052,76 +1085,7 @@ rsync -urlptDxv --chmod=Dg+s username@t04n28.pdc.kth.se:/cfs/klemming/nobackup/u
 
 
 
-### (Optional) Working with processes
 
-All processes are related, a command executed in shell is a child process of
-the shell. When a child process is terminated it is reported back to parent process.
-When you log out, all shell child processes are terminated along with the
-shell.  You can see the whole family tree with ``ps af``.
-One can kill a process or make it "nicer".
-
-```bash
-pgrep -af <name>
-kill <PID>
-pkill <name>
-renice #priority <PID>
-```
-
-Making process "nicer", ``renice 19 <PID>``, means it will run only when nothing
-else in the system wants to.
-User can increase nice value from 0 (the base priority) up to 19. It is 
-useful when you backup your data in background or alike.
-
-
-
-**Hint:** For running X Window apps while you logged in from other
-Linux / MacOS make sure you use ``ssh -X ...`` to log in. For Windows users,
-you need to install [Xming](http://www.straightrunning.com/XmingNotes/).
-
-**Hint:** For immediate job-state change notifications, use ``set notify``. To automatically
-stop background processes if they try writing to the screen ``stty tostop``
-
-
-
-If you add ``&`` right after the command it will send the process to
-background. 
-- Example: ``firefox --no-remote &`` (same can be done with
-  any terminal command/function, like ``man pstree &``).  
-- The ``&`` serves the same role as ``;`` to separate commands,
-  but backgrounds the first and goes straight to the next.
-
-If you have a process already running, you can send it to background 
-with Ctrl-z and then
-``bg``. 
-- Drawback: no easy way to redirect the running task
-  output, so if it generates output it covers your screen.
-
-List the jobs running in the background with ``jobs``, get a job back
-online with  ``fg`` or ``fg <job_number>``. There can be multiple
-background jobs.
-
-
-> ## Exercise: Processes
-> 
->  - Find out with `man` how to use `top` / `pstree` / `ps` to list all the running processes that belong to you.  
->    Tip: `top` has both command line options and hotkeys.
-> 
->    - (optional) see ``man ps`` and find out how to list a processes tree with ps, both
->      all processes and only your own (but all your processes, associated with all terminals)
-> 
->  - With pgrep list all bash and then zsh sessions on Tegner.
->  - Log in to Tegner and run ``man ps``, send it to background, and ``logout``, then
->    log in again. Is it still there? Play with the ``screen``, run a session, 
->    then detach it and log out, then log in back and get 
->    your original screen session back.
->  - Run ``man htop``, send it to backround, and then kill it with ``kill``. Tip: one can
->    do it by background job number or by PID.
->  - Imagine a use case: your current ssh session got stuck and does not response. Open another
->    ssh session to the same remote host and kill the first one. Tip: ``echo $$`` gives you current
->    bash PID.
-> 
->    - (optional) get any X Window application (firefox, xterm, etc) to run on Tegner
-{: .task}
 
 
 ---
