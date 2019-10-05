@@ -165,15 +165,14 @@ You can specify a location by its *relative* (to current location) or *absolute*
 > **Take home message:**  
 >   - Absolute paths always work but relative paths are more convenient.
 
-> ## File managers
-> 
-> On Beskow and Tegner we have installed GNU Midnight Commander 
-> which is a free cross-platform orthodox file manager. To use it, do:
-> ```bash
-> $ module load midnightcommander
-> $ mc
-> ```
-{: .callout}
+### File managers
+ 
+On Beskow and Tegner we have installed GNU Midnight Commander 
+which is a free cross-platform orthodox file manager. To use it, do:
+```bash
+$ module load midnightcommander
+$ mc
+```
 
 
 
@@ -201,10 +200,10 @@ You can specify a location by its *relative* (to current location) or *absolute*
 > ## Redirects, command flags and reading the manual
 > 
 > - Type ``history``
-> - Type ``history > tmp_file.txt``. 
-> - Type ``ls -l`` and then check time stamp of ``tmp_file.txt``
+> - Type ``history > history.txt``. 
+> - Type ``ls -l`` and then check time stamp of ``history.txt``
 > - Use ``cat`` to print all contents of this file. 
-> - Read the manual of ``tail`` and find how you can print the last 4 lines of a file (type forward-slash **/** to search the man-page)
+> - Read the manual of ``tail`` and find how you can print the last 4 lines of a file (type forward-slash **/** to search the man-page, and `q` to exit)
 > - What is the meaning of ``">"``?
 {: .task}
 
