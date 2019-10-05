@@ -804,43 +804,7 @@ These give you further power to customize your session to fit your needs.
 
 ---
 
-# Summary of commands used so far
-
-Commands used so far
-
-| command | Explanation |
-| ------- | ----------- |
-| `pwd`     | present work directory | 
-| `ls`      | list contents |
-| `cd example_hpc` | change directory to `example_hpc` |
-| `mkdir new_dir`  | create a new directory called `new_dir` |
-| `cp file1 file2` | make a copy of `file1` called `file2` |
-| `mv file1 new_dir/file2` | move `file1` into `new_folder` and call that `file2` |
-| `cd example_hpc` | cd /home/tkl/example_hpc |
-| `cd ..`      | cd /home/tkl/ |
-| `cd ../..`   | cd /home/ |
-| `man ls`    | prints manual on the command ls (just an example) | 
-| `rm file1`  | remove file1 (careful! no return in general)      |
-| `ls -l`     | list files in long format                         |
-| `history`   | prints the command line history in order.         |
-| `cat file`  | prints all contents of file to stdout.            |
-| `head file` | prints first lines of file to stdout.             |
-| `tail file` | prints last lines of file to stdout.              |
-| `find -name Objname` | looks for ``Objname`` recursively starting from current location | 
-| `find /home -name Objname` | looks for ``Objname`` starting from ``/home``  |
-| `grep pattern file`  | grabs all matches of `pattern` in `file` |
-| `chmod u+rwx fileA`  | add **r**ead, **w**rite and e**x**ecution rights of fileA to **u**ser |
-| `chmod o+r  fileA`   | add **r**ead permission of fileA to **o**thers |
-| `chmod o-wx fileA`   | remove **w**rite and e**x**ecution rights of fileA for **o**thers |
-| `echo $HOSTNAME`     | displays the string stored in environmental variable HOSTNAME
-| `source .bashrc`     | loads the file .bashrc that contains envinromental variables |
-| `w`	 	     | list which users are logged in |
-| `last -n 10`	     | list the lastest 10 logins |
-
----
-
 ## File archiving 
-
 
 ``tar`` is the de-facto standard tool for saving many files or
 directories into a single archive file.  
@@ -982,12 +946,39 @@ connect, and resume right where they left off.
   
 ---
 
+# Summary of commands used so far
 
+Commands used so far
 
-
-
-
-
+| command | Explanation |
+| ------- | ----------- |
+| `pwd`     | present work directory | 
+| `ls`      | list contents |
+| `cd example_hpc` | change directory to `example_hpc` |
+| `mkdir new_dir`  | create a new directory called `new_dir` |
+| `cp file1 file2` | make a copy of `file1` called `file2` |
+| `mv file1 new_dir/file2` | move `file1` into `new_folder` and call that `file2` |
+| `cd example_hpc` | cd /home/tkl/example_hpc |
+| `cd ..`      | cd /home/tkl/ |
+| `cd ../..`   | cd /home/ |
+| `man ls`    | prints manual on the command ls (just an example) | 
+| `rm file1`  | remove file1 (careful! no return in general)      |
+| `ls -l`     | list files in long format                         |
+| `history`   | prints the command line history in order.         |
+| `cat file`  | prints all contents of file to stdout.            |
+| `head file` | prints first lines of file to stdout.             |
+| `tail file` | prints last lines of file to stdout.              |
+| `find -name Objname` | looks for ``Objname`` recursively starting from current location | 
+| `find /home -name Objname` | looks for ``Objname`` starting from ``/home``  |
+| `grep pattern file`  | grabs all matches of `pattern` in `file` |
+| `chmod u+rwx fileA`  | add **r**ead, **w**rite and e**x**ecution rights of fileA to **u**ser |
+| `chmod o+r  fileA`   | add **r**ead permission of fileA to **o**thers |
+| `chmod o-wx fileA`   | remove **w**rite and e**x**ecution rights of fileA for **o**thers |
+| `echo $HOSTNAME`     | displays the string stored in environmental variable HOSTNAME
+| `source .bashrc`     | loads the file .bashrc that contains envinromental variables |
+| `w`	 	     | list which users are logged in |
+| `last -n 10`	     | list the lastest 10 logins |
+| `tar -caf foo.tar.gz some-dir/` | create a gzipped tar archive of directory |
 
 ---
 
