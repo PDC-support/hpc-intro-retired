@@ -977,35 +977,6 @@ connect, and resume right where they left off.
 {: .task}
 
 ---
----
-
-## utilities - building blocks 
-
-### Utilities: the building blocks of shell
-
- - wide range of all kind of utilities available in Linux
- - shell is a glue to bind them all together
- - commandline is often a long list of those utilities joint into pipe
-   that pass output of each other further
- 
-**Coreutils by GNU** You may find many other useful commands at
-https://www.gnu.org/software/coreutils/manual/coreutils.html
-
-> ## Exercise: Identify your needs and implement a tool for it
-> Think about something you want to be able to do. For instance:
->
-> - Combine columns from different files into a single file
-> - Sort text/data  
-{: .task}
-
----
-
-
-
-
-
----
----
 
 ## File archiving 
 
@@ -1087,17 +1058,6 @@ rsync -urlptDxv --chmod=Dg+s username@t04n28.pdc.kth.se:/cfs/klemming/nobackup/u
 
 
 
-
----
-
-**CDPATH:**  
-Helps changing directories faster. When you type ``cd dirname``, the shell tries to go
-to one of the local subdirectories and if it is not found shell will try the same command from every
-directory listed in the *$CDPATH*.
-
-```bash
-export CDPATH=$HOME:/cfs/klemming/nobackup/u/username
-``` 
 
 ---
 
