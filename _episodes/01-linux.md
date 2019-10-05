@@ -30,6 +30,9 @@ This material consists of the following parts:
  5. [Hotkeys](#hotkeys)
  6. [Environmental variables](#envvars)
  7. [Configuration](#config)
+ 8. [File archiving](#archiving)
+ 9. [GNU Screen](#screen)
+ 10. [Summary of commnads](#summary)
 
 Exercises marked "optional" are for advanced users who would like further stimulation.
 
@@ -804,7 +807,7 @@ These give you further power to customize your session to fit your needs.
 
 ---
 
-## File archiving 
+## File archiving {#archiving}
 
 ``tar`` is the de-facto standard tool for saving many files or
 directories into a single archive file.  
@@ -878,7 +881,7 @@ rsync -urlptDxv --chmod=Dg+s username@t04n28.pdc.kth.se:/cfs/klemming/nobackup/u
 
 ---
 
-# GNU Screen   
+## GNU Screen {#screen}
 
 
 ### Exiting the shell, and the [GNU screen](https://www.gnu.org/software/screen/) utility
@@ -946,7 +949,7 @@ connect, and resume right where they left off.
   
 ---
 
-# Summary of commands used so far
+## Summary of commands used so far {#summary}
 
 Commands used so far
 
