@@ -207,6 +207,11 @@ $ mc
 > - Type `q` to exit.
 {: .task}
 
+> ## List dot files (files starting with . )
+>
+> - Try to find a way to list all files, including those with ``.`` as their first chracter.
+{: .task}
+
 ---
 
 ### Input and output: redirect and pipes
@@ -740,11 +745,12 @@ To get file meta info: ``stat <file_or_dir>``
 
 ## Environment variables {#envvars}
 
-In shell, variables define your environment. Common practice is that environmental  
-vaiables are written in capital: `$HOME`, `$SHELL`, `$PATH`, `$PS1`, `$RANDOM`. 
-To list all defined variables use `printenv`. 
-All variables can be used or even redefined. No error if you call an undefined 
-variable, it is just considered to be empty.
+- In shell, variables define your environment. 
+- Common practice is that environmental 
+  variables are written in capital: `$HOME`, `$SHELL`, `$PATH`, `$PS1`, `$RANDOM`. 
+- To list all defined variables use `printenv`. 
+- All variables can be used or even redefined. 
+- No error if you call an undefined variable, it is just considered to be empty.
 
 > ## Exploring environment variables
 >
@@ -828,56 +834,10 @@ Commands used so far
 | `chmod o-wx fileA`   | remove **w**rite and e**x**ecution rights of fileA for **o**thers |
 | `echo $HOSTNAME`     | displays the string stored in environmental variable HOSTNAME
 | `source .bashrc`     | loads the file .bashrc that contains envinromental variables |
-| `bind -f .inputrc`   | binds the keys - this is different from ``source``|
 | `w`	 	     | list which users are logged in |
 | `last -n 10`	     | list the lastest 10 logins |
 
 ---
-
----
-
-# EXERCISES
-
-This section now contains more advanced exercises. If you come to think about something you want to have, by all means please try to build it!
-
-Perhaps you have files or directories on your own computer you want to manipulate?
-Just use them in the execises instead.
-
-
-> ## Exercise: List dot files (files starting with . )
->
-> - Try to find a way to list all files, including those with ``.`` as their first chracter.
-{: .task}
-
-## Advanced file and directory handling
-
-Files contain data.  They have a name, permissions, owner
-(user+group), contents, and some other metadata.
-
-Filenames may contain any character except '/', which is reserved as a separator between
-directory and filenames.  
-The special characters require quotation while dealing with such filenames, so it makes sense to avoid them.
-
-
-Special notations and expansions in bash, can be used with any command:
-
-```bash
-./, ../, ~, *, ?, [], [!], {abc,xyz}, {1..10}
-``` 
-
-
-For the quotation:
-
-```bash
-'', "", \
-```
-
-
-> ## Exercise: Quotation matters;
->
-> - Try typing both ``echo "$USER"`` and ``echo '$USER'``.
->
-{: .task}
 
 > ## Exercise: Multiple files at the same time
 >
