@@ -629,7 +629,7 @@ To get file meta info: ``stat <file_or_dir>``
 
 ---
 
-### Environment variables {#envvars}
+## Environment variables {#envvars}
 To save time, important names are often stored in so called environment variables. To display them we use ``echo``.
 
 
@@ -644,7 +644,7 @@ To save time, important names are often stored in so called environment variable
 These give you further power to customize your session to fit your needs.
 
 
-### Initialization and configuration {#config}
+## Initialization and configuration {#config}
 
 Normally, the file containing many of these user defaults is ``.bashrc`` located in $HOME.
 
@@ -716,6 +716,7 @@ Commands used so far
 ---
 
 # EXERCISES
+
 This section now contains more advanced exercises. If you come to think about something you want to have, by all means please try to build it!
 
 Perhaps you have files or directories on your own computer you want to manipulate?
