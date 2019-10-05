@@ -739,8 +739,12 @@ To get file meta info: ``stat <file_or_dir>``
 ---
 
 ## Environment variables {#envvars}
-To save time, important names are often stored in so called environment variables. To display them we use ``echo``.
 
+In shell, variables define your environment. Common practice is that environmental  
+vaiables are written in capital: `$HOME`, `$SHELL`, `$PATH`, `$PS1`, `$RANDOM`. 
+To list all defined variables use `printenv`. 
+All variables can be used or even redefined. No error if you call an undefined 
+variable, it is just considered to be empty.
 
 > ## Exploring environment variables
 >
@@ -756,9 +760,15 @@ These give you further power to customize your session to fit your needs.
 
 ## Initialization and configuration {#config}
 
-Normally, the file containing many of these user defaults is ``.bashrc`` located in $HOME.
+- When the shell first starts (when you login), it reads some files. These are normal shell files, and it evaluates normal shell commands to set configuration.
+- You can always test things in your own shell and see if it works before putting it in the config files. Highly recommended!
+- You customize your environment means setting or expanding aliases, variables, functions.
+- The config files are located in $HOME and are called:
+  - `.bashrc` (when SSH) and
+  - `.bash_profile` (interactive login to a workstation)
+  - they are often a symlink from one to another
 
-> ## Customizing the shell environment with .bashrc
+> ## Customize your shell environment with .bashrc
 > 
 > - To get inspiration take a look at this [(very elaborate) sample file](<https://www.tldp.org/LDP/abs/html/sample-bashrc.html>).
 > - Type ``source .bashrc`` to reload the information there.
