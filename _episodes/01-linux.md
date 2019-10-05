@@ -752,28 +752,30 @@ To save time, important names are often stored in so called environment variable
 
 These give you further power to customize your session to fit your needs.
 
+---
 
 ## Initialization and configuration {#config}
 
 Normally, the file containing many of these user defaults is ``.bashrc`` located in $HOME.
 
 > ## Customizing the shell environment with .bashrc
->
-> - Type ``nano .bashrc`` and examine the contents.
-> - Add a line ``HISTTIMEFORMAT="%d/%m/%y %T "``, save and close
+> 
+> - To get inspiration take a look at this [(very elaborate) sample file](<https://www.tldp.org/LDP/abs/html/sample-bashrc.html>).
 > - Type ``source .bashrc`` to reload the information there.
-> - Type ``nano .profile`` and save the text ``source .bashrc`` . Now this will be loaded everytime you log in.
 {: .task}
 
-Another useful file is ``.inputrc`` *NB: your terminal must support key-binding. PuTTY does not seem to do this by default*
 
-> ## Custom bindings with .inputrc
+> ## Customize your command line prompt
+> Command line prompt defined in 
+> [PS1](https://www.ibm.com/developerworks/linux/library/l-tip-prompt/).
+> ```bash
+> PS1="[\d \t \u@\h:\w ] $ "
+> ```
+> You might find some inspiration [here](https://www.maketecheasier.com/8-useful-and-interesting-bash-prompts/)
 >
-> - Type ``cp /afs/pdc.kth.se/home/t/torkj/Public/.inputrc .inputrc``
-> - Type ``cat .inputrc``
-> - Type ``bind -f .inputrc``
-> - Start typing any old command you typed on Tegner, then press shift+up.
-> - From the next time you log in, this will be loaded automatically.
+> For special characters see PROMPTING at ``man bash``.  
+> If you want to save something permanently, add to `.bashrc` like ``export PS1``. But save the old ``PS1`` so that you can recover it if necessary!
+>
 {: .task}
 
 > **Take home message:**
@@ -954,28 +956,6 @@ connect, and resume right where they left off.
 - [tmux](https://github.com/tmux/tmux/wiki) is similar to screen 
    with some minor pros and cons, try it out to see which one you like better!
   
----
----
-
-# Customize your shell
-
-> ### Exercise: customize your .bashrc
-> - To get inspiration take a look at this [(very elaborate) sample file](<https://www.tldp.org/LDP/abs/html/sample-bashrc.html>).
->
-
-> ## Exercise: customize your command line prompt
-> Command line prompt defined in 
-> [PS1](https://www.ibm.com/developerworks/linux/library/l-tip-prompt/).
-> ```bash
-> PS1="[\d \t \u@\h:\w ] $ "
-> ```
-> You might find some inspiration [here](https://www.maketecheasier.com/8-useful-and-interesting-bash-prompts/)
->
-> For special characters see PROMPTING at ``man bash``.  
-> If you want to save something permanently, add to `.bashrc` like ``export PS1``. But save the old ``PS1`` so that you can recover it if necessary!
->
-{: .task}
-
 ---
 
 ## File archiving 
