@@ -188,6 +188,7 @@ $ mc
 | `ls -l`     | list files in long format                         |
 | `history`   | prints the command line history in order.         |
 | `cat file`  | prints all contents of file to stdout.            |
+| `less file` | view contents of file in pager.                   |
 | `head file` | prints first lines of file to stdout.             |
 | `tail file` | prints last lines of file to stdout.              |
 | `echo something` | prints from command line to stdout. |
@@ -197,30 +198,104 @@ $ mc
 - These are usually options to customize the command. 
 - Use `man <command>` to learn about options for commands you use.
 
-> ## Redirects, command flags and reading the manual
+> ## Reading the `man` page
 > 
+> - Type `man ls`.
+> - Type `Up/Down` keys to scroll through the manpage, or `Enter` to jump a page.
+> - Type `/` to search, and `n` to find next match or `N` for previous match.
+> - Try searching for the `-F` flag.
+> - Type `q` to exit.
+{: .task}
+
+---
+
+### Input and output: redirect and pipes
+
+- Programs can display something: `echo hello world`, `cat file.txt`
+- Programs can take some input: e.g. `less` by default displays input if no filename given.
+- `cat /etc/bashrc` dumps that file to stardard output (stdout)
+- `cat /etc/bashrc | less` gives it to less on standard input (stdin)
+
+#### Pipe
+
+- Output of the first command as an input for the second one: `command_a | command_b`
+
+```bash
+# count a number of logged in users
+w -h | wc -l
+
+# to list all matching commands
+history | grep -w 'command name'
+
+# print the name of the newest file in the directory (non-dot)
+ls -1tF | grep -v -E '*/|@' | head -1
+```
+
+#### Redirects
+
+- Like pipes, but send data to/from files instead of other processes.
+- Replace a file: command > file.txt
+- Append to a file: command >> file.txt (be careful you do not mix them up!)
+- Redirect file as STDIN: command < file (in case program accepts STDIN only)
+
+```bash
+echo Hello World > hello.txt
+
+ls -lH >> current_dir_ls.txt
+
+# join two files into one
+cat file1 file2 > file3
+
+# go through file1 and replace spaces with a new line mark, then output to file2
+tr -s ' ' '\n' < file1 > file2
+# -or- in more readable format
+cat file1 | tr -s ' ' '\n' > file2
+```
+
+> ## Exercise
+>
 > - Type ``history``
-> - Type ``history > history.txt``. 
+> - Type ``history > history.txt``
 > - Type ``ls -l`` and then check time stamp of ``history.txt``
 > - Use ``cat`` to print all contents of this file. 
-> - Read the manual of ``tail`` and find how you can print the last 4 lines of a file (type forward-slash **/** to search the man-page, and `q` to exit)
-> - What is the meaning of ``">"``?
+> - Print the last 4 lines of ``history.txt`` using the ``tail`` command (explore the 
+>   manpage if needed)
+> - Instead of creating an intermediate file, find a more clever way to print the 
+>   last 4 commands by piping `history` into `tail`    
 {: .task}
 
-### Combining commands
 
-Often you wish to combine commands in different ways to tailor the effect.
-
-> ## Pipelines
+> ## (Advanced) Pipelines with `;`, `&&`, and `||`
 >
-> - Type ``history > history.txt`` 
-> - Print the last 4 lines of ``history.txt`` using the ``tail`` command
-> - Creating an intermediate file to explore the last 4 lines of output 
->   from a command is inefficient. We can instead construct a **pipeline**:
->   ``history | tail -4``
-> - Pipelines can be made arbitrarily long, e.g. 
->   ``cat fileA | tail -10 | head -5 | grep foo``
-{: .task}
+> - You can put several commands on the same line using different
+>   separators.
+> - The shell term for this is *pipelines*.
+> 
+> Chaining: ``command_a ; command_b``: always runs both commands.
+> 
+> Remember exit codes?  In shell, 0=success and anything 1-255=failure.
+> Note that this is opposite of normal Boolean logic!
+> 
+> The ``&&`` and ``||`` are [short-circuit](https://en.wikipedia.org/wiki/Short-circuit_evaluation) (lazy)
+> boolean operators.  They can be used for quick conditionsals.
+> 
+> * ``command_a && command_b``
+> 
+>   * If ``command_a`` is successful, also run ``command_b``
+>   * final exit code is last evaluated one, which has the role of Boolean *and*.
+> 
+> * ``command_a || command_b``
+> 
+>   * If ``command_a`` is *not* successful, also run ``command_b``
+>   * final exit code is that of the last evaluated command, which has
+>     the role of Boolean *or*.
+> 
+> **Hint** ``command_a && command_b || command_c``
+> 
+> Try: ``cd /nonexistent_dir && ls /nonexistent_dir`` compare with ``cd /nonexistent_dir; ls /nonexistent_dir``
+> 
+> Try: ``ping -c 1 8.8.8.8 > /dev/null && echo online || echo offline``
+{: .challenge}
 
 ---
 
@@ -267,6 +342,48 @@ find ~ /cfs/klemming/nobackup/u/username -name file.txt
 > just searches that database so it is much faster.
 {: .callout}
 
+
+#### grep
+- In many cases you quickly want to find specific information in files. 
+- Then ``grep`` is your command to use.
+
+```bash
+grep <pattern> <filename>  # grep lines that match <pattern>
+ -or- 
+command | grep <pattern>  # grep lines from stdin
+``` 
+
+
+
+> ## Searching for patterns with grep
+>
+> - Type ``grep mkdir <path>/history.txt``   
+>   (replacing \<path\> as needed)
+{: .task}
+
+> ## Find location of a file
+>
+> - Type ``find . -name history.txt``
+{: .task}
+
+> ## Exercise: grep and pipes
+>
+> - make a pipe that counts number of files/directories (including dot files) in your directory
+> - grep directories out of ``ls -l``
+> - grep all but blank lines in Tegner's file /etc/bashrc
+>
+>   - expand the previous one to filter out commented lines also (line starts with #). Note that
+>     lines may have spaces before # mark.
+>
+> - count unique logged in users on triton. Tip: ``w`` or ``users`` gives you
+>   a list of all currently login users, many of them have several sessions open.
+> - (Optional) Play with the commands grep, cut: find at least two ways to
+>   extract IP addresses only out of /etc/hosts. Tip: `grep` has `-o` option, thus one can build
+>   a regular expression that will grab exactly what you need.
+> - (Optional) Using pipes and commands echo/tr/uniq, find doubled words out of 'My
+>   Do Do list: Find a a Doubled Word'. Any easier way to do it?
+{: .task}
+
 > ## Advanced `find`
 > Find syntax is actually an entire boolean logic language given on the
 > command line: it is a single expression evaluated left to right with
@@ -299,16 +416,6 @@ find ~ /cfs/klemming/nobackup/u/username -name file.txt
 > find path/dir -type f -mtime +7 -exec rm -f {} \;
 > ``` 
 {: .challenge}
-
-#### grep
-- In many cases you quickly want to find specific information in files. 
-- Then ``grep`` is your command to use.
-
-```bash
-grep <pattern> <filename>  # grep lines that match <pattern>
- -or- 
-command | grep <pattern>  # grep lines from stdin
-``` 
 
 > ## Advanced `grep`
 > ```bash
@@ -345,36 +452,6 @@ command | grep <pattern>  # grep lines from stdin
 > grep "<[Hh][12]>" file.html
 > ``` 
 {: .challenge}
-
-
-> ## Searching for patterns with grep
->
-> - Type ``grep mkdir <path>/history.txt``   
->   (replacing \<path\> as needed)
-{: .task}
-
-> ## Find location of a file
->
-> - Type ``find . -name history.txt``
-{: .task}
-
-> ## Exercise: grep and pipelines 
->
-> - make a pipe that counts number of files/directories (including dot files) in your directory
-> - grep directories out of ``ls -l``
-> - grep all but blank lines in Tegner's file /etc/bashrc
->
->   - expand the previous one to filter out commented lines also (line starts with #). Note that
->     lines may have spaces before # mark.
->
-> - count unique logged in users on triton. Tip: ``w`` or ``users`` gives you
->   a list of all currently login users, many of them have several sessions open.
-> - (Optional) Play with the commands grep, cut: find at least two ways to
->   extract IP addresses only out of /etc/hosts. Tip: `grep` has `-o` option, thus one can build
->   a regular expression that will grab exactly what you need.
-> - (Optional) Using pipes and commands echo/tr/uniq, find doubled words out of 'My
->   Do Do list: Find a a Doubled Word'. Any easier way to do it?
-{: .task}
 
 
 > **Take home messages:**  
@@ -887,41 +964,6 @@ https://www.gnu.org/software/coreutils/manual/coreutils.html
 > - Combine columns from different files into a single file
 > - Sort text/data  
 {: .task}
-
-
-
----
----
-### Pipelines: ;, &&, and ||
-
-- You can put several commands on the same line using different
-  separators.
-- The shell term for this is *pipelines*.
-
-Chaining: ``command_a ; command_b``: always runs both commands.
-
-Remember exit codes?  In shell, 0=success and anything 1-255=failure.
-Note that this is opposite of normal Boolean logic!
-
-The ``&&`` and ``||`` are [short-circuit](https://en.wikipedia.org/wiki/Short-circuit_evaluation) (lazy)
-boolean operators.  They can be used for quick conditionsals.
-
-* ``command_a && command_b``
-
-  * If ``command_a`` is successful, also run ``command_b``
-  * final exit code is last evaluated one, which has the role of Boolean *and*.
-
-* ``command_a || command_b``
-
-  * If ``command_a`` is *not* successful, also run ``command_b``
-  * final exit code is that of the last evaluated command, which has
-    the role of Boolean *or*.
-
-**Hint** ``command_a && command_b || command_c``
-
-Try: ``cd /nonexistent_dir && ls /nonexistent_dir`` compare with ``cd /nonexistent_dir; ls /nonexistent_dir``
-
-Try: ``ping -c 1 8.8.8.8 > /dev/null && echo online || echo offline``
 
 ---
 
