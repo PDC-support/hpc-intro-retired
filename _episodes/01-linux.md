@@ -127,8 +127,9 @@ Some typical bash commands for these purposes are:
 
 > ## Copying files and moving between folders
 >
-> - Create a directory called `example_hpc`. Verify that it was created.
-> - Move into `example_hpc`. Obtain the name of the current location. Check contents.
+> - Step into the `data-shell` folder and explore its contents.
+> - Create a new directory called `example_hpc`. Verify that it was created.
+> - Move into `example_hpc` and print your location. Check contents.
 > - Start a text editor in your usual way. Create a new text file named `file1.txt` and save it inside the folder `example_hpc`.
 > - Use the terminal to copy this file to a new file named `file2.txt`. Check result.
 {: .task}
@@ -164,13 +165,14 @@ Some typical bash commands for these purposes are:
 ---
 
 ### Relative vs. absolute paths
+
 You can specify a location by its *relative* (to current location) or *absolute* path.
 
 | Relative | Absolute |
 | ------- | ----------- |
-| cd example_hpc | cd /home/tkl/example_hpc |
-| cd ..      | cd /home/tkl/ |
-| cd ../..   | cd /home/ |
+| cd example_hpc | cd /home/username/data-shell/example_hpc |
+| cd ..      | cd /home/username/data-shell |
+| cd ../..   | cd /home/username |
 
 
 > **Take home message:**  
@@ -185,14 +187,11 @@ $ module load midnightcommander
 $ mc
 ```
 
-
-
 ---
 
 ### Learning some more commands
 
-
-| command | Explanation |
+| Command | Explanation |
 | ------- | ----------- |
 | `man ls`    | prints manual on the command ls (just an example) | 
 | `rm file1`  | remove file1 (careful! no return in general)      |
@@ -221,6 +220,7 @@ $ mc
 > ## List dot files (files starting with . )
 >
 > - Try to find a way to list all files, including those with ``.`` as their first chracter.
+> - Find all dot files in the `data-shell` directory.
 {: .task}
 
 ---
@@ -270,6 +270,7 @@ cat file1 | tr -s ' ' '\n' > file2
 
 > ## Exercise
 >
+> - Step into the `data-shell` folder
 > - Type ``history``
 > - Type ``history > history.txt``
 > - Type ``ls -l`` and then check time stamp of ``history.txt``
@@ -330,7 +331,7 @@ find
 The first option gives a starting directory:
 
 ```bash
-find /etc/
+find molecules/
 ``` 
 
 Other search options: by modification/accessing time, by ownership, by access
@@ -339,10 +340,10 @@ type, joint conditions, case-insensitive, that do not match, etc.
 and [here](http://www.softpanorama.org/Tools/Find/index.shtml)):
 
 ```bash
-# search for file.txt in home directory
-find ~ -name file.txt
+# search for pentane.pdb in current directory
+find . -name pentane.pdb
 # one can search more than one dir at once
-find ~ /cfs/klemming/nobackup/u/username -name file.txt  
+find . /cfs/klemming/nobackup/u/username -name pentane.pdb
 ``` 
 
 > ## find on Lustre
@@ -370,16 +371,17 @@ command | grep <pattern>  # grep lines from stdin
 ``` 
 
 
-
 > ## Searching for patterns with grep
 >
-> - Type ``grep mkdir <path>/history.txt``   
->   (replacing \<path\> as needed)
+> - Go back to the `data-shell` directory
+> - Type `grep rabbit data/animals.txt`
+> - Find all occurences of the string "rabbit" using recursive search (adding the `-R` flag)
 {: .task}
 
 > ## Find location of a file
 >
-> - Type ``find . -name history.txt``
+> - Type `find . -name animals.txt`.
+> - Try to find all files ending with `.pdb` using the `find` command.
 {: .task}
 
 > ## Exercise: grep and pipes
@@ -961,7 +963,7 @@ connect, and resume right where they left off.
 
 Commands used so far
 
-| command | Explanation |
+| Command | Explanation |
 | ------- | ----------- |
 | `pwd`     | present work directory | 
 | `ls`      | list contents |
