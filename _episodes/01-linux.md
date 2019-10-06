@@ -652,13 +652,6 @@ chown -R greys <file or directory>
 > directory.  The permissions of the files themselves still matter.
 {: .task}
 
-> ## Exercise: Some more in-depth things
->
-> What are the extra permission bits: ``s-bit`` and ``t-bit``?  
-> Read up on ``umask`` [(see here)](https://www.computerhope.com/unix/uumask.htm).  
->
-{: .task}
-
 ### Modifying permissions: advanced
 
 Access Control Lists (ACLs) are advanced access permissions.  They
