@@ -249,6 +249,13 @@ srun -n 32 ./myexe > my_output_file 2>&1 {% endif %}
 > - **After the job finishes, inspect the output files of your job.**
 {: .challenge}
 
+> ## `salloc` vs `sbatch`
+>
+> Keep in mind:
+> - `salloc` gives access to one or more *interactive* nodes
+> - `sbatch` is used with a script to submit a job to the queue
+{: .callout}
+
 ### Other useful SLURM options
 
 We have seen a few options to SLURM that can be used as flags on the command line 
