@@ -32,12 +32,11 @@ This material consists of the following parts:
  7. [Configuration](#config)
  8. [File archiving](#archiving)
  9. [GNU Screen](#screen)
- 10. [Summary of commnads](#summary)
+ 10. [Summary of commands](#summary)
 
-Exercises marked "optional" are for advanced users who would like further stimulation.
+Exercises marked "advanced" are for advanced users who would like further stimulation.
 
 ---
-
 
 ## What is a shell? {#what-is-shell}
 
@@ -74,6 +73,15 @@ Set yourself up with a bash shell.
   
   For other Windows systems, or if you want to go the traditional way, follow these instructions to [install PuTTY](https://www.pdc.kth.se/support/documents/login/windows_login.html).
   You will be working on Tegner right away.
+
+### Download tutorial data
+
+You need to download some files to follow this lesson:
+
+- Download data-shell.zip to your home directory:.
+  - either type `wget <FIXME>` in your bash terminal,
+  - or go to <FIXME> and download the zipfile by clicking on the download button.
+- Unzip/extract the file (ask your instructor if you need help with this step). You should end up with a new folder called `data-shell`.
 
 ---
 
