@@ -9,6 +9,17 @@ questions:
 objectives:
   - "Learn the basics of Linux shell"
   - "Prepare for work on Beskow and Tegner"
+keypoints:
+  - Most commands work well alone and you can cherry pick which you need to combine into a unique result - Modularity
+  - Absolute paths always work but relative paths are more convenient.
+  - Customize the command usage with flags.
+  - The manual is your friend, consult it before googling. 
+  - commandA > fileA redirects output from commandA to text fileA
+  - commandA \| commandB means that you pipe the output from commandA to commandB.
+  - Always use TAB to autocomplete commands and file/directory names
+  - You can store names in environment variables
+  - Customize your session with configuration files
+
 ---
 
 # Linux shell tutorial
@@ -172,10 +183,6 @@ You can specify a location by its *relative* (to current location) or *absolute*
 | cd example_hpc | cd /home/username/data-shell/example_hpc |
 | cd ..      | cd /home/username/data-shell |
 | cd ../..   | cd /home/username |
-
-
-> **Take home message:**  
->   - Absolute paths always work but relative paths are more convenient.
 
 ---
 
@@ -466,15 +473,6 @@ command | grep <pattern>  # grep lines from stdin
 {: .challenge}
 
 
-> **Take home messages:**  
->   - Customize the command usage with flags.
->   - The manual is your friend - consult it before googling. 
->   - In the learning phase, use ``history`` regularly.
->   - ``commandA > fileA`` redirects output from commandA to text fileA
->   - ``commandA | commandB`` means that you* ***pipe*** the output from commandA to commandB.
->   - Most commands work well alone and you can cherry pick which you need to combine into a unique result. **Modularity**.
-
-
 ---
 
 ## Processes {#processes}
@@ -724,12 +722,6 @@ To get file meta info: ``stat <file_or_dir>``
 > - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``history.txt``.
 {: .task}
 
-
-
-> **Take home message:**
->    - Always use TAB
-
-
 ---
 
 > ## Exercise: Looking around on the login node
@@ -793,14 +785,6 @@ These give you further power to customize your session to fit your needs.
 > If you want to save something permanently, add to `.bashrc` like ``export PS1``. But save the old ``PS1`` so that you can recover it if necessary!
 >
 {: .task}
-
-> **Take home message:**
-> 
->    - You can store names in environment variables
->    - Customize your session with configuration files
->    - .inputrc needs to be loaded with ``bind`` rather than ``source``.  
-> 
-> This is however not needed if the file is present at login, as it is automatically loaded by the system.
 
 ---
 
