@@ -774,20 +774,11 @@ gzip file
 gunzip file.gz
 ``` 
  
----
-
-> ## Exercise: find, tar and scp/rsync
+> ## Exercise: tar and scp/rsync
 >
-> - Find with ``find`` all the files in your $HOME that are readable or writable by everyone
->   - (Optional) apply ``chmod o-rwx`` to all recently found files with ``find``
-> - Make a tar.gz archive of any of your directory at your HOME (or WRKDIR if on Tegner), when done
+> - Make a tar.gz archive of the `data-shell` directory, when done
 >   list the archive content, then append another file/directory to the existing archive.
->   
->   - (Optional) Extract only one particular file to some subdirectory from the archive
->   
-> - Transfer just created archive using either ``scp`` or ``rsync``.
-> 
->   - (Optional) Try ssh+tar combo to make transfer and archive on the fly.
+> - Extract only one particular file to some subdirectory from the archive
 {: .task}
 
 ---
