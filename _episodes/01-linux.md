@@ -776,24 +776,6 @@ gunzip file.gz
  
 ---
 
-### Transferring files (+archiving on the fly)
-
-For PDC users the ability to transfer files to/from PDC systems is essential.
-For large transfers (big data, many files), you should use the transfer nodes:
-
-```bash
-# transferring a file from your HOME on PDC to your home worstation
-scp -r username@t04n27.pdc.kth.se:file_to_copy .  # or t04n28
-``` 
-
-(Optional) Another use case, copying to PDC, or making a directory backup with ``rsync``:
-
-```bash
-rsync -urlptDxv --chmod=Dg+s somefile username@t04n27.pdc.kth.se:/cfs/klemming/nobackup/u/username/  # copy a file to klemming
-rsync -urlptDxv --chmod=Dg+s username@t04n28.pdc.kth.se:/cfs/klemming/nobackup/u/username/dir1/  dir1/  # sync two directories
-``` 
-
-
 > ## Exercise: find, tar and scp/rsync
 >
 > - Find with ``find`` all the files in your $HOME that are readable or writable by everyone
