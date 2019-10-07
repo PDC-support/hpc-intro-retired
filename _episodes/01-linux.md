@@ -231,6 +231,16 @@ $ mc
 > - Find all dot files in the `data-shell` directory.
 {: .task}
 
+> ## Wildcards
+>
+> `*` is a wildcard, which matches zero or more characters.
+> `?` is also a wildcard, but it matches exactly one character.
+> - Step into the `data-shell/molecules` directory
+> - What is the difference between `ls *ethance.pdb` and `ls ?ethane.pdb`?
+> - What output do you get from `ls ???ane.pdb`?
+> - For more on wildcards, see e.g. [this page](http://www.robelle.com/smugbook/wildcard.html)
+{: .task}
+
 ---
 
 ### Input and output: redirect and pipes
