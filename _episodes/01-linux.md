@@ -666,8 +666,9 @@ To get file meta info: ``stat <file_or_dir>``
 | Alt-r | undo all changes made to this line |
 | Ctrl-r | command history search: backward (hit Ctrl-r, then start typing the search word, hit Ctrl-r again to go through commands that have the search word in it) |
 | Ctrl-s  | search command history furtherword (for this to work one needs to disable default suspend keys ``stty -ixon``) |
-| Ctrl-u  | remove beginning of the line, from cursor |
-| Ctrl-k | remove end of the line, from cursor |
+| Ctrl-u  | cut beginning of the line, from cursor |
+| Ctrl-k | cut end of the line, from cursor |
+| Ctrl-y | paste from clipboard |
 | Ctrl-w | remove previous word |
 
 
@@ -675,6 +676,9 @@ To get file meta info: ``stat <file_or_dir>``
 >
 > - Type ``find $HOME -name pizza.cfg``
 > - Type ``cat $HOME/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``pizza.cfg``.
+> - Type some words on the command line. Play around with `Ctrl-a`, `Ctrl-e`, `Ctrl-k`, 
+>   `Ctrl-u` and `Ctrl-y`.
+> - Search through your command history using `Ctrl-r`.
 {: .task}
 
 ---
