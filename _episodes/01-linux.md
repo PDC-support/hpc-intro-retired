@@ -673,20 +673,9 @@ To get file meta info: ``stat <file_or_dir>``
 
 > ## TAB autocompletion
 >
-> - Type ``find /home -name history.txt``
-> - Type ``cat /home/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``history.txt``.
+> - Type ``find $HOME -name pizza.cfg``
+> - Type ``cat $HOME/`` and start pushing TAB. Add minimal characters and TAB. Repeat until you have full path to ``pizza.cfg``.
 {: .task}
-
----
-
-> ## Exercise: Looking around on the login node
->
-> - Obtain the current location
-> - Type ``top`` to view processes and info on the server
-> - Type ``w`` to see which other users are logged in
-> - Type ``last -n 15`` to get a list of the last 15 logins
-{: .task}
-
 
 ---
 
