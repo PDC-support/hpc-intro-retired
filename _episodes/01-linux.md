@@ -562,22 +562,26 @@ background jobs.
 When you share resources with other people, it is important that your files have the correct access settings. 
 
 - Permissions are a type of *file metadata*.
-
 - They tell you who can: **r**ead, **w**rite, e**x**ecute a file/list directory.
+- We will later see how PDC filesystems use two different types of access control lists 
+  (ACLs), here we will focus on the basics.
 
 Let's see an example, produced by ls -l
 
 ```bash
 $ ls -l
 
--rw-r--r-- 1 tkl tkl  120 feb  3 19:51 file1.txt
--rwx------ 1 tkl tkl 9865 feb  2 08:51 my_secret_code.ex
-drwx------ 2 tkl tkl 4096 feb  1 13:53 private_folder
-drwxrw-r-- 2 tkl tkl 4096 feb  6 19:54 public_folder
+drwxr-xr-x 2 kthw kthw  2048 Aug  8 06:51 creatures
+drwxr-xr-x 5 kthw kthw  2048 Aug  8 05:14 data
+drwxr-xr-x 2 kthw kthw  2048 Aug  8 05:13 molecules
+drwxr-xr-x 3 kthw kthw  2048 Aug  8 05:13 north-pacific-gyre
+-rw-r--r-- 1 kthw kthw    86 Aug  8 05:13 notes.txt
+-rw-r--r-- 1 kthw kthw    32 Aug  8 05:13 pizza.cfg
+-rw-r--r-- 1 kthw kthw 21583 Aug  8 05:13 solar.pdf
+drwxr-xr-x 5 kthw kthw  2048 Aug  8 05:14 writing
 ```
 
 - First character is specific for type of object. `d` is for directory.
-
 - Next we have three triplets:  `user`, `group`, and `others`.
 
 
@@ -613,37 +617,7 @@ To change owner of file/directory:
 chown -R greys <file or directory>
 ```
 
-> ## Exercise: File permission
->
->  - Create a textfile with some random word in your Public folder.
->  - Remove all access for `groups` and `others`, and ask a friend to read it.
->  - Add read permission so that your friend can read the file.
->
-{: .task}
-
-> ## Exercise: Folder and file permission
->
-> This is part of the output from torkj's home. 
-> ```bash
-> -rw-r--r-- 1 torkj      30 262470 Dec 28 16:15 ompi_info.txt
-> -rw-r--r-- 1 torkj      30      5 Jan 25 13:55 tmp.txt
-> drwxr-xr-x 3 torkj nogroup   2048 Feb 11 15:30 Public
-> ```
->
-> Try to read tmp.txt - explain the outcome
->
-> **Hint:**  
-> Even though a file has read access, the top directory must be
-> searchable before external user or group will be able to access
-> it. Sometimes people do  
->   ``chmod -R o-rwx $SOME_DIR``  
->   ``chmod o+x $SOME_DIR``  
-> Execute (``x``) without read (``r``) means that you can
-> access files inside if you know the exact name, but not list the
-> directory.  The permissions of the files themselves still matter.
-{: .task}
-
-### Modifying permissions: advanced
+### Access control lists
 
 Access Control Lists (ACLs) are advanced access permissions.  They
 don't work everywhere, for example mostly do not work on NFS
@@ -666,24 +640,6 @@ etc. (thus work on /cfs/klemming).
 
 **Advanced file status**   
 To get file meta info: ``stat <file_or_dir>``
-
-
-> ## Exercise: Permissions
->
-> - Create a directory, use ``chmod`` to allow user and any group members
->   full access and no access for others
-> - (Optional) Change that directory group ownership with ``chown`` or 
->   ``chgrp`` (any group that you belong to is fine), set s-bit for the 
->   group and apply t-bit to a directory, check that the upper directory 
->   has `o+x` bit set: now you should have a private working space for 
->   your group. Tip: see groups that you are a member of using ``id -Gn``
-> - (Optional) Create a directory and a subdirectory in it and set their 
->   permissions to 700 with one command.
-> - Create a directory (in /cfs/klemming/nobackup/u/user on Tegner or somewhere on your own system)
-> - use ``setfacl`` to set its permissions so that only you and some
->   user/group of your choice would have access to it.
-{: .task}
-
 
 ---
 
