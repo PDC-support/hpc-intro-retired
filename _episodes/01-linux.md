@@ -79,16 +79,19 @@ Set yourself up with a bash shell.
 You need to download some files to follow this lesson:
 
 - Download data-shell.zip to your home directory:.
-  - either type `wget <FIXME>` in your bash terminal,
-  - or go to <FIXME> and download the zipfile by clicking on the download button.
+  - either type `wget https://swcarpentry.github.io/shell-novice/data/data-shell.zip` in your bash terminal,
+  - or go to [this page](https://swcarpentry.github.io/shell-novice/setup.html) 
+    and download the zipfile by clicking the `data-shell.zip` link.
 - Unzip/extract the file (ask your instructor if you need help with this step). You should end up with a new folder called `data-shell`.
 
 ---
 
-### Your very first bash commands 
+### Your very first shell commands 
 
-We are now going to get familiar with the bash shell.  
-We start with two commands.
+- The name comes from being a "shell" (layer) around the operating system. 
+- The shell connects and binds all programs together.
+
+We are now going to get familiar with the bash shell, and we start with two commands.
 
 | command | Explanation |
 | ------- | ----------- |
@@ -101,11 +104,6 @@ We start with two commands.
 > - What do you get if you type ``pwd`` in the terminal?
 > - What do you get if you type ``ls`` in the terminal?
 {: .task}
-
-
-> **Take home messages:**  
->   - Bash shell is a text command based tool to interact with the computer.
->   - You are always in the directory (folder) given by ``pwd``.
 
 ---
 
@@ -121,6 +119,7 @@ Some typical bash commands for these purposes are:
 | ------- | ----------- |
 | `cd myproject` | change directory to `myproject` |
 | `mkdir newdir`  | create a new directory called `newdir` |
+| `nano file1.txt` | open a file `file1.txt` in the `nano` text editor |
 | `cp file1.dat file2.dat` | make a copy of `file1.dat` called `file2.dat` |
 | `mv file1.dat newdir/file2.dat` | move `file1.dat` into `newdir` and rename it `file2.dat` |
 
@@ -178,6 +177,8 @@ You can specify a location by its *relative* (to current location) or *absolute*
 > **Take home message:**  
 >   - Absolute paths always work but relative paths are more convenient.
 
+---
+
 ### File managers
  
 On Beskow and Tegner we have installed GNU Midnight Commander 
@@ -227,7 +228,7 @@ $ mc
 
 ### Input and output: redirect and pipes
 
-- Programs can display something: `echo hello world`, `cat file.txt`
+- Programs can display something: "`echo hello world`", "`cat file.txt`"
 - Programs can take some input: e.g. `less` by default displays input if no filename given.
 - `cat /etc/bashrc` dumps that file to stardard output (stdout)
 - `cat /etc/bashrc | less` gives it to less on standard input (stdin)
@@ -375,7 +376,7 @@ command | grep <pattern>  # grep lines from stdin
 >
 > - Go back to the `data-shell` directory
 > - Type `grep rabbit data/animals.txt`
-> - Find all occurences of the string "rabbit" using recursive search (adding the `-R` flag)
+> - Try finding all occurences of the string "rabbit" using recursive search (adding the `-R` flag)
 {: .task}
 
 > ## Find location of a file
@@ -386,23 +387,16 @@ command | grep <pattern>  # grep lines from stdin
 
 > ## Exercise: grep and pipes
 >
-> - make a pipe that counts number of files/directories (including dot files) in your directory
+> - Make a pipe that counts number of files/directories (including dot files) in the 
+>  `data-shell` directory.
 > - grep directories out of ``ls -l``
-> - grep all but blank lines in Tegner's file /etc/bashrc
->
->   - expand the previous one to filter out commented lines also (line starts with #). Note that
->     lines may have spaces before # mark.
->
-> - count unique logged in users on triton. Tip: ``w`` or ``users`` gives you
+> - Count unique logged in users on Tegner. Tip: ``w`` or ``users`` gives you
 >   a list of all currently login users, many of them have several sessions open.
-> - (Optional) Play with the commands grep, cut: find at least two ways to
->   extract IP addresses only out of /etc/hosts. Tip: `grep` has `-o` option, thus one can build
->   a regular expression that will grab exactly what you need.
-> - (Optional) Using pipes and commands echo/tr/uniq, find doubled words out of 'My
->   Do Do list: Find a a Doubled Word'. Any easier way to do it?
+>   Tip: You may have to use `uniq`, `tr -s`, `cut -f 1 -d " "`, and `wc -l`
 {: .task}
 
 > ## Advanced `find`
+> 
 > Find syntax is actually an entire boolean logic language given on the
 > command line: it is a single expression evaluated left to right with
 > certain precedence.  There are match expressions and action
@@ -457,7 +451,7 @@ command | grep <pattern>  # grep lines from stdin
 > ``` 
 > 
 > For details on what <pattern> could be, look for REGULAR EXPRESSIONS
-> at ``man grep``.  Some examples:
+> at "man grep".  Some examples:
 > 
 > ```bash
 > # grep emails to a list
