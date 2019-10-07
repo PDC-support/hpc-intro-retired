@@ -136,11 +136,18 @@ Was for a long time the fastest machine in Scandinavia (until late 2018 when Tet
 **Practical Deep Learning (March 20-21, 2019)**
 - Practical introduction to deep learning, convolutional and recurrent neural networks, GPU computing, and tools to train and apply deep neural networks
 
-**(Planned) Weekly open house**
-- Bring all your HPC problems and discuss with the experts! Does your code 
-  perform or scale badly? Is there something wrong with your batch script 
-  but you can't fix it? Do you have an idea about what you want to do but 
-  need help implementing it? PDC application experts can help.
+**[PDC Cafe](https://www.pdc.kth.se/about/events/pdc-cafe-on-16-october-1.927063)**
+Come to PDC and get help with almost anything! For example:
+- How to improve your run scripts
+- Help with scripting
+- Help with programming and software management
+- Help with project organization and data management
+- Help with Linux stuff
+- How to improve the performance of your calculations
+- “Papercuts”: things that annoy you and how we can fix that
+- How to improve services
+- Project ideas
+- Learn about cool services that you may not know yet
 
 All events can be found on the [events calendar](https://www.pdc.kth.se/about/events).
 
