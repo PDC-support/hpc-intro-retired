@@ -32,6 +32,7 @@ module names and compiler commands.
 | ------- | --------------------------- | ------------------------------- |
 |GNU      | $ module load gcc           | `gcc`, `g++`, `gfortran`        |
 |Intel    | $ module load i-compilers   | `icc`, `icpc`, `ifort`          |
+|PGI      | $ module load pgi           | `pgcc`, `pgc++`, `pgfortran`    |
 |OpenMPI  | $ module load openmpi       | `mpicc`, `mpicxx`, `mpif90`     |
 |Intel-MPI| $ module load intelmpi      | `mpiicc`, `mpiicpc`, `mpiifort` |
 |CUDA     | $ module load cuda          | `nvcc`                          | 
