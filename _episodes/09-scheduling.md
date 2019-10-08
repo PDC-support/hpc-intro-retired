@@ -213,9 +213,9 @@ Here is an basic batch script which contains a minimal number of SLURM options.
 module add X
 module add Y
 
-# Run the executable named myexe with 48 MPI ranks and direct output to my_output_file
+# Run the executable named myexe on all ranks of a node and direct output to my_output_file
 {% if site.cluster == "tegner" %}
-mpirun -n 48 ./myexe > my_output_file 2>&1
+mpirun -n 24 ./myexe > my_output_file 2>&1
 {% elsif site.cluster == "beskow" %}
 srun -n 32 ./myexe > my_output_file 2>&1 {% endif %}
 ```
@@ -224,7 +224,7 @@ srun -n 32 ./myexe > my_output_file 2>&1 {% endif %}
 - The environment for the job (e.g. modules, environment variables) needs to be specified.
   - **What modules would you need to load on {{ site.Cluster }} in this case?**
 - When the script completes (i.e. when `./myexe` finishes) an exit status is returned to SLURM and the job stops (regardless of how much time is left of the requested time)
-- Note that on Beskow you should use `aprun -n <nproc>` while on Tegner it should be `mpirun -n <nproc>`.
+- Note that on Beskow you should use `srun -n <nproc>` while on Tegner it should be `mpirun -n <nproc>`.
 
 
 > ## Submitting a batch script
@@ -351,8 +351,8 @@ cd $CURRENT_DIR
 echo "Simulation in $CURRENT_DIR" > my_output_file
 
 # Run individual job
-{% if site.cluster == "tegner" %}mpirun -n 32 ./myexe >> my_output_file
-{% elsif site.cluster == "beskow" %}aprun -n 32 ./myexe >> my_output_file {% endif %}
+{% if site.cluster == "tegner" %}mpirun -n 24 ./myexe >> my_output_file
+{% elsif site.cluster == "beskow" %}srun -n 32 ./myexe >> my_output_file {% endif %}
 ```
 
 ---
