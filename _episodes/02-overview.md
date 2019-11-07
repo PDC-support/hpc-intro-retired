@@ -42,10 +42,88 @@ they mean exactly? And more importantly, how do we use them for our work?
 
 ![The cloud is made of Linux](../img/linux-cloud.jpg)
 
+---
+
+## What is HPC used for?
+
+### Molecular dynamics
+
+The simulation of molecules and their interactions are a cornerstone
+in biomolecular and materials science research.  Molecular dynamics
+(MD) is a computer simulation method for analyzing the physical
+movements of atoms and molecules. The atoms and molecules are allowed
+to interact for a fixed period of time, giving a view of the dynamic
+"evolution" of the system. In the most common version, the
+trajectories of atoms and molecules are determined by numerically
+solving Newton's equations of motion for a system of interacting
+particles, where forces between the particles and their potential
+energies are often calculated using interatomic potentials or
+molecular mechanics force fields.
+
+### Electronic structure
+
+In quantum chemistry, electronic structure is the state of motion of
+electrons in an electrostatic field created by stationary nuclei, and
+is described by a quantum mechanical wave function.  Electronic
+structure is obtained by solving quantum mechanical equations for a
+fixed nuclear geometry.  Electronic structure problem is routinely
+solved with quantum chemistry computer programs. Electronic structure
+calculations rank among the most computationally intensive tasks in
+all scientific calculations. For this reason, quantum chemistry
+calculations take up significant shares on many scientific
+supercomputer facilities.
+
+### Climate modeling
+
+Numerical Climate models use quantitative methods to simulate the
+interactions of the important drivers of climate, including
+atmosphere, oceans, land surface and ice. They are used for a variety
+of purposes from study of the dynamics of the climate system to
+projections of future climate.
+
+### Fluid dynamics
+
+In physics and engineering, fluid dynamics is a subdiscipline of fluid
+mechanics that describes the flow of fluids—liquids and gases. It has
+several subdisciplines, including aerodynamics (the study of air and
+other gases in motion) and hydrodynamics (the study of liquids in
+motion). Fluid dynamics has a wide range of applications, including
+calculating forces and moments on aircraft, determining the mass flow
+rate of petroleum through pipelines, predicting weather patterns,
+understanding nebulae in interstellar space and modelling fission
+weapon detonation.
+
+### Brain simulation
+
+The human brain is extremely complex. One method to help us understand
+the brain is to use supercomputers to simulate parts of the brain
+based on biological descriptions of brain cells. In the future it may
+be possible to design computers that are based on principles similar
+to how the brain works.
+
+### Multiscale modeling
+
+In engineering, mathematics, physics, chemistry, bioinformatics,
+computational biology, meteorology and computer science, multiscale
+modeling or multiscale mathematics is the field of solving problems
+which have important features at multiple scales of time and/or space.
+On each level particular approaches are used for description of a
+system. The following levels are usually distinguished: level of
+quantum mechanical models (information about electrons is included),
+level of molecular dynamics models (information about individual atoms
+is included), coarse-grained models (information about atoms and/or
+groups of atoms is included), mesoscale or nano level (information
+about large groups of atoms and/or molecule positions is included),
+level of continuum models, level of device models. Each level
+addresses a phenomenon over a specific window of length and time.
+
+---
+
 ## The future of HPC
 
-In our increasingly computerized world, there are many reasons to expect that the 
-importance of HPC in many different sectors will only grow.
+In our increasingly computerized world, there are many reasons to
+expect that the importance of HPC in many different sectors will only
+grow.
 
 The competition between supercomputer hardware vendors is stiff. Intel Xeon processors have long
 dominated the HPC processor market, but now Arm has entered the race, and AMD is re-entering the market.
