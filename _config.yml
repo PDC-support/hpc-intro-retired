@@ -15,7 +15,7 @@ data_dir: ./_data
 Cluster: Tegner
 cluster: tegner
 allocation: edu19.ah2174
-reservation: NONE
+reservation: ah2174.1115
 
 # handling reading
 safe: false
