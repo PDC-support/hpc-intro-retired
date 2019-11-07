@@ -101,21 +101,12 @@ based on biological descriptions of brain cells. In the future it may
 be possible to design computers that are based on principles similar
 to how the brain works.
 
-### Multiscale modeling
+### Deep learning
 
-In engineering, mathematics, physics, chemistry, bioinformatics,
-computational biology, meteorology and computer science, multiscale
-modeling or multiscale mathematics is the field of solving problems
-which have important features at multiple scales of time and/or space.
-On each level particular approaches are used for description of a
-system. The following levels are usually distinguished: level of
-quantum mechanical models (information about electrons is included),
-level of molecular dynamics models (information about individual atoms
-is included), coarse-grained models (information about atoms and/or
-groups of atoms is included), mesoscale or nano level (information
-about large groups of atoms and/or molecule positions is included),
-level of continuum models, level of device models. Each level
-addresses a phenomenon over a specific window of length and time.
+Advances in hardware, in particular GPU technology, have lead to a
+revolution in deep learning. In particular, GPUs are well-suited for
+the matrix/vector computations involved in machine learning
+algorithms, speeding up training algorithms by orders of magnitude.
 
 ---
 
