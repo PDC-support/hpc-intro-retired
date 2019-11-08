@@ -150,14 +150,14 @@ The program can never run faster than the sum of the serial regions.
 
 ### Amdahl's Law
 
-Using $$N$$ CPUs (or cores) doesn't result in an $$N$$-times speedup. There is a theoretical limit in what parallelization can achieve, and it is encapsulated in "Amdahl's Law".
+Using $N$ CPUs (or cores) doesn't result in an $N$-times speedup. There is a theoretical limit in what parallelization can achieve, and it is encapsulated in "Amdahl's Law".
 
 The time it takes to execute the program is roughly:
 
-$$ T = T_{\textrm{serial}} + \frac{T_{\textrm{parallel}}}{N_{\textrm{ranks}}} + T_{\textrm{communication}}(N_{\textrm{ranks}}) $$
+$ T = T_{\textrm{serial}} + \frac{T_{\textrm{parallel}}}{N_{\textrm{ranks}}} + T_{\textrm{communication}}(N_{\textrm{ranks}}) $
 
-The $$ N_{\textrm{ranks}} $$ here is the number of ranks, and
-$$ T_{\textrm{communications}} $$ represents the time spent communicating between the ranks.
+The $ N_{\textrm{ranks}} $ here is the number of ranks, and
+$ T_{\textrm{communications}} $ represents the time spent communicating between the ranks.
 
 <img src="../img/poisson_scaling_plot.png" alt="scheduling" width="600" align="middle"> 
 
