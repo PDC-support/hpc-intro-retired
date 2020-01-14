@@ -108,19 +108,24 @@ Was for a long time the fastest machine in Scandinavia (until late 2018 when Tet
 
 ## Training and other activites at PDC
 
-**Summer School**  
-- Introduction to HPC held in August every year (MPI, OpenMP, GPU, HPC architecture, profiling...)
+**[Summer School](https://www.pdc.kth.se/training/summer-school-1.749842)**  
+- 2-week introduction to HPC held in August every year (MPI, OpenMP, GPU, HPC architecture, profiling...)
+
+**[Introduction to PDC](https://www.pdc.kth.se/training/introduction-to-pdc-systems-courses-1.749844)**
+- 4 hour course given biannually which focuses on basic and advanced methods for using PDC systems.
 
 **Various courses and workshops** 
-- [HPC tools for the Modern Era (Oct 25-26 2018)](https://www.pdc.kth.se/about/calendar/pdc-prace-workshop-hpc-tools-for-the-modern-era-1.842504?date=2018-10-25&orgdate=2018-10-01&length=1&orglength=31)
-- Programming with GPGPU
+- Performance engineering
+- Programming GPUs
 - Distributed and Parallel Computing 
 - Cloud Computing
+- Practical Deep Learning
 - Software Development Tools
 - [Software Carpentry workshops](https://software-carpentry.org/)
 - [CodeRefinery workshops](https://coderefinery.org/)
 
-[**PDC Pub and Open House**](https://www.pdc.kth.se/about/calendar/prace-deep-learning-workshop-1.869408)
+
+[**PDC Pub and Open House**](https://www.pdc.kth.se/training/pdc-pub-and-open-house-1.749877)
 - Held in spring every year
 - Users are invited to PDC to chat with the staff and see the clusters over drinks and snacks
 
@@ -132,9 +137,6 @@ Was for a long time the fastest machine in Scandinavia (until late 2018 when Tet
 
 **PDC/SeRC seminar series**
 - Monthly lunch-time seminars given by leading e-Science researchers on a wide range of topics
-
-**Practical Deep Learning (March 20-21, 2019)**
-- Practical introduction to deep learning, convolutional and recurrent neural networks, GPU computing, and tools to train and apply deep neural networks
 
 **[PDC Cafe](https://www.pdc.kth.se/about/events/pdc-cafe-on-16-october-1.927063)**
 Come to PDC and get help with almost anything! For example:
