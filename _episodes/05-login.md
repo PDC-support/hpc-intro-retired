@@ -74,7 +74,7 @@ Mar 25 09:45 Mar 25 19:45 FA afs/pdc.kth.se@NADA.KTH.SE
 **To log in to PDC clusters** you need to use the `ssh` command (secure shell).
 
 - Your SSH implementation needs to support GSS-API with Kerberos key exchange.
-- For Linux, Mac and Windows computers, some [installation and configuration steps](https://www.pdc.kth.se/support/documents/login/login.html#step-by-step-login-tutorial) of SSH need to be performed
+- For Linux, Mac and Windows computers, some [**installation and configuration steps**](https://www.pdc.kth.se/support/documents/login/login.html#step-by-step-login-tutorial) of SSH need to be performed
 - After obtaining a Kerberos ticket, there is no need to enter a password when using `ssh`.
 
 > If you haven't already installed and configured Kerberos and SSH at this point, please notify an instructor.
