@@ -156,8 +156,14 @@ and the possible permissions are read (`r`), write (`w`) and execute (`x`).
 in the first column of its output. 
 - For a regular file with read+write access for `owner`, read access for `group` and no access for `other`, the first column would show `-rw- r-- ---`.
 
+You can use the `chmod` command to set permissions on a file. For example,
+you can make a file readable and executable by anyone by `chmod o+rx <file>`,
+or a whole directory by `chmod -R o+rx <directory>`.
+
 The three base permissions have an equivalent representation as ACLs, 
-which can be displayed by the `getfacl` command.
+which give users a more fine-grained control over file and directory 
+permissions. The `getfacl` command shows the ACL settings:
+
 ```bash
 [{{ site.cluster }}]$ getfacl -a dir
 # file: dir
@@ -168,8 +174,8 @@ group::r-x
 other::---
 ```
 
-To change ACLs of files and directories, the `setfacl` command can be used, which is 
-more general than the `chmod` command which only changes file permissions.
+To change ACLs of files and directories, the `setfacl` command can be
+used, which is more general than the `chmod` command.
 
 > ## Modifying ACLs on AFS
 >
