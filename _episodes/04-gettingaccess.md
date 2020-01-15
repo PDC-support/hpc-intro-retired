@@ -22,7 +22,7 @@ There are two ways to apply for a PDC account:
 - Via the SUPR portal, [supr.snic.se](https://supr.snic.se/).
   - This is for all SNIC-managed projects.
   - Valid post address required for sending password.
-- Via PDC [application form](https://www.kth.se/form/pdc-user-account-request).
+- Via PDC [application form](https://pdc-web-01.csc.kth.se/accounts/).
   - This is for courses and special accounts (PRACE, Scania, ...).
   - Valid post address and scan of passport required.
 
