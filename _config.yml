@@ -14,7 +14,7 @@ data_dir: ./_data
 # if there is no reservation, set it to NONE
 Cluster: Tegner
 cluster: tegner
-allocation: edu20.sf2568
+allocation: edu20.intropdc
 reservation: NONE
 
 # handling reading
